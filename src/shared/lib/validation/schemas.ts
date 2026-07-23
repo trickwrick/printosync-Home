@@ -1,0 +1,27 @@
+import { z } from "zod";
+
+export const contactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  company: z.string().min(1, "Company name is required"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+export type ContactFormValues = z.infer<typeof contactFormSchema>;
+
+export const bookDemoFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  company: z.string().min(1, "Company name is required"),
+  phone: z.string().optional(),
+  companySize: z.enum(["1-10", "11-50", "51-200", "200+"]),
+  preferredDate: z.string().optional(),
+});
+
+export type BookDemoFormValues = z.infer<typeof bookDemoFormSchema>;
+
+export const newsletterFormSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+});
+
+export type NewsletterFormValues = z.infer<typeof newsletterFormSchema>;

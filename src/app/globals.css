@@ -1,0 +1,384 @@
+@import "tailwindcss";
+
+/* ─── Light Theme — Core Practice palette ─────────────────────── */
+:root {
+  /* Core Practice: #FBFEFD bg, #212529 text, #29b8ba teal, #F05121 CTA orange */
+  --background: #fbfefd;
+  --foreground: #212529;
+
+  --card: #ffffff;
+  --card-foreground: #212529;
+
+  --popover: #ffffff;
+  --popover-foreground: #212529;
+
+  --primary: #f05121;
+  --primary-foreground: #ffffff;
+
+  --secondary: #e5f7f2;
+  --secondary-foreground: #28555a;
+
+  --muted: #ecf1f2;
+  --muted-foreground: #5c5c5c;
+
+  --accent: #289475;
+  --accent-foreground: #ffffff;
+
+  --destructive: #dc3545;
+  --destructive-foreground: #ffffff;
+
+  --border: #d2d2d2;
+  --input: #d2d2d2;
+  --ring: #29b8ba;
+
+  --brand: #29b8ba;
+  --brand-dark: #289475;
+  --brand-foreground: #ffffff;
+  --brand-muted: #e5f7f2;
+
+  --surface: #f6f6f6;
+  --surface-elevated: #ffffff;
+
+  --radius: 0.75rem;
+
+  --section-padding-y: 4rem;
+  --container-padding-x: 1.5rem;
+
+  --shadow-premium: 0 1px 2px rgb(33 37 41 / 0.04),
+    0 8px 24px rgb(33 37 41 / 0.06),
+    0 24px 48px rgb(33 37 41 / 0.04);
+  --shadow-glow: 0 0 0 1px rgb(41 184 186 / 0.12),
+    0 8px 28px rgb(41 184 186 / 0.22);
+  --shadow-cta: 0 4px 16px rgb(240 81 33 / 0.35);
+}
+
+/* ─── Dark Theme (default) ────────────────────────────────────── */
+.dark {
+  --background: oklch(0.12 0.01 264);
+  --foreground: oklch(0.95 0.005 264);
+
+  --card: oklch(0.16 0.015 264);
+  --card-foreground: oklch(0.95 0.005 264);
+
+  --popover: oklch(0.16 0.015 264);
+  --popover-foreground: oklch(0.95 0.005 264);
+
+  --primary: oklch(0.62 0.2 264);
+  --primary-foreground: oklch(0.99 0 0);
+
+  --secondary: oklch(0.22 0.02 264);
+  --secondary-foreground: oklch(0.9 0.01 264);
+
+  --muted: oklch(0.22 0.02 264);
+  --muted-foreground: oklch(0.65 0.02 264);
+
+  --accent: oklch(0.72 0.17 155);
+  --accent-foreground: oklch(0.12 0.05 155);
+
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
+
+  --border: oklch(0.28 0.02 264);
+  --input: oklch(0.28 0.02 264);
+  --ring: oklch(0.62 0.2 264);
+
+  --brand: oklch(0.62 0.2 264);
+  --brand-foreground: oklch(0.99 0 0);
+  --brand-muted: oklch(0.62 0.2 264 / 0.15);
+
+  --surface: oklch(0.14 0.012 264);
+  --surface-elevated: oklch(0.18 0.015 264);
+}
+
+/* ─── Tailwind Theme Mapping ──────────────────────────────────── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-muted: var(--brand-muted);
+
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-geist-mono);
+
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
+  --animate-scale-in: scale-in 0.3s ease-out forwards;
+  --animate-shimmer: shimmer 2s linear infinite;
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    @apply bg-brand/20 text-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+/* ─── Utility Classes ─────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .section-padding {
+    padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
+  }
+
+  .container-padding {
+    padding-left: var(--container-padding-x);
+    padding-right: var(--container-padding-x);
+  }
+
+  .gradient-brand {
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+  }
+
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      var(--foreground) 0%,
+      var(--muted-foreground) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-brand {
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glass {
+    @apply bg-surface-elevated/90 backdrop-blur-xl border border-border/60 shadow-sm;
+  }
+
+  .glass-light {
+    @apply bg-white/80 backdrop-blur-xl border border-border/50;
+  }
+
+  .shadow-premium {
+    box-shadow: var(--shadow-premium);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: var(--shadow-premium);
+  }
+
+  .gradient-mesh {
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgb(41 184 186 / 0.1), transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 0%, rgb(229 247 242 / 0.9), transparent 50%),
+      var(--background);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 6s ease-in-out 2s infinite;
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 4rem 4rem;
+  }
+
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-reverse 45s linear infinite;
+  }
+}
+
+/* ─── Keyframes ───────────────────────────────────────────────── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes loader-bar {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  51% {
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-padding-y: 5rem;
+    --container-padding-x: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --section-padding-y: 5.5rem;
+  }
+}
