@@ -7,7 +7,7 @@ import {
   SectionSubtitle,
   SectionTitle,
 } from "./section-primitives";
-import { LazyEnterpriseDashboard } from "@/widgets/dashboard/lazy-dashboard";
+import { EnterpriseDashboard } from "@/widgets/dashboard/enterprise-dashboard";
 
 export function DashboardShowcaseSection() {
   return (
@@ -30,7 +30,7 @@ export function DashboardShowcaseSection() {
           viewport={{ once: true }}
           className="rounded-2xl border border-border bg-card p-2 shadow-premium"
         >
-          <LazyEnterpriseDashboard variant="showcase" className="mx-auto max-w-[1100px]" />
+          <EnterpriseDashboard variant="showcase" className="mx-auto max-w-[1100px]" />
         </motion.div>
 
         <div className="mt-8 flex flex-wrap justify-center gap-2">
