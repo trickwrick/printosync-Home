@@ -12,7 +12,8 @@ export type ContactFormValues = z.infer<typeof contactFormSchema>;
 export const bookDemoFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
-  company: z.string().min(1, "Print shop / company name is required"),
+  company: z.string().min(1, "Company name is required"),
+  city: z.string().min(2, "City is required"),
   phone: z
     .string()
     .optional()

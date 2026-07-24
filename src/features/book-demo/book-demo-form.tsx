@@ -128,7 +128,7 @@ export function BookDemoForm() {
 
               <FormField
                 id="company"
-                label="Print shop / company"
+                label="Company Name"
                 required
                 error={errors.company?.message}
                 className="sm:col-span-2"
@@ -140,6 +140,22 @@ export function BookDemoForm() {
                   placeholder="Apex Print Co."
                   className={formInputClassName()}
                   {...register("company")}
+                />
+              </FormField>
+
+              <FormField
+                id="city"
+                label="City"
+                required
+                error={errors.city?.message}
+              >
+                <input
+                  id="city"
+                  type="text"
+                  autoComplete="address-level2"
+                  placeholder="Mumbai"
+                  className={formInputClassName()}
+                  {...register("city")}
                 />
               </FormField>
 

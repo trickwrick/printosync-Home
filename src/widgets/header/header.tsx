@@ -8,7 +8,6 @@ import {
   ctaNavigation,
   headerNavigation,
   productMegaMenu,
-  resourcesMegaMenu,
 } from "@/shared/config/navigation";
 import { siteConfig } from "@/shared/config/site";
 import { cn } from "@/shared/lib/cn";
@@ -19,7 +18,6 @@ import { MegaMenu } from "./mega-menu";
 
 const megaMenus = {
   Product: productMegaMenu,
-  Resources: resourcesMegaMenu,
 } as const;
 
 export function Header() {
@@ -131,7 +129,7 @@ export function Header() {
             className="fixed inset-x-0 top-16 z-40 border-b border-border bg-background/98 backdrop-blur-xl lg:hidden"
           >
             <nav className="flex flex-col gap-1 p-4" aria-label="Mobile">
-              {[...productMegaMenu, ...resourcesMegaMenu].flatMap((s) =>
+              {productMegaMenu.flatMap((s) =>
                 s.items.map((item) => (
                   <Link
                     key={item.href}

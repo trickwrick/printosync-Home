@@ -27,7 +27,7 @@ export const pageSeo: Record<string, PageSeoConfig> = {
     title: "About Us",
     h1: "About PrintoSync",
     description:
-      "Learn about PrintoSync — our mission to transform printing press operations with enterprise-grade CRM, ERP, and MIS software built by industry experts.",
+      "Meet PrintoSync — print shop software built on the shop floor. Our mission, values, and story behind the CRM, ERP, and MIS platform trusted by 500+ printing presses.",
     path: "/about",
     keywords: ["about printosync", "print software company", "printing technology"],
     breadcrumb: "About",

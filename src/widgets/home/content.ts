@@ -109,39 +109,59 @@ export const features = [
 export const workflowSteps = [
   {
     step: "01",
-    title: "Quote & Estimate",
-    description: "Generate accurate quotes in minutes with material and labor calculators.",
-    duration: "5 min avg.",
+    title: "Dashboard",
+    description:
+      "See jobs, revenue, pending payments, stock alerts, and production activity from one live command center.",
+    duration: "Live overview",
   },
   {
     step: "02",
-    title: "Client Approval",
-    description: "Send proofs via client portal. Track approvals and revisions automatically.",
-    duration: "Same day",
-  },
-  {
-    step: "03",
-    title: "Prepress & Setup",
-    description: "Route files to prepress, assign plates, and queue jobs on the right press.",
-    duration: "Automated",
-  },
-  {
-    step: "04",
-    title: "Production Run",
-    description: "Monitor live job status, operator assignments, and quality checkpoints.",
+    title: "Job Card",
+    description:
+      "Create detailed job cards, assign operators, define specifications, and track every production stage.",
     duration: "Real-time",
   },
   {
+    step: "03",
+    title: "Challan",
+    description:
+      "Generate accurate delivery challans, manage dispatch details, and keep every shipment documented.",
+    duration: "Instant",
+  },
+  {
+    step: "04",
+    title: "Payments",
+    description:
+      "Record incoming and outgoing payments, monitor balances, and follow up on overdue invoices.",
+    duration: "Always synced",
+  },
+  {
     step: "05",
-    title: "Finishing & Ship",
-    description: "Track binding, packaging, and delivery with integrated shipping labels.",
-    duration: "End-to-end",
+    title: "Stock",
+    description:
+      "Track paper, ink, plates, and other materials with live quantities, usage history, and low-stock alerts.",
+    duration: "Live inventory",
   },
   {
     step: "06",
-    title: "Invoice & Report",
-    description: "Auto-generate invoices, update accounting, and log profitability data.",
-    duration: "Instant",
+    title: "Statements",
+    description:
+      "View complete customer and vendor ledgers with transaction history, balances, and downloadable statements.",
+    duration: "One click",
+  },
+  {
+    step: "07",
+    title: "Estimate & Quotation",
+    description:
+      "Build professional estimates using material, process, labor, and margin calculations tailored to print jobs.",
+    duration: "Fast & accurate",
+  },
+  {
+    step: "08",
+    title: "Report",
+    description:
+      "Turn operational data into clear sales, production, stock, payment, and profitability reports.",
+    duration: "Actionable data",
   },
 ] as const;
 

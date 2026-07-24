@@ -115,7 +115,6 @@ export const resourcesMegaMenu: MegaMenuSection[] = [
 export const headerNavigation = [
   { title: "Product", mega: productMegaMenu },
   { title: "Pricing", href: "/pricing" },
-  { title: "Resources", mega: resourcesMegaMenu },
 ] as const;
 
 export const ctaNavigation = {
@@ -169,7 +168,7 @@ export const heroStats = [
   { value: 500, suffix: "+", label: "Print Shops" },
   { value: 2, suffix: "M+", label: "Jobs Processed" },
   { value: 99.9, suffix: "%", label: "Uptime SLA" },
-  { value: 40, suffix: "%", label: "Efficiency Gain" },
+  { value: 100, suffix: "%", label: "Accuracy" },
 ] as const;
 
 /** @deprecated Use headerNavigation */

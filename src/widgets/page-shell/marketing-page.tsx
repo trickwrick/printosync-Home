@@ -9,10 +9,11 @@ import {
   blogSchema,
 } from "@/shared/lib/seo";
 import { pageSeo, type PageSeoConfig } from "@/shared/lib/seo/pages";
-import { JsonLd, Breadcrumbs, RelatedLinks } from "@/shared/ui/seo";
+import { JsonLd, RelatedLinks } from "@/shared/ui/seo";
 import { Container } from "@/shared/ui/container";
-import { Heading, Text } from "@/shared/ui/typography";
+import { Text } from "@/shared/ui/typography";
 import { cn } from "@/shared/lib/cn";
+import { PageHeroBanner } from "./page-hero-banner";
 
 type PageSeoKey = keyof typeof pageSeo;
 
@@ -95,33 +96,16 @@ export function MarketingPage({
 }: MarketingPageProps) {
   const seo = getPageSeo(pageKey);
   const schemas = buildSchemas(pageKey, seo);
-  const h1 = seo.h1 ?? seo.breadcrumb;
+  const heroTitle = seo.title ?? seo.breadcrumb;
 
   return (
     <>
       <JsonLd data={schemas} />
       <article itemScope itemType="https://schema.org/WebPage">
-        <Container>
-          <Breadcrumbs
-            items={[
-              { name: "Home", path: "/" },
-              { name: seo.breadcrumb, path: seo.path },
-            ]}
-          />
-        </Container>
-
-        <header className="py-8 md:py-12">
-          <Container className="text-center">
-            <Heading level="h1" className="mx-auto max-w-4xl text-foreground">
-              {h1}
-            </Heading>
-            {seo.description && (
-              <Text variant="lead" className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                {seo.description}
-              </Text>
-            )}
-          </Container>
-        </header>
+        <PageHeroBanner
+          title={heroTitle}
+          breadcrumbLabel={seo.breadcrumb}
+        />
 
         <div className={cn(showPlaceholder && "pb-8")}>
           {children ??
