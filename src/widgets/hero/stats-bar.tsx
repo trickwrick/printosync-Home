@@ -42,7 +42,7 @@ export function StatsBar() {
           value={stat.value}
           suffix={stat.suffix}
           label={stat.label}
-          decimals={stat.suffix === "%" && stat.value !== 40 ? 1 : 0}
+          decimals={Number.isInteger(stat.value) ? 0 : 1}
         />
       ))}
     </motion.div>
