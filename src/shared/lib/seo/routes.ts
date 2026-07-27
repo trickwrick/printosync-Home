@@ -1,4 +1,11 @@
 import { siteConfig } from "@/shared/config/site";
+import {
+  companyPages,
+  industries,
+  legalPages,
+  modules,
+  resources,
+} from "@/entities/marketing";
 import { blogPosts } from "./blog-posts";
 
 export interface SeoRoute {
@@ -20,6 +27,34 @@ export const seoRoutes: SeoRoute[] = [
   { path: "/case-studies", changefreq: "weekly", priority: 0.8 },
   { path: "/contact", changefreq: "monthly", priority: 0.7 },
   { path: "/book-demo", changefreq: "monthly", priority: 0.85 },
+  { path: "/support", changefreq: "monthly", priority: 0.65 },
+  { path: "/sales-enquiry", changefreq: "monthly", priority: 0.75 },
+  { path: "/sitemap-page", changefreq: "monthly", priority: 0.4 },
+  ...modules.map((module) => ({
+    path: `/modules/${module.slug}`,
+    changefreq: "monthly" as const,
+    priority: 0.8,
+  })),
+  ...industries.map((industry) => ({
+    path: `/industries/${industry.slug}`,
+    changefreq: "monthly" as const,
+    priority: 0.75,
+  })),
+  ...resources.map((resource) => ({
+    path: `/resources/${resource.slug}`,
+    changefreq: "monthly" as const,
+    priority: 0.6,
+  })),
+  ...companyPages.map((page) => ({
+    path: `/company/${page.slug}`,
+    changefreq: "monthly" as const,
+    priority: 0.55,
+  })),
+  ...legalPages.map((page) => ({
+    path: `/legal/${page.slug}`,
+    changefreq: "yearly" as const,
+    priority: 0.3,
+  })),
 ];
 
 export const blogPostRoutes = blogPosts.map((post) => ({

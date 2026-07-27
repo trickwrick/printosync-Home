@@ -2,16 +2,22 @@ import type { LucideIcon } from "lucide-react";
 import {
   BarChart3,
   BookOpen,
-  Box,
-  Briefcase,
   Building2,
   Calendar,
+  CircleHelp,
+  Download,
   Factory,
   FileText,
+  Handshake,
+  Home,
   Layers,
   Mail,
-  Package,
+  Newspaper,
+  ShieldCheck,
+  Users,
+  Video,
 } from "lucide-react";
+import { companyPages, industries, modules, resources } from "@/entities/marketing";
 
 export interface NavItem {
   title: string;
@@ -26,52 +32,123 @@ export interface MegaMenuSection {
   items: NavItem[];
 }
 
-export const productMegaMenu: MegaMenuSection[] = [
+export const homeMegaMenu: MegaMenuSection[] = [
   {
-    title: "Platform",
+    title: "Explore PrintoSync",
     items: [
       {
-        title: "Printing CRM",
-        href: "/printing-crm",
-        description: "Manage clients, quotes & sales pipelines",
-        icon: Briefcase,
+        title: "Overview",
+        href: "/#overview",
+        description: "What PrintoSync does",
+        icon: Home,
       },
       {
-        title: "Printing ERP",
-        href: "/printing-erp",
-        description: "Production, finance & operations unified",
-        icon: Package,
+        title: "Customer Success",
+        href: "/#customer-success",
+        description: "Results from modern print shops",
+        icon: Users,
       },
       {
-        title: "MIS System",
-        href: "/services#mis",
-        description: "Management information for print shops",
-        icon: BarChart3,
+        title: "FAQs",
+        href: "/#faq",
+        description: "Common product questions",
+        icon: CircleHelp,
       },
     ],
   },
+];
+
+export const whyChooseMegaMenu: MegaMenuSection[] = [
   {
-    title: "Operations",
+    title: "Why PrintoSync",
     items: [
       {
-        title: "Inventory",
-        href: "/services#inventory",
-        description: "Stock, materials & supply chain",
-        icon: Box,
+        title: "About",
+        href: "/about",
+        description: "Our story and print-industry focus",
+        icon: Building2,
       },
       {
-        title: "Production",
-        href: "/services#production",
-        description: "Job scheduling & shop floor control",
-        icon: Factory,
+        title: "Security",
+        href: "/legal/data-security",
+        description: "How we protect business information",
+        icon: ShieldCheck,
       },
       {
-        title: "All Services",
+        title: "Testimonials",
+        href: "/#customer-success",
+        description: "Hear from modern print shops",
+        icon: Users,
+      },
+    ],
+  },
+];
+
+export const productMegaMenu: MegaMenuSection[] = [
+  {
+    title: "Sales & Customers",
+    items: modules.slice(0, 5).map((module) => ({
+      title: module.shortTitle ?? module.title,
+      href: `/modules/${module.slug}`,
+      description: module.eyebrow,
+      icon: Layers,
+    })),
+  },
+  {
+    title: "Production",
+    items: modules.slice(5, 10).map((module) => ({
+      title: module.shortTitle ?? module.title,
+      href: `/modules/${module.slug}`,
+      description: module.eyebrow,
+      icon: Factory,
+    })),
+  },
+  {
+    title: "Finance & Supply",
+    items: modules.slice(10, 15).map((module) => ({
+      title: module.shortTitle ?? module.title,
+      href: `/modules/${module.slug}`,
+      description: module.eyebrow,
+      icon: FileText,
+    })),
+  },
+  {
+    title: "People & Insights",
+    items: [
+      ...modules.slice(15).map((module) => ({
+        title: module.shortTitle ?? module.title,
+        href: `/modules/${module.slug}`,
+        description: module.eyebrow,
+        icon: BarChart3,
+      })),
+      {
+        title: "View All Modules",
         href: "/services",
-        description: "Explore the full PrintoSync suite",
+        description: "Explore the complete PrintoSync platform",
         icon: Layers,
       },
     ],
+  },
+];
+
+export const industriesMegaMenu: MegaMenuSection[] = [
+  {
+    title: "Print Segments",
+    items: industries.slice(0, 5).map((industry) => ({
+      title: industry.title,
+      href: `/industries/${industry.slug}`,
+      description: industry.eyebrow,
+      icon: Factory,
+    })),
+  },
+  {
+    title: "Specialized Printing",
+    items: industries.slice(5).map((industry) => ({
+      title: industry.title,
+      href: `/industries/${industry.slug}`,
+      description: industry.eyebrow,
+      icon: Factory,
+    })),
   },
 ];
 
@@ -91,34 +168,87 @@ export const resourcesMegaMenu: MegaMenuSection[] = [
         description: "Real results from print shops",
         icon: FileText,
       },
+      ...resources.slice(0, 3).map((resource) => ({
+        title: resource.title,
+        href: `/resources/${resource.slug}`,
+        description: resource.eyebrow,
+        icon:
+          resource.slug === "video-tutorials"
+            ? Video
+            : resource.slug === "help-center"
+              ? CircleHelp
+              : BookOpen,
+      })),
     ],
   },
   {
-    title: "Company",
+    title: "Updates & Downloads",
+    items: resources.slice(3).map((resource) => ({
+      title: resource.title,
+      href: `/resources/${resource.slug}`,
+      description: resource.eyebrow,
+      icon:
+        resource.slug === "downloads"
+          ? Download
+          : resource.slug === "release-notes"
+            ? Newspaper
+            : CircleHelp,
+    })),
+  },
+];
+
+export const companyMegaMenu: MegaMenuSection[] = [
+  {
+    title: "About",
     items: [
       {
-        title: "About",
+        title: "About PrintoSync",
         href: "/about",
-        description: "Our mission & team",
+        description: "Our story and values",
         icon: Building2,
       },
+      ...companyPages.slice(0, 3).map((page) => ({
+        title: page.title,
+        href: `/company/${page.slug}`,
+        description: page.eyebrow,
+        icon: page.slug === "our-team" ? Users : Building2,
+      })),
+    ],
+  },
+  {
+    title: "Connect",
+    items: [
+      ...companyPages.slice(3).map((page) => ({
+        title: page.title,
+        href: `/company/${page.slug}`,
+        description: page.eyebrow,
+        icon: page.slug === "partners" ? Handshake : Users,
+      })),
       {
-        title: "Contact",
+        title: "Contact Us",
         href: "/contact",
-        description: "Talk to our sales team",
+        description: "Sales, support, and partnerships",
         icon: Mail,
+      },
+      {
+        title: "Data Security",
+        href: "/legal/data-security",
+        description: "How we protect your information",
+        icon: ShieldCheck,
       },
     ],
   },
 ];
 
 export const headerNavigation = [
-  { title: "Product", mega: productMegaMenu },
+  { title: "Who we help", mega: industriesMegaMenu },
+  { title: "Why choose us", mega: whyChooseMegaMenu },
+  { title: "Modules", mega: productMegaMenu },
   { title: "Pricing", href: "/pricing" },
 ] as const;
 
 export const ctaNavigation = {
-  title: "Book Demo",
+  title: "Book Free Demo",
   href: "/book-demo",
   icon: Calendar,
 } as const;
@@ -126,32 +256,37 @@ export const ctaNavigation = {
 export const footerNavigation = {
   company: [
     { title: "About Us", href: "/about" },
-    { title: "Careers", href: "/about#careers" },
-    { title: "Press", href: "/about#press" },
+    { title: "Our Mission", href: "/company/our-mission" },
+    { title: "Why PrintoSync", href: "/company/why-printosync" },
+    { title: "Careers", href: "/company/careers" },
+    { title: "Partners", href: "/company/partners" },
     { title: "Contact", href: "/contact" },
-    { title: "Partners", href: "/contact#partners" },
   ],
   solutions: [
-    { title: "Printing CRM", href: "/printing-crm" },
-    { title: "Printing ERP", href: "/printing-erp" },
-    { title: "MIS", href: "/services#mis" },
-    { title: "Inventory", href: "/services#inventory" },
-    { title: "Production", href: "/services#production" },
+    { title: "CRM", href: "/modules/crm" },
+    { title: "Job Cards", href: "/modules/job-card-management" },
+    { title: "Production", href: "/modules/production-management" },
+    { title: "Inventory", href: "/modules/inventory-management" },
+    { title: "GST Billing", href: "/modules/gst-billing-invoicing" },
+    { title: "All Modules", href: "/services" },
     { title: "Pricing", href: "/pricing" },
   ],
   industries: [
-    { title: "Commercial Print", href: "/case-studies#commercial" },
-    { title: "Packaging", href: "/case-studies#packaging" },
-    { title: "Labels & Flexo", href: "/case-studies#labels" },
-    { title: "Wide Format", href: "/case-studies#wide-format" },
-    { title: "Digital Print", href: "/case-studies#digital" },
+    { title: "Offset Printing", href: "/industries/offset-printing-press" },
+    { title: "Digital Printing", href: "/industries/digital-printing" },
+    { title: "Packaging", href: "/industries/packaging-printing" },
+    { title: "Label Printing", href: "/industries/label-printing" },
+    { title: "Commercial Print", href: "/industries/commercial-printing" },
+    { title: "All Industries", href: "/#industries" },
   ],
   resources: [
     { title: "Blog", href: "/blog" },
     { title: "Case Studies", href: "/case-studies" },
-    { title: "Documentation", href: "/services#docs" },
+    { title: "Help Center", href: "/resources/help-center" },
+    { title: "Knowledge Base", href: "/resources/knowledge-base" },
+    { title: "FAQs", href: "/resources/faqs" },
     { title: "Book Demo", href: "/book-demo" },
-    { title: "Support", href: "/contact#support" },
+    { title: "Support", href: "/support" },
   ],
 } as const;
 

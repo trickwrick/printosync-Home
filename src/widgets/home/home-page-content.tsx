@@ -2,11 +2,15 @@
 
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/widgets/hero";
-import { PlatformSection } from "@/widgets/home/platform-section";
 import { ProofSection } from "@/widgets/home/proof-section";
 import { PricingSection } from "@/widgets/home/pricing-section";
 import { FaqSection } from "@/widgets/home/faq-section";
-import { ContactCtaSection } from "@/widgets/home/contact-cta-section";
+import {
+  AboutOverviewSection,
+  BenefitsAndProcessSection,
+  DigitizeCtaSection,
+  IndustriesOverviewSection,
+} from "@/widgets/home/business-sections";
 
 const WorkflowSection = dynamic(
   () => import("@/widgets/home/workflow-section").then((m) => m.WorkflowSection),
@@ -25,13 +29,15 @@ export function HomePageContent() {
   return (
     <>
       <HeroSection />
-      <PlatformSection />
+      <IndustriesOverviewSection />
+      <AboutOverviewSection />
       <WorkflowSection />
       <DashboardShowcaseSection />
+      <BenefitsAndProcessSection />
       <ProofSection />
       <PricingSection />
       <FaqSection />
-      <ContactCtaSection />
+      <DigitizeCtaSection />
     </>
   );
 }

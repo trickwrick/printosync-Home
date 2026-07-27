@@ -8,16 +8,9 @@ export function organizationSchema() {
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: absoluteUrl("/logo.png"),
+    logo: absoluteUrl(siteConfig.logo),
     description: siteConfig.description,
     email: siteConfig.contact.email,
-    telephone: siteConfig.contact.phone,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "San Francisco",
-      addressRegion: "CA",
-      addressCountry: "US",
-    },
     sameAs: [
       siteConfig.links.twitter,
       siteConfig.links.linkedin,
@@ -25,7 +18,6 @@ export function organizationSchema() {
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: siteConfig.contact.phone,
       email: siteConfig.contact.email,
       contactType: "customer service",
       availableLanguage: ["English"],
@@ -65,7 +57,7 @@ export function softwareApplicationSchema() {
     offers: {
       "@type": "Offer",
       price: "299",
-      priceCurrency: "USD",
+      priceCurrency: "INR",
       priceValidUntil: "2027-12-31",
       availability: "https://schema.org/InStock",
     },
@@ -105,7 +97,7 @@ export function productSchema(options: {
       "@type": "AggregateOffer",
       lowPrice: "299",
       highPrice: "699",
-      priceCurrency: "USD",
+      priceCurrency: "INR",
       offerCount: "3",
       availability: "https://schema.org/InStock",
     },

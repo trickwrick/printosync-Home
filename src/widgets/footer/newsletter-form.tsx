@@ -8,6 +8,7 @@ import {
   type NewsletterFormValues,
 } from "@/shared/lib/validation";
 import { cn } from "@/shared/lib/cn";
+import { siteConfig } from "@/shared/config/site";
 
 interface NewsletterFormProps {
   className?: string;
@@ -24,8 +25,12 @@ export function NewsletterForm({ className }: NewsletterFormProps) {
   });
 
   const onSubmit = async (data: NewsletterFormValues) => {
-    void data;
-    await new Promise((r) => setTimeout(r, 800));
+    const subject = encodeURIComponent("PrintoSync newsletter signup");
+    const body = encodeURIComponent(
+      `Please add ${data.email} to the PrintoSync product updates list.`,
+    );
+    window.location.href = `mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`;
+    await Promise.resolve();
     reset();
   };
 
@@ -41,6 +46,7 @@ export function NewsletterForm({ className }: NewsletterFormProps) {
       <div className="flex gap-2">
         <input
           type="email"
+          aria-label="Email address"
           placeholder="you@company.com"
           {...register("email")}
           className="h-10 flex-1 rounded-lg border border-border bg-background px-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-brand/40 focus:ring-2 focus:ring-brand/20"
@@ -62,7 +68,9 @@ export function NewsletterForm({ className }: NewsletterFormProps) {
         <p className="text-xs text-destructive">{errors.email.message}</p>
       )}
       {isSubmitSuccessful && (
-        <p className="text-xs text-brand">You&apos;re subscribed. Welcome aboard!</p>
+        <p className="text-xs text-brand">
+          Email draft opened—send it to complete your signup.
+        </p>
       )}
     </form>
   );

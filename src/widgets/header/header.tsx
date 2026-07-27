@@ -3,21 +3,24 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu, X, Phone } from "lucide-react";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import {
   ctaNavigation,
   headerNavigation,
+  industriesMegaMenu,
   productMegaMenu,
+  whyChooseMegaMenu,
 } from "@/shared/config/navigation";
-import { siteConfig } from "@/shared/config/site";
 import { cn } from "@/shared/lib/cn";
 import { useScrollPosition } from "@/shared/hooks";
 import { Logo } from "@/shared/ui/logo";
 import { MagneticButton } from "@/shared/ui/magnetic-button";
 import { MegaMenu } from "./mega-menu";
+import { WhoWeHelpMenu } from "./who-we-help-menu";
+import { WhyChooseUsMenu } from "./why-choose-us-menu";
 
 const megaMenus = {
-  Product: productMegaMenu,
+  Modules: productMegaMenu,
 } as const;
 
 export function Header() {
@@ -54,6 +57,8 @@ export function Header() {
                   >
                     <button
                       type="button"
+                      onFocus={() => setActiveMenu(menuKey)}
+                      onClick={() => setActiveMenu(isActive ? null : menuKey)}
                       className={cn(
                         "flex items-center gap-1 rounded-lg px-3.5 py-2 text-[13px] font-medium transition-colors",
                         isActive
@@ -70,10 +75,16 @@ export function Header() {
                         )}
                       />
                     </button>
-                    <MegaMenu
-                      sections={megaMenus[menuKey as keyof typeof megaMenus]}
-                      isOpen={isActive}
-                    />
+                    {menuKey === "Who we help" ? (
+                      <WhoWeHelpMenu isOpen={isActive} />
+                    ) : menuKey === "Why choose us" ? (
+                      <WhyChooseUsMenu isOpen={isActive} />
+                    ) : (
+                      <MegaMenu
+                        sections={megaMenus[menuKey as keyof typeof megaMenus]}
+                        isOpen={isActive}
+                      />
+                    )}
                   </div>
                 );
               }
@@ -95,13 +106,13 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a
-              href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`}
-              className="hidden items-center gap-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:text-brand lg:flex"
+            <Link
+              href="/contact"
+              className="hidden items-center gap-2 rounded-full border border-brand/30 bg-background px-4 py-2.5 text-sm font-semibold text-brand transition-colors hover:bg-brand-muted sm:inline-flex"
             >
-              <Phone className="size-3.5" />
-              Demo
-            </a>
+              <Phone className="size-4" aria-hidden="true" />
+              Call Us
+            </Link>
             <div className="hidden sm:block">
               <MagneticButton href={ctaNavigation.href} showArrow>
                 {ctaNavigation.title}
@@ -126,10 +137,14 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 border-b border-border bg-background/98 backdrop-blur-xl lg:hidden"
+            className="fixed inset-x-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-border bg-background/98 backdrop-blur-xl lg:hidden"
           >
             <nav className="flex flex-col gap-1 p-4" aria-label="Mobile">
-              {productMegaMenu.flatMap((s) =>
+              {[
+                ...productMegaMenu,
+                ...industriesMegaMenu,
+                ...whyChooseMegaMenu,
+              ].flatMap((s) =>
                 s.items.map((item) => (
                   <Link
                     key={item.href}
@@ -147,6 +162,21 @@ export function Header() {
                 className="rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
                 Pricing
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                Contact
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setMobileOpen(false)}
+                className="mx-4 mt-2 inline-flex items-center justify-center gap-2 rounded-full border border-brand/30 px-5 py-3 text-sm font-semibold text-brand"
+              >
+                <Phone className="size-4" aria-hidden="true" />
+                Call Us
               </Link>
               <div className="mt-3 px-4">
                 <MagneticButton href={ctaNavigation.href} className="w-full justify-center">

@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "PrintoSync",
   tagline: "Printing Press Management Software",
   description:
-    "Enterprise-grade CRM, ERP, MIS, inventory, and production management software built exclusively for printing presses.",
+    "Smart printing press management software for job cards, production, inventory, GST billing, payments, and business reports.",
   url: process.env.NEXT_PUBLIC_APP_URL ?? "https://printosync.com",
   logo: "/logo.png",
   ogImage: "/opengraph-image",
@@ -13,7 +13,7 @@ export const siteConfig = {
   },
   contact: {
     email: "hello@printosync.com",
-    phone: "+1 (555) 000-0000",
+    phone: "",
   },
 } as const;
 

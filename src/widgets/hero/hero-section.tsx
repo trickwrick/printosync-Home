@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Play, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { ctaNavigation } from "@/shared/config/navigation";
 import { MagneticButton } from "@/shared/ui/magnetic-button";
 import { HeroBackground } from "./hero-background";
@@ -35,6 +35,7 @@ export function HeroSection() {
 
   return (
     <section
+      id="home"
       aria-label="PrintoSync homepage hero"
       className="relative overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-32 lg:pt-36"
     >
@@ -54,15 +55,17 @@ export function HeroSection() {
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-60" />
                 <span className="relative inline-flex size-1.5 rounded-full bg-brand" />
               </span>
-              Trusted by 500+ print shops
+              Smart Printing Press Management Software
             </motion.div>
 
             <h1
               ref={headlineRef}
               className="font-display text-[clamp(2.25rem,5vw,3.75rem)] font-bold leading-[1.08] tracking-[-0.03em] text-foreground"
             >
-              Simple online{" "}
-              <span className="gradient-text-brand">print shop software.</span>
+              PrintoSync -{" "}
+              <span className="gradient-text-brand">
+                Smart Printing Press Management Software
+              </span>
             </h1>
 
             <motion.p
@@ -71,8 +74,10 @@ export function HeroSection() {
               transition={{ delay: 0.25, duration: 0.5 }}
               className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
-              Plan jobs, manage clients, track production, and grow revenue — all
-              in one cloud platform built exclusively for printing presses.
+              Simplify your printing press operations with one powerful
+              platform. Manage job cards, production, inventory, challans,
+              invoicing, paper stock, statements, and reports from a single
+              dashboard.
             </motion.p>
 
             <motion.div
@@ -82,14 +87,14 @@ export function HeroSection() {
               className="mt-8 flex flex-wrap items-center gap-3"
             >
               <MagneticButton href={ctaNavigation.href}>
-                {ctaNavigation.title}
+                Book Free Demo
               </MagneticButton>
               <Link
-                href="/printing-crm"
+                href="/contact?intent=quote"
                 className="group inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground shadow-sm transition-all hover:border-brand/30 hover:bg-brand-muted"
               >
-                <Play className="size-4 fill-brand text-brand" />
-                View features
+                Request a Quote
+                <ArrowRight className="size-4 text-brand" />
               </Link>
             </motion.div>
 

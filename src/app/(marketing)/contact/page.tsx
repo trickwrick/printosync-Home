@@ -4,10 +4,17 @@ import { ContactForm } from "@/features/contact";
 
 export const metadata: Metadata = generatePageMetadata("contact");
 
-export default function ContactPage() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ intent?: string }>;
+}) {
+  const { intent } = await searchParams;
+  const formIntent = intent === "quote" ? "quote" : "contact";
+
   return (
     <MarketingPage pageKey="contact" showPlaceholder={false}>
-      <ContactForm />
+      <ContactForm intent={formIntent} />
     </MarketingPage>
   );
 }

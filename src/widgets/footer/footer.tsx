@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 import { footerNavigation } from "@/shared/config/navigation";
 import { siteConfig } from "@/shared/config/site";
 import { Logo } from "@/shared/ui/logo";
@@ -68,17 +68,6 @@ export function Footer() {
                 <Mail className="size-4 shrink-0" />
                 {siteConfig.contact.email}
               </a>
-              <a
-                href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`}
-                className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-brand"
-              >
-                <Phone className="size-4 shrink-0" />
-                {siteConfig.contact.phone}
-              </a>
-              <p className="flex items-center gap-2.5 text-sm text-muted-foreground">
-                <MapPin className="size-4 shrink-0" />
-                San Francisco, CA
-              </p>
             </div>
 
             <div className="mt-8">
@@ -129,12 +118,21 @@ export function Footer() {
             ))}
           </div>
 
-          <div className="flex gap-6 text-[13px] text-muted-foreground">
-            <Link href="/contact#privacy" className="transition-colors hover:text-foreground">
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[13px] text-muted-foreground">
+            <Link href="/legal/privacy-policy" className="transition-colors hover:text-foreground">
               Privacy
             </Link>
-            <Link href="/contact#terms" className="transition-colors hover:text-foreground">
+            <Link href="/legal/terms-conditions" className="transition-colors hover:text-foreground">
               Terms
+            </Link>
+            <Link href="/legal/refund-policy" className="transition-colors hover:text-foreground">
+              Refunds
+            </Link>
+            <Link href="/legal/cookie-policy" className="transition-colors hover:text-foreground">
+              Cookies
+            </Link>
+            <Link href="/sitemap-page" className="transition-colors hover:text-foreground">
+              Sitemap
             </Link>
           </div>
         </div>

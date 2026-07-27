@@ -11,14 +11,17 @@ export type { PageMetadataOptions } from "./metadata";
 export const pageSeo: Record<string, PageSeoConfig> = {
   home: {
     title: undefined,
-    h1: "Run your print shop like a machine",
+    h1: "PrintoSync – Smart Printing Press Management Software",
     description:
-      "PrintoSync — unified CRM, ERP, MIS, inventory, and production management software built exclusively for modern printing presses. Trusted by 500+ print shops.",
+      "Simplify job cards, production, inventory, challans, invoicing, paper stock, statements, and reports with PrintoSync printing press management software.",
     path: "/",
     keywords: [
       "printosync",
-      "all-in-one print shop software",
-      "printing press ERP",
+      "printing press management software",
+      "printing ERP software",
+      "print shop management software",
+      "printing business ERP",
+      "print production management software",
     ],
     imageAlt: "PrintoSync printing press management dashboard preview",
     breadcrumb: "Home",
@@ -33,10 +36,10 @@ export const pageSeo: Record<string, PageSeoConfig> = {
     breadcrumb: "About",
   },
   services: {
-    title: "Services",
-    h1: "Printing Press Management Services",
+    title: "Printing ERP Modules",
+    h1: "Everything Your Printing Business Needs",
     description:
-      "Comprehensive services for print shops: CRM, ERP, MIS, inventory, production management, website development, and SEO — all from one platform.",
+      "Explore 19 connected PrintoSync modules for CRM, quotation, job cards, production, inventory, purchasing, GST billing, payments, teams, and reports.",
     path: "/services",
     keywords: [
       "print shop services",
@@ -80,7 +83,7 @@ export const pageSeo: Record<string, PageSeoConfig> = {
     title: "Pricing Plans",
     h1: "Pricing",
     description:
-      "Flexible PrintoSync pricing for print shops of every size. Starter from $299/mo. 14-day free trial. No credit card required.",
+      "Compare PrintoSync Starter, Professional, and Enterprise plans for printing businesses of every size.",
     path: "/pricing",
     keywords: [
       "print software pricing",

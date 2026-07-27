@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, Loader2, Mail, MapPin, Phone } from "lucide-react";
+import { CheckCircle2, Loader2, Mail } from "lucide-react";
 import {
   contactFormSchema,
   type ContactFormValues,
@@ -16,7 +16,36 @@ import {
   formTextareaClassName,
 } from "@/features/forms/form-field";
 
-export function ContactForm() {
+type ContactIntent = "contact" | "quote" | "sales" | "support";
+
+const intentCopy: Record<
+  ContactIntent,
+  { title: string; description: string; submit: string }
+> = {
+  contact: {
+    title: "Send us a message",
+    description: "Tell us how we can help your printing business.",
+    submit: "Send message",
+  },
+  quote: {
+    title: "Request a quote",
+    description: "Share your requirements and our team will prepare the right solution.",
+    submit: "Request quote",
+  },
+  sales: {
+    title: "Talk to sales",
+    description: "Tell us about your team, locations, and operational goals.",
+    submit: "Contact sales",
+  },
+  support: {
+    title: "Contact support",
+    description: "Describe the issue and include the workflow or module involved.",
+    submit: "Request support",
+  },
+};
+
+export function ContactForm({ intent = "contact" }: { intent?: ContactIntent }) {
+  const copy = intentCopy[intent];
   const {
     register,
     handleSubmit,
@@ -27,8 +56,12 @@ export function ContactForm() {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
-    void data;
-    await new Promise((r) => setTimeout(r, 1000));
+    const subject = encodeURIComponent(`${copy.title} — ${data.company}`);
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company}\nRequest type: ${intent}\n\n${data.message}`,
+    );
+    window.location.href = `mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`;
+    await Promise.resolve();
     reset();
   };
 
@@ -38,11 +71,11 @@ export function ContactForm() {
         <div className="mx-auto max-w-lg rounded-2xl border border-border bg-card p-10 text-center shadow-sm">
           <CheckCircle2 className="mx-auto size-12 text-brand" aria-hidden="true" />
           <h2 className="mt-4 font-display text-2xl font-bold text-foreground">
-            Message sent!
+            Email draft prepared
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            We&apos;ve received your message and will get back to you within 1
-            business day.
+            Your email app should open with the request details. Send the draft
+            to complete your enquiry.
           </p>
         </div>
       </Container>
@@ -53,6 +86,12 @@ export function ContactForm() {
     <Container className="pb-16">
       <div className="grid gap-10 lg:grid-cols-5 lg:gap-12">
         <section aria-label="Contact form" className="lg:col-span-3">
+          <div className="mb-6">
+            <h2 className="font-display text-2xl font-bold text-foreground">
+              {copy.title}
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground">{copy.description}</p>
+          </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8"
@@ -138,7 +177,7 @@ export function ContactForm() {
                   Sending...
                 </>
               ) : (
-                "Send message"
+                copy.submit
               )}
             </Button>
           </form>
@@ -161,17 +200,6 @@ export function ContactForm() {
                 <Mail className="size-4 shrink-0 text-brand" />
                 {siteConfig.contact.email}
               </a>
-              <a
-                href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`}
-                className="flex items-center gap-3 text-sm text-foreground transition-colors hover:text-brand"
-              >
-                <Phone className="size-4 shrink-0 text-brand" />
-                {siteConfig.contact.phone}
-              </a>
-              <p className="flex items-center gap-3 text-sm text-muted-foreground">
-                <MapPin className="size-4 shrink-0 text-brand" />
-                San Francisco, CA
-              </p>
             </div>
           </div>
         </aside>

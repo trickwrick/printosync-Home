@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Calendar, CheckCircle2, Loader2, Mail, Phone } from "lucide-react";
+import { Calendar, CheckCircle2, Loader2, Mail } from "lucide-react";
 import {
   bookDemoFormSchema,
   type BookDemoFormValues,
@@ -42,8 +42,12 @@ export function BookDemoForm() {
   });
 
   const onSubmit = async (data: BookDemoFormValues) => {
-    void data;
-    await new Promise((r) => setTimeout(r, 1000));
+    const subject = encodeURIComponent(`Free demo request — ${data.company}`);
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nWork email: ${data.email}\nPhone: ${data.phone || "Not provided"}\nCompany: ${data.company}\nCity: ${data.city}\nCompany size: ${data.companySize}\nPreferred date: ${data.preferredDate || "Flexible"}\n\nRequirements:\n${data.message}`,
+    );
+    window.location.href = `mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`;
+    await Promise.resolve();
     reset();
   };
 
@@ -53,11 +57,11 @@ export function BookDemoForm() {
         <div className="mx-auto max-w-lg rounded-2xl border border-border bg-card p-10 text-center shadow-sm">
           <CheckCircle2 className="mx-auto size-12 text-brand" aria-hidden="true" />
           <h2 className="mt-4 font-display text-2xl font-bold text-foreground">
-            Demo request received!
+            Demo email prepared
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Thanks for reaching out. Our team will contact you within 1 business
-            day to confirm your demo slot.
+            Your email app should open with your demo details. Send the prepared
+            draft to complete your request.
           </p>
         </div>
       </Container>
@@ -261,13 +265,6 @@ export function BookDemoForm() {
               >
                 <Mail className="size-4 text-brand" aria-hidden="true" />
                 {siteConfig.contact.email}
-              </a>
-              <a
-                href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`}
-                className="flex items-center gap-2.5 text-sm text-foreground transition-colors hover:text-brand"
-              >
-                <Phone className="size-4 text-brand" aria-hidden="true" />
-                {siteConfig.contact.phone}
               </a>
             </div>
           </div>

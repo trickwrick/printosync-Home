@@ -49,6 +49,8 @@ function MegaMenuItem({
 }
 
 export function MegaMenu({ sections, isOpen }: MegaMenuProps) {
+  const isWide = sections.length > 2;
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -58,11 +60,12 @@ export function MegaMenu({ sections, isOpen }: MegaMenuProps) {
           exit={{ opacity: 0, y: 8, scale: 0.98 }}
           transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
           className={cn(
-            "absolute left-1/2 top-full z-50 mt-2 w-[580px] -translate-x-1/2",
+            "absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2",
+            isWide ? "w-[960px]" : "w-[620px]",
             "rounded-2xl border border-border bg-background/98 p-2 shadow-premium backdrop-blur-xl",
           )}
         >
-          <div className="grid grid-cols-2 gap-1">
+          <div className={cn("grid gap-1", isWide ? "grid-cols-4" : "grid-cols-2")}>
             {sections.map((section) => (
               <div key={section.title} className="p-2">
                 <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">

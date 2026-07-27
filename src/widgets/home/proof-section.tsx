@@ -19,7 +19,7 @@ export function ProofSection() {
   const topCase = caseStudies[0];
 
   return (
-    <SectionReveal className="border-t border-border py-16 lg:py-20">
+    <SectionReveal id="customer-success" className="border-t border-border py-16 lg:py-20">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
           <div>

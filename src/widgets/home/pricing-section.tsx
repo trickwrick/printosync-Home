@@ -49,7 +49,7 @@ export function PricingSection() {
               <div className="mt-5">
                 {tier.price ? (
                   <p className="font-display text-4xl font-bold text-foreground">
-                    ${tier.price}
+                    ₹{tier.price}
                     <span className="text-base font-normal text-muted-foreground">/mo</span>
                   </p>
                 ) : (
@@ -65,7 +65,7 @@ export function PricingSection() {
                 ))}
               </ul>
               <Link
-                href={tier.highlighted ? ctaNavigation.href : "/pricing"}
+                href={tier.price === null ? "/sales-enquiry" : ctaNavigation.href}
                 className={`mt-7 block rounded-full py-3 text-center text-sm font-semibold transition-all ${
                   tier.highlighted
                     ? "bg-primary text-primary-foreground shadow-[var(--shadow-cta)] hover:bg-[#e04a1e]"

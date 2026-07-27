@@ -6,7 +6,7 @@ export const internalLinks: Record<
   "/": [
     { label: "Printing CRM", href: "/printing-crm", description: "Manage clients & quotes" },
     { label: "Printing ERP", href: "/printing-erp", description: "Production & operations" },
-    { label: "Pricing", href: "/pricing", description: "Plans from $299/mo" },
+    { label: "Pricing", href: "/pricing", description: "Compare flexible plans" },
     { label: "Book Demo", href: "/book-demo", description: "Free 30-min walkthrough" },
   ],
   "/about": [
@@ -78,5 +78,34 @@ export const internalLinks: Record<
 };
 
 export function getRelatedLinks(path: string) {
-  return internalLinks[path] ?? internalLinks["/"];
+  if (internalLinks[path]) return internalLinks[path];
+
+  if (path.startsWith("/modules/")) {
+    return [
+      { label: "All Modules", href: "/services", description: "Explore the full ERP" },
+      { label: "Pricing", href: "/pricing", description: "Compare plans" },
+      { label: "Book Demo", href: "/book-demo", description: "See the module live" },
+      { label: "Case Studies", href: "/case-studies", description: "Customer results" },
+    ];
+  }
+
+  if (path.startsWith("/industries/")) {
+    return [
+      { label: "All Modules", href: "/services" },
+      { label: "Printing ERP", href: "/printing-erp" },
+      { label: "Book Demo", href: "/book-demo" },
+      { label: "Contact Sales", href: "/sales-enquiry" },
+    ];
+  }
+
+  if (path.startsWith("/resources/")) {
+    return [
+      { label: "Blog", href: "/blog" },
+      { label: "Help Center", href: "/resources/help-center" },
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Support", href: "/support" },
+    ];
+  }
+
+  return internalLinks["/"];
 }

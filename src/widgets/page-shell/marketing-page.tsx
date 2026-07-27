@@ -9,7 +9,7 @@ import {
   blogSchema,
 } from "@/shared/lib/seo";
 import { pageSeo, type PageSeoConfig } from "@/shared/lib/seo/pages";
-import { JsonLd, RelatedLinks } from "@/shared/ui/seo";
+import { JsonLd } from "@/shared/ui/seo";
 import { Container } from "@/shared/ui/container";
 import { Text } from "@/shared/ui/typography";
 import { cn } from "@/shared/lib/cn";
@@ -123,9 +123,6 @@ export function MarketingPage({
             ))}
         </div>
 
-        <Container>
-          <RelatedLinks path={seo.path} />
-        </Container>
       </article>
     </>
   );

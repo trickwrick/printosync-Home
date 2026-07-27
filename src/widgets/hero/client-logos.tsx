@@ -1,9 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { clientLogos } from "@/shared/config/navigation";
 
 export function ClientLogos() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -18,8 +20,12 @@ export function ClientLogos() {
       <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
         <motion.div
           className="flex w-max"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 22, ease: "linear", repeat: Infinity }}
+          animate={reduceMotion ? undefined : { x: ["0%", "-50%"] }}
+          transition={
+            reduceMotion
+              ? undefined
+              : { duration: 22, ease: "linear", repeat: Infinity }
+          }
         >
           {[0, 1].map((copy) => (
             <div
