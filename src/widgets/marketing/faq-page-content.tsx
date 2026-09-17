@@ -43,7 +43,7 @@ export function FaqPageContent() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mx-auto max-w-2xl text-lg text-muted-foreground"
           >
-            Everything you need to know about PrintoSync. Can't find the answer you're looking for? Feel free to contact our support team.
+            Everything you need to know about PrintoSync. Can&apos;t find the answer you&apos;re looking for? Feel free to contact our support team.
           </motion.p>
           
           <motion.div 
@@ -113,7 +113,7 @@ export function FaqPageContent() {
           ) : (
             <div className="py-12 text-center text-muted-foreground">
               <HelpCircle className="mx-auto mb-4 size-12 opacity-20" />
-              <p>No results found for "{searchQuery}".</p>
+              <p>No results found for &quot;{searchQuery}&quot;.</p>
             </div>
           )}
         </motion.div>
