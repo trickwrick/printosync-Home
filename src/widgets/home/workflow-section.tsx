@@ -12,6 +12,7 @@ import {
   CreditCard,
   FileText,
   LayoutDashboard,
+  Receipt,
   ScrollText,
   type LucideIcon,
 } from "lucide-react";
@@ -27,6 +28,7 @@ const stepIcons: LucideIcon[] = [
   LayoutDashboard,
   BriefcaseBusiness,
   FileText,
+  Receipt,
   CreditCard,
   Boxes,
   ScrollText,
@@ -38,6 +40,7 @@ const stepHighlights = [
   ["Business snapshot", "Pending job alerts", "Revenue overview"],
   ["Job specifications", "Operator assignment", "Production tracking"],
   ["Delivery details", "Dispatch records", "Printable challan"],
+  ["GST billing", "Auto tax calculation", "Professional template"],
   ["Payment entries", "Outstanding balances", "Collection tracking"],
   ["Material quantities", "Usage history", "Low-stock alerts"],
   ["Customer ledger", "Vendor ledger", "Downloadable statement"],
@@ -57,11 +60,11 @@ export function WorkflowSection() {
   return (
     <SectionReveal className="relative overflow-hidden border-y border-border bg-surface py-16 lg:py-20">
       <div
-        className="pointer-events-none absolute left-1/2 top-0 h-64 w-[48rem] -translate-x-1/2 rounded-full bg-brand/10 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-0 h-64 w-3xl -translate-x-1/2 rounded-full bg-brand/10 blur-3xl"
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 lg:px-8">
+      <div className="relative mx-auto max-w-350 px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-2xl text-center">
           <SectionLabel>Workflow</SectionLabel>
           <SectionTitle className="mx-auto">
@@ -72,10 +75,10 @@ export function WorkflowSection() {
           </SectionSubtitle>
         </div>
 
-        <div className="overflow-hidden rounded-[1.5rem] border border-border/80 bg-card shadow-premium">
+        <div className="overflow-hidden rounded-3xl border border-border/80 bg-card shadow-premium">
           <div className="overflow-x-auto border-b border-border bg-background/80 p-3">
             <div
-              className="relative flex min-w-[1200px] items-start justify-between"
+              className="relative flex min-w-300 items-start justify-between"
               role="tablist"
               aria-label="PrintoSync workflow modules"
             >
@@ -142,7 +145,7 @@ export function WorkflowSection() {
           <div
             id="workflow-detail"
             role="tabpanel"
-            className="grid gap-8 bg-gradient-to-br from-card via-card to-brand-muted/50 p-6 md:grid-cols-[1.25fr_0.75fr] md:p-10 lg:gap-14 lg:p-12"
+            className="grid gap-8 bg-linear-to-br from-card via-card to-brand-muted/50 p-6 md:grid-cols-[1.25fr_0.75fr] md:p-10 lg:gap-14 lg:p-12"
           >
             <div>
               <div className="flex items-center gap-4">

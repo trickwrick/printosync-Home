@@ -244,7 +244,7 @@ export const headerNavigation = [
   { title: "Who we help", mega: industriesMegaMenu },
   { title: "Why choose us", mega: whyChooseMegaMenu },
   { title: "Modules", mega: productMegaMenu },
-  { title: "Pricing", href: "/pricing" },
+  { title: "FAQ", href: "/resources/faqs" },
 ] as const;
 
 export const ctaNavigation = {

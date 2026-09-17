@@ -40,7 +40,7 @@ export function Header() {
         )}
         onMouseLeave={() => setActiveMenu(null)}
       >
-        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 lg:h-[72px] lg:px-8">
+        <div className="mx-auto flex h-16 max-w-350 items-center justify-between px-6 lg:h-18 lg:px-8">
           <Logo />
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
@@ -157,11 +157,11 @@ export function Header() {
                 )),
               )}
               <Link
-                href="/pricing"
+                href="/resources/faqs"
                 onClick={() => setMobileOpen(false)}
                 className="rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
-                Pricing
+                FAQ
               </Link>
               <Link
                 href="/contact"

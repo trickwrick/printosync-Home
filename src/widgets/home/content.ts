@@ -130,34 +130,41 @@ export const workflowSteps = [
   },
   {
     step: "04",
+    title: "Invoice",
+    description:
+      "Generate GST-compliant invoices instantly, apply correct tax rates, and send directly to clients.",
+    duration: "Fast billing",
+  },
+  {
+    step: "05",
     title: "Payments",
     description:
       "Record incoming and outgoing payments, monitor balances, and follow up on overdue invoices.",
     duration: "Always synced",
   },
   {
-    step: "05",
+    step: "06",
     title: "Stock",
     description:
       "Track paper, ink, plates, and other materials with live quantities, usage history, and low-stock alerts.",
     duration: "Live inventory",
   },
   {
-    step: "06",
+    step: "07",
     title: "Statements",
     description:
       "View complete customer and vendor ledgers with transaction history, balances, and downloadable statements.",
     duration: "One click",
   },
   {
-    step: "07",
+    step: "08",
     title: "Estimate & Quotation",
     description:
       "Build professional estimates using material, process, labor, and margin calculations tailored to print jobs.",
     duration: "Fast & accurate",
   },
   {
-    step: "08",
+    step: "09",
     title: "Report",
     description:
       "Turn operational data into clear sales, production, stock, payment, and profitability reports.",

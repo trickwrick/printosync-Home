@@ -4,6 +4,7 @@ import { getEntry, resources } from "@/entities/marketing";
 import { breadcrumbSchema, createMetadata, webPageSchema } from "@/shared/lib/seo";
 import { JsonLd } from "@/shared/ui/seo";
 import { DetailLanding } from "@/widgets/marketing";
+import { FaqPageContent } from "@/widgets/marketing";
 
 export const dynamicParams = false;
 
@@ -37,6 +38,29 @@ export default async function ResourcePage({
   if (!resource) notFound();
 
   const path = `/resources/${resource.slug}`;
+
+  if (slug === "faqs") {
+    return (
+      <>
+        <JsonLd
+          data={[
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Resources", path: "/resources" },
+              { name: resource.title, path },
+            ]),
+            webPageSchema({
+              title: resource.title,
+              description: resource.description,
+              path,
+            }),
+          ]}
+        />
+        <FaqPageContent />
+      </>
+    );
+  }
+
   return (
     <>
       <JsonLd

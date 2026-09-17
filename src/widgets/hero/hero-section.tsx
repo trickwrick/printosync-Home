@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
 import { ctaNavigation } from "@/shared/config/navigation";
 import { MagneticButton } from "@/shared/ui/magnetic-button";
-import { HeroBackground } from "./hero-background";
+
 import { DashboardPreview } from "./dashboard-preview";
 import { StatsBar } from "./stats-bar";
 import { ClientLogos } from "./client-logos";
@@ -39,9 +39,9 @@ export function HeroSection() {
       aria-label="PrintoSync homepage hero"
       className="relative overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-32 lg:pt-36"
     >
-      <HeroBackground />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 lg:px-8">
+
+      <div className="relative mx-auto max-w-350 px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Copy */}
           <div>

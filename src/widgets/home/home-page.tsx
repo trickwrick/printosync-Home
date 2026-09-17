@@ -9,7 +9,7 @@ import { DashboardShowcaseSection } from "./dashboard-showcase-section";
 import { WhyChooseSection } from "./why-choose-section";
 import { TestimonialsSection } from "./testimonials-section";
 import { CaseStudiesSection } from "./case-studies-section";
-import { PricingSection } from "./pricing-section";
+
 import { FaqSection } from "./faq-section";
 import { ContactCtaSection } from "./contact-cta-section";
 
@@ -28,7 +28,7 @@ export function HomePage() {
       <WhyChooseSection />
       <TestimonialsSection />
       <CaseStudiesSection />
-      <PricingSection />
+
       <FaqSection />
       <ContactCtaSection />
     </>
