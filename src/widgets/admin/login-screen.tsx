@@ -27,8 +27,8 @@ export function AdminLoginScreen() {
       {/* Background Effects */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(var(--brand),0.15)_0%,transparent_70%)]" />
-        <div className="absolute left-1/2 top-0 h-[600px] w-full max-w-[1000px] -translate-x-1/2 rounded-full bg-brand/5 blur-3xl" />
-        <div className="absolute -bottom-1/2 -left-1/4 h-[800px] w-[800px] rounded-full bg-brand/10 blur-3xl" />
+        <div className="absolute left-1/2 top-0 h-150 w-full max-w-250 -translate-x-1/2 rounded-full bg-brand/5 blur-3xl" />
+        <div className="absolute -bottom-1/2 -left-1/4 h-200 w-200 rounded-full bg-brand/10 blur-3xl" />
       </div>
 
       <motion.div
