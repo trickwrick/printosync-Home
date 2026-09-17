@@ -64,7 +64,7 @@ export function AdminDashboard() {
             <LayoutDashboard className="mx-auto mb-4 size-12 text-muted-foreground/50" />
             <h2 className="text-lg font-semibold text-foreground">Admin Panel Ready</h2>
             <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-              This is a placeholder for your future admin dashboard. We've set up the layout, sidebar, and routing for you. Just let me know what features you want to add next!
+              This is a placeholder for your future admin dashboard. We&apos;ve set up the layout, sidebar, and routing for you. Just let me know what features you want to add next!
             </p>
           </div>
         </div>
