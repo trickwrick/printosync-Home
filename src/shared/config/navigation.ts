@@ -1,8 +1,8 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  BarChart3,
   BookOpen,
   Building2,
+  Calculator,
   Calendar,
   CircleHelp,
   Download,
@@ -13,7 +13,10 @@ import {
   Layers,
   Mail,
   Newspaper,
+  Package,
+  Receipt,
   ShieldCheck,
+  Truck,
   Users,
   Video,
 } from "lucide-react";
@@ -86,46 +89,48 @@ export const whyChooseMegaMenu: MegaMenuSection[] = [
 
 export const productMegaMenu: MegaMenuSection[] = [
   {
-    title: "Sales & Customers",
-    items: modules.slice(0, 5).map((module) => ({
-      title: module.shortTitle ?? module.title,
-      href: `/modules/${module.slug}`,
-      description: module.eyebrow,
-      icon: Layers,
-    })),
-  },
-  {
-    title: "Production",
-    items: modules.slice(5, 10).map((module) => ({
-      title: module.shortTitle ?? module.title,
-      href: `/modules/${module.slug}`,
-      description: module.eyebrow,
-      icon: Factory,
-    })),
-  },
-  {
-    title: "Finance & Supply",
-    items: modules.slice(10, 15).map((module) => ({
-      title: module.shortTitle ?? module.title,
-      href: `/modules/${module.slug}`,
-      description: module.eyebrow,
-      icon: FileText,
-    })),
-  },
-  {
-    title: "People & Insights",
+    title: "Billing & Invoicing",
     items: [
-      ...modules.slice(15).map((module) => ({
-        title: module.shortTitle ?? module.title,
-        href: `/modules/${module.slug}`,
-        description: module.eyebrow,
-        icon: BarChart3,
-      })),
       {
-        title: "View All Modules",
-        href: "/services",
-        description: "Explore the complete PrintoSync platform",
+        title: modules[0].title,
+        href: `/modules/${modules[0].slug}`,
+        description: modules[0].eyebrow,
+        icon: Receipt,
+      },
+      {
+        title: modules[1].title,
+        href: `/modules/${modules[1].slug}`,
+        description: modules[1].eyebrow,
+        icon: FileText,
+      },
+      {
+        title: modules[3].title,
+        href: `/modules/${modules[3].slug}`,
+        description: modules[3].eyebrow,
+        icon: Calculator,
+      },
+    ],
+  },
+  {
+    title: "Production & Stock",
+    items: [
+      {
+        title: modules[2].title,
+        href: `/modules/${modules[2].slug}`,
+        description: modules[2].eyebrow,
         icon: Layers,
+      },
+      {
+        title: modules[4].title,
+        href: `/modules/${modules[4].slug}`,
+        description: modules[4].eyebrow,
+        icon: Truck,
+      },
+      {
+        title: modules[5].title,
+        href: `/modules/${modules[5].slug}`,
+        description: modules[5].eyebrow,
+        icon: Package,
       },
     ],
   },
@@ -263,11 +268,12 @@ export const footerNavigation = {
     { title: "Contact", href: "/contact" },
   ],
   solutions: [
-    { title: "CRM", href: "/modules/crm" },
-    { title: "Job Cards", href: "/modules/job-card-management" },
-    { title: "Production", href: "/modules/production-management" },
-    { title: "Inventory", href: "/modules/inventory-management" },
-    { title: "GST Billing", href: "/modules/gst-billing-invoicing" },
+    { title: "Billing Software", href: "/modules/billing-software-for-printing-press" },
+    { title: "Invoice Software", href: "/modules/invoice-software-for-printing-press" },
+    { title: "Job Card Software", href: "/modules/job-card-software-for-printing-press" },
+    { title: "Estimating Software", href: "/modules/estimating-software-for-printing-companies" },
+    { title: "Challan Software", href: "/modules/challan-software-for-printing-press" },
+    { title: "Stock & Inventory", href: "/modules/stock-inventory-management-software-for-printing-press" },
     { title: "All Modules", href: "/services" },
     { title: "Pricing", href: "/pricing" },
   ],

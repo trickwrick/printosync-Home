@@ -42,7 +42,7 @@ const whyChoose = [
 export function AboutOverviewSection() {
   return (
     <SectionReveal id="overview" className="border-t border-border bg-surface py-16 lg:py-20">
-      <div className="mx-auto grid max-w-[1400px] gap-10 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:px-8">
+      <div className="mx-auto grid max-w-350 gap-10 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:px-8">
         <div>
           <SectionLabel>About PrintoSync</SectionLabel>
           <SectionTitle>Built specifically for printing businesses</SectionTitle>
@@ -87,7 +87,7 @@ export function AboutOverviewSection() {
 export function WhyPrintoSyncSection() {
   return (
     <SectionReveal id="why-printosync" className="py-16 lg:py-20">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>Why PrintoSync</SectionLabel>
           <SectionTitle className="mx-auto">
@@ -121,7 +121,7 @@ export function ModulesOverviewSection() {
   const featuredModules = modules.slice(0, 8);
   return (
     <SectionReveal id="modules" className="border-y border-border bg-surface py-16 lg:py-20">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <SectionLabel>Everything you need</SectionLabel>
@@ -135,7 +135,7 @@ export function ModulesOverviewSection() {
             href="/services"
             className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-brand"
           >
-            View all 19 modules
+            View all {modules.length} modules
             <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
@@ -171,7 +171,7 @@ export function ModulesOverviewSection() {
 export function IndustriesOverviewSection() {
   return (
     <SectionReveal id="industries" className="py-16 lg:py-20">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>Industries we serve</SectionLabel>
           <SectionTitle className="mx-auto">Made for every kind of printer</SectionTitle>
@@ -199,7 +199,7 @@ export function IndustriesOverviewSection() {
 export function BenefitsAndProcessSection() {
   return (
     <SectionReveal className="border-y border-border bg-surface py-16 lg:py-20">
-      <div className="mx-auto grid max-w-[1400px] gap-12 px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
+      <div className="mx-auto grid max-w-350 gap-12 px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
         <div>
           <SectionLabel>Key benefits</SectionLabel>
           <SectionTitle>Work smarter and grow with control</SectionTitle>
@@ -241,7 +241,7 @@ export function BenefitsAndProcessSection() {
 export function DigitizeCtaSection() {
   return (
     <SectionReveal className="py-16 lg:py-20">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-foreground px-6 py-12 text-center text-background shadow-premium sm:px-10 lg:py-16">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(41,184,186,0.35),transparent_45%)]" />
           <div className="relative mx-auto max-w-3xl">

@@ -39,7 +39,7 @@ export const pageSeo: Record<string, PageSeoConfig> = {
     title: "Printing ERP Modules",
     h1: "Everything Your Printing Business Needs",
     description:
-      "Explore 19 connected PrintoSync modules for CRM, quotation, job cards, production, inventory, purchasing, GST billing, payments, teams, and reports.",
+      "Explore PrintoSync modules: Billing Software, Invoice Software, Job Card Software, Estimating Software, Challan Software, and Stock Inventory Management for printing presses.",
     path: "/services",
     keywords: [
       "print shop services",

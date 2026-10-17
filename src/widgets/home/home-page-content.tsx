@@ -12,17 +12,11 @@ import {
   IndustriesOverviewSection,
 } from "@/widgets/home/business-sections";
 
+import { NationwideReachSection } from "@/widgets/home/nationwide-reach-section";
+
 const WorkflowSection = dynamic(
   () => import("@/widgets/home/workflow-section").then((m) => m.WorkflowSection),
   { loading: () => <div className="min-h-80" aria-hidden="true" /> },
-);
-
-const DashboardShowcaseSection = dynamic(
-  () =>
-    import("@/widgets/home/dashboard-showcase-section").then(
-      (m) => m.DashboardShowcaseSection,
-    ),
-  { ssr: false, loading: () => <div className="min-h-130" aria-hidden="true" /> },
 );
 
 export function HomePageContent() {
@@ -32,7 +26,7 @@ export function HomePageContent() {
       <IndustriesOverviewSection />
       <AboutOverviewSection />
       <WorkflowSection />
-      <DashboardShowcaseSection />
+      <NationwideReachSection />
       <BenefitsAndProcessSection />
       <ProofSection />
 

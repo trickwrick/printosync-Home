@@ -1,0 +1,140 @@
+[
+  {
+    "slug": "billing-software-for-printing-press",
+    "title": "Billing Software for Printing Press",
+    "shortTitle": "Billing Software",
+    "eyebrow": "GST billing & invoicing for print shops",
+    "description": "Automate print orders, GST billing, multi-rate tax calculations, payment tracking, and ledger reconciliation built specifically for commercial printing presses.",
+    "features": [
+      "GST-compliant print invoices",
+      "HSN/SAC code automation",
+      "Client ledgers & payment tracking",
+      "Direct WhatsApp & email invoices"
+    ],
+    "benefits": [
+      "Zero billing errors",
+      "Faster payment collections",
+      "Simplified tax and audit filing"
+    ],
+    "keywords": [
+      "billing software for printing press",
+      "printing press billing software",
+      "print shop gst invoicing software"
+    ]
+  },
+  {
+    "slug": "invoice-software-for-printing-press",
+    "title": "Invoice Software for Printing Press",
+    "shortTitle": "Invoice Software",
+    "eyebrow": "Professional customized print invoices",
+    "description": "Generate customizable, itemized print invoices with paper specifications, finishing charges, custom terms, delivery details, and QR payment links.",
+    "features": [
+      "Custom invoice templates",
+      "Auto-fill from job cards & orders",
+      "UPI & payment QR codes",
+      "Multi-currency & discount handling"
+    ],
+    "benefits": [
+      "Professional brand presentation",
+      "Instant invoice generation",
+      "Seamless digital payments"
+    ],
+    "keywords": [
+      "invoice software for printing press",
+      "printing press invoice generator",
+      "commercial print invoicing software"
+    ]
+  },
+  {
+    "slug": "job-card-software-for-printing-press",
+    "title": "Job Card Software for Printing Press",
+    "shortTitle": "Job Card Software",
+    "eyebrow": "Shop floor job ticket & production cards",
+    "description": "Create clear, comprehensive digital job cards containing paper specs, cut sizes, plate details, printing colors, finishing steps, and delivery timelines.",
+    "features": [
+      "Digital shop-floor job tickets",
+      "Machine & operator assignment",
+      "Finishing & binding checklist",
+      "Live barcode / QR job tracking"
+    ],
+    "benefits": [
+      "Eliminate shop floor communication gaps",
+      "Drastically cut print re-work and waste",
+      "Ensure 100% on-time order dispatch"
+    ],
+    "keywords": [
+      "job card software for printing press",
+      "print job ticket software",
+      "printing press job card management"
+    ]
+  },
+  {
+    "slug": "estimating-software-for-printing-companies",
+    "title": "Estimating Software for Printing Companies",
+    "shortTitle": "Estimating Software",
+    "eyebrow": "Accurate cost & margin estimation",
+    "description": "Instant, foolproof cost estimation engine calculating paper weight, plate count, machine run-time, ink coverage, post-press labor, and healthy profit margins.",
+    "features": [
+      "Dynamic paper & GSM calculators",
+      "Multi-process machine rate estimation",
+      "Prepress & post-press finishing pricing",
+      "Instant PDF quotation generator"
+    ],
+    "benefits": [
+      "Quote clients in seconds, not hours",
+      "Protect your profit margins accurately",
+      "Win more competitive print bids"
+    ],
+    "keywords": [
+      "estimating software for printing companies",
+      "print estimating software",
+      "printing press quotation and cost estimation"
+    ]
+  },
+  {
+    "slug": "challan-software-for-printing-press",
+    "title": "Challan Software for Printing Press",
+    "shortTitle": "Challan Software",
+    "eyebrow": "Delivery challan & dispatch management",
+    "description": "Create delivery challans, gate passes, partial shipment tracking, and proof-of-delivery receipts linked seamlessly to job cards and invoices.",
+    "features": [
+      "Delivery challans with vehicle & driver details",
+      "Partial and split shipment handling",
+      "Gate pass & returnable challan tracking",
+      "One-click conversion to final GST invoice"
+    ],
+    "benefits": [
+      "100% dispatch and delivery accountability",
+      "Never miss billing for dispatched quantities",
+      "Smooth proof-of-delivery verification"
+    ],
+    "keywords": [
+      "challan software for printing press",
+      "delivery challan software printing",
+      "print dispatch and gate pass management"
+    ]
+  },
+  {
+    "slug": "stock-inventory-management-software-for-printing-press",
+    "title": "Stock & Inventory Management Software for Printing Press",
+    "shortTitle": "Stock Inventory",
+    "eyebrow": "Paper, ink & raw material tracking",
+    "description": "Complete inventory control software for paper reams, reels, plates, inks, varnishes, and packaging with real-time consumption and low-stock alerts.",
+    "features": [
+      "Ream, sheet & reel tracking with GSM/size",
+      "Auto stock deduction on job card issue",
+      "Low-stock reorder alerts",
+      "Wastage and scrap analytics"
+    ],
+    "benefits": [
+      "Prevent costly stock-outs and production stops",
+      "Stop material leakage and paper wastage",
+      "Accurate procurement and supplier reordering"
+    ],
+    "keywords": [
+      "stock inventory management software for printing press",
+      "paper inventory software printing press",
+      "raw material stock management print shop"
+    ]
+  }
+]

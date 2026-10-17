@@ -1,0 +1,44 @@
+[
+  {
+    "id": "inq-101",
+    "type": "Demo Request",
+    "name": "Rajesh Sharma",
+    "email": "rajesh@sharmaprinters.com",
+    "phone": "+91 98765 43210",
+    "company": "Sharma Offset & Packaging",
+    "pressType": "Offset & Packaging",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "message": "We need job card tracking, GST billing, and paper stock management for 4 offset machines.",
+    "date": "2026-10-17T10:15:00Z",
+    "status": "new"
+  },
+  {
+    "id": "inq-102",
+    "type": "Contact / Sales",
+    "name": "Amit Patel",
+    "email": "amit@patelgraphics.in",
+    "phone": "+91 98234 56789",
+    "company": "Patel Color Graphics",
+    "pressType": "Commercial Digital & Offset",
+    "city": "Ahmedabad",
+    "state": "Gujarat",
+    "message": "Looking for quotation estimation engine and WhatsApp invoice delivery.",
+    "date": "2026-10-16T16:40:00Z",
+    "status": "in-progress"
+  },
+  {
+    "id": "inq-103",
+    "type": "Demo Request",
+    "name": "Vikas Malhotra",
+    "email": "vikas@delhiprintpack.com",
+    "phone": "+91 99112 23344",
+    "company": "Delhi Print Pack Solutions",
+    "pressType": "Packaging & Corrugation",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "message": "Need delivery challans, gate passes, and multi-location inventory sync.",
+    "date": "2026-10-15T11:20:00Z",
+    "status": "completed"
+  }
+]

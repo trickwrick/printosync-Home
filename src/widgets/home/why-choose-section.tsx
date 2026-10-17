@@ -20,11 +20,11 @@ const icons = { Printer, Zap, Shield, Headphones };
 export function WhyChooseSection() {
   return (
     <SectionReveal className="py-24 lg:py-32">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-        <div className="overflow-hidden rounded-3xl border border-white/[0.06] bg-gradient-to-br from-white/[0.03] to-transparent">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
+        <div className="overflow-hidden rounded-3xl border border-white/6 bg-linear-to-br from-white/3 to-transparent">
           <div className="grid lg:grid-cols-[1.2fr_1fr]">
             {/* Left: big stat block */}
-            <div className="flex flex-col justify-center border-b border-white/[0.06] p-8 sm:p-12 lg:border-b-0 lg:border-r">
+            <div className="flex flex-col justify-center border-b border-white/6 p-8 sm:p-12 lg:border-b-0 lg:border-r">
               <SectionLabel>Why PrintoSync</SectionLabel>
               <SectionTitle>
                 The platform print shops switch to and stay on
@@ -58,7 +58,7 @@ export function WhyChooseSection() {
             </div>
 
             {/* Right: icon checklist */}
-            <div className="divide-y divide-white/[0.06]">
+            <div className="divide-y divide-white/6">
               {whyChoose.map((item, i) => {
                 const Icon = icons[item.icon as keyof typeof icons];
                 return (

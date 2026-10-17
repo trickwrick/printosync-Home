@@ -42,12 +42,33 @@ export function BookDemoForm() {
   });
 
   const onSubmit = async (data: BookDemoFormValues) => {
+    try {
+      await fetch("/api/admin/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          inquiry: {
+            type: "Demo Request",
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            company: data.company,
+            city: data.city,
+            pressType: `Size: ${data.companySize} (Date: ${data.preferredDate || "Flexible"})`,
+            message: data.message,
+            status: "new",
+          },
+        }),
+      });
+    } catch (e) {
+      console.error("Failed to sync demo inquiry to admin:", e);
+    }
+
     const subject = encodeURIComponent(`Free demo request — ${data.company}`);
     const body = encodeURIComponent(
       `Name: ${data.name}\nWork email: ${data.email}\nPhone: ${data.phone || "Not provided"}\nCompany: ${data.company}\nCity: ${data.city}\nCompany size: ${data.companySize}\nPreferred date: ${data.preferredDate || "Flexible"}\n\nRequirements:\n${data.message}`,
     );
     window.location.href = `mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`;
-    await Promise.resolve();
     reset();
   };
 
@@ -221,7 +242,7 @@ export function BookDemoForm() {
               variant="default"
               size="lg"
               disabled={isSubmitting}
-              className="mt-6 w-full rounded-full sm:w-auto sm:min-w-[200px]"
+              className="mt-6 w-full rounded-full sm:w-auto sm:min-w-50"
             >
               {isSubmitting ? (
                 <>

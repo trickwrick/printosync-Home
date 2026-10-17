@@ -56,12 +56,30 @@ export function ContactForm({ intent = "contact" }: { intent?: ContactIntent }) 
   });
 
   const onSubmit = async (data: ContactFormValues) => {
+    try {
+      await fetch("/api/admin/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          inquiry: {
+            type: copy.title,
+            name: data.name,
+            email: data.email,
+            company: data.company,
+            message: data.message,
+            status: "new",
+          },
+        }),
+      });
+    } catch (e) {
+      console.error("Failed to sync inquiry to admin:", e);
+    }
+
     const subject = encodeURIComponent(`${copy.title} — ${data.company}`);
     const body = encodeURIComponent(
       `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company}\nRequest type: ${intent}\n\n${data.message}`,
     );
     window.location.href = `mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`;
-    await Promise.resolve();
     reset();
   };
 
@@ -169,7 +187,7 @@ export function ContactForm({ intent = "contact" }: { intent?: ContactIntent }) 
               variant="default"
               size="lg"
               disabled={isSubmitting}
-              className="mt-6 w-full rounded-full sm:w-auto sm:min-w-[180px]"
+              className="mt-6 w-full rounded-full sm:w-auto sm:min-w-45"
             >
               {isSubmitting ? (
                 <>
