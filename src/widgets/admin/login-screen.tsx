@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Lock, ArrowRight, Printer, AlertCircle, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { Mail, Lock, ArrowRight, Printer, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export function AdminLoginScreen() {
   const router = useRouter();
-  const [email, setEmail] = useState("admin@printosync.com");
-  const [password, setPassword] = useState("admin123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -19,7 +19,7 @@ export function AdminLoginScreen() {
     setIsLoading(true);
     setError("");
 
-    // Standard credential check (ready for MongoDB / PostgreSQL / Supabase replacement)
+    // Standard credential check
     setTimeout(() => {
       const validEmail = "admin@printosync.com";
       const validPass = "admin123";
@@ -33,7 +33,7 @@ export function AdminLoginScreen() {
         router.push("/admin");
       } else {
         setIsLoading(false);
-        setError("Invalid email or password. Please use admin@printosync.com / admin123");
+        setError("Invalid email or password. Please try again.");
       }
     }, 600);
   };
@@ -64,18 +64,6 @@ export function AdminLoginScreen() {
             <p className="mt-1.5 text-xs text-muted-foreground sm:text-sm">
               Sign in to manage modules, inquiries, and press operations
             </p>
-          </div>
-
-          {/* Quick Demo Credentials Box */}
-          <div className="mb-6 rounded-2xl border border-brand/30 bg-brand-muted/40 p-3.5 text-xs">
-            <div className="flex items-center gap-1.5 font-bold text-brand">
-              <ShieldCheck className="size-4" />
-              Default Admin Credentials:
-            </div>
-            <div className="mt-2 space-y-1 font-mono text-[11px] text-foreground/90">
-              <div>Email: <strong className="text-brand">admin@printosync.com</strong></div>
-              <div>Pass: <strong className="text-brand">admin123</strong></div>
-            </div>
           </div>
 
           {error && (

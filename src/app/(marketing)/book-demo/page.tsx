@@ -6,7 +6,7 @@ export const metadata: Metadata = generatePageMetadata("bookDemo");
 
 export default function BookDemoPage() {
   return (
-    <MarketingPage pageKey="bookDemo" showPlaceholder={false}>
+    <MarketingPage pageKey="bookDemo" showPlaceholder={false} showBanner={false}>
       <BookDemoForm />
     </MarketingPage>
   );

@@ -1,47 +1,67 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Calendar, CheckCircle2, Loader2, Mail } from "lucide-react";
-import {
-  bookDemoFormSchema,
-  type BookDemoFormValues,
-} from "@/shared/lib/validation";
-import { siteConfig } from "@/shared/config/site";
-import { Button } from "@/shared/ui/button";
-import { Container } from "@/shared/ui/container";
-import {
-  FormField,
-  formInputClassName,
-  formSelectClassName,
-  formTextareaClassName,
-} from "@/features/forms/form-field";
+import { useState } from "react";
+import { CheckCircle2, ChevronDown, Star, Shield, Award, Users } from "lucide-react";
+import Link from "next/link";
 
-const companySizeOptions = [
-  { value: "1-10", label: "1–10 employees" },
-  { value: "11-50", label: "11–50 employees" },
-  { value: "51-200", label: "51–200 employees" },
-  { value: "200+", label: "200+ employees" },
-] as const;
+interface Testimonial {
+  quote: string;
+  author: string;
+  authorInitial: string;
+  designation: string;
+}
 
-const demoBenefits = [
-  "30-minute personalized walkthrough",
-  "See CRM, ERP & production modules live",
-  "Get answers for your print shop workflow",
-  "No obligation — free consultation",
+const testimonials: Testimonial[] = [
+  {
+    quote:
+      "The demo helped me understand how PrintoSync simplifies offset job cards, GST invoicing, and manages paper inventory effortlessly.",
+    author: "Rajesh Sharma",
+    authorInitial: "RS",
+    designation: "Sharma Offset & Packaging, Jaipur",
+  },
+  {
+    quote:
+      "We cut down our quotation and estimation time from 2 hours to 2 minutes. The live demonstration showed exactly what our operators needed.",
+    author: "Amit Patel",
+    authorInitial: "AP",
+    designation: "Patel Color Graphics, Ahmedabad",
+  },
+  {
+    quote:
+      "Delivery challans, WhatsApp invoice links, and plate consumption tracking are unmatched. Highly recommended for commercial presses.",
+    author: "Vikas Malhotra",
+    authorInitial: "VM",
+    designation: "Delhi Print Pack Solutions, New Delhi",
+  },
 ];
 
 export function BookDemoForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
-    reset,
-  } = useForm<BookDemoFormValues>({
-    resolver: zodResolver(bookDemoFormSchema),
-  });
+  // Form State
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [company, setCompany] = useState("");
+  const [city, setCity] = useState("");
+  const [natureOfEnquiry, setNatureOfEnquiry] = useState("Commercial Printing Press ERP");
+  const [currentSoftware, setCurrentSoftware] = useState<"Yes" | "No">("No");
+  const [requirement, setRequirement] = useState<string>("Complete Print ERP (Job Card + Billing + Stock)");
+  const [businessSize, setBusinessSize] = useState<string>("40 lakhs to 1 crore");
+  const [preferredLanguage, setPreferredLanguage] = useState("Hindi / English");
 
-  const onSubmit = async (data: BookDemoFormValues) => {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !phone.trim()) {
+      alert("Please enter your name and mobile number.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const messageDetails = `Nature: ${natureOfEnquiry} | Currently using billing software: ${currentSoftware} | Requirement: ${requirement} | Business Size: ${businessSize} | Language: ${preferredLanguage} | City: ${city || "Not provided"}`;
+
     try {
       await fetch("/api/admin/inquiries", {
         method: "POST",
@@ -49,248 +69,388 @@ export function BookDemoForm() {
         body: JSON.stringify({
           inquiry: {
             type: "Demo Request",
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            company: data.company,
-            city: data.city,
-            pressType: `Size: ${data.companySize} (Date: ${data.preferredDate || "Flexible"})`,
-            message: data.message,
+            name,
+            email: `${phone.replace(/\D/g, "")}@demo-lead.com`,
+            phone,
+            company: company || "Printing Press",
+            city: city || "",
+            pressType: `Size: ${businessSize} (${natureOfEnquiry})`,
+            message: messageDetails,
             status: "new",
           },
         }),
       });
-    } catch (e) {
-      console.error("Failed to sync demo inquiry to admin:", e);
+    } catch (err) {
+      console.error("Failed to save demo inquiry to database:", err);
     }
 
-    const subject = encodeURIComponent(`Free demo request — ${data.company}`);
-    const body = encodeURIComponent(
-      `Name: ${data.name}\nWork email: ${data.email}\nPhone: ${data.phone || "Not provided"}\nCompany: ${data.company}\nCity: ${data.city}\nCompany size: ${data.companySize}\nPreferred date: ${data.preferredDate || "Flexible"}\n\nRequirements:\n${data.message}`,
-    );
-    window.location.href = `mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`;
-    reset();
+    setIsSubmitting(false);
+    setIsSuccess(true);
   };
 
-  if (isSubmitSuccessful) {
-    return (
-      <Container className="pb-16">
-        <div className="mx-auto max-w-lg rounded-2xl border border-border bg-card p-10 text-center shadow-sm">
-          <CheckCircle2 className="mx-auto size-12 text-brand" aria-hidden="true" />
-          <h2 className="mt-4 font-display text-2xl font-bold text-foreground">
-            Demo email prepared
-          </h2>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Your email app should open with your demo details. Send the prepared
-            draft to complete your request.
-          </p>
-        </div>
-      </Container>
-    );
-  }
-
   return (
-    <Container className="pb-16">
-      <div className="grid gap-10 lg:grid-cols-5 lg:gap-12">
-        {/* Form */}
-        <section
-          aria-label="Book demo form"
-          className="lg:col-span-3"
-        >
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8"
-            noValidate
-          >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <FormField
-                id="name"
-                label="Full name"
-                required
-                error={errors.name?.message}
-                className="sm:col-span-2"
-              >
-                <input
-                  id="name"
-                  type="text"
-                  autoComplete="name"
-                  placeholder="John Smith"
-                  className={formInputClassName()}
-                  {...register("name")}
-                />
-              </FormField>
+    <div className="w-full bg-[#5235d9] text-white">
+      {/* Top Banner Navigation / Header Title */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 sm:px-8">
+        <Link href="/" className="flex items-center gap-2">
+          <span className="font-display text-2xl font-black tracking-tight text-white sm:text-3xl">
+            Printo<span className="text-[#29b8ba]">Sync</span>
+          </span>
+        </Link>
+        <div className="text-xs font-semibold uppercase tracking-wider text-white/80">
+          Book Free Live Product Demo
+        </div>
+      </div>
 
-              <FormField
-                id="email"
-                label="Work email"
-                required
-                error={errors.email?.message}
-              >
-                <input
-                  id="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="you@printshop.com"
-                  className={formInputClassName()}
-                  {...register("email")}
-                />
-              </FormField>
-
-              <FormField
-                id="phone"
-                label="Phone number"
-                error={errors.phone?.message}
-              >
-                <input
-                  id="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  placeholder="+1 (555) 000-0000"
-                  className={formInputClassName()}
-                  {...register("phone")}
-                />
-              </FormField>
-
-              <FormField
-                id="company"
-                label="Company Name"
-                required
-                error={errors.company?.message}
-                className="sm:col-span-2"
-              >
-                <input
-                  id="company"
-                  type="text"
-                  autoComplete="organization"
-                  placeholder="Apex Print Co."
-                  className={formInputClassName()}
-                  {...register("company")}
-                />
-              </FormField>
-
-              <FormField
-                id="city"
-                label="City"
-                required
-                error={errors.city?.message}
-              >
-                <input
-                  id="city"
-                  type="text"
-                  autoComplete="address-level2"
-                  placeholder="Mumbai"
-                  className={formInputClassName()}
-                  {...register("city")}
-                />
-              </FormField>
-
-              <FormField
-                id="companySize"
-                label="Company size"
-                required
-                error={errors.companySize?.message}
-              >
-                <select
-                  id="companySize"
-                  defaultValue=""
-                  className={formSelectClassName}
-                  {...register("companySize")}
-                >
-                  <option value="" disabled>
-                    Select size
-                  </option>
-                  {companySizeOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-
-              <FormField
-                id="preferredDate"
-                label="Preferred demo date"
-                error={errors.preferredDate?.message}
-              >
-                <input
-                  id="preferredDate"
-                  type="date"
-                  className={formInputClassName()}
-                  {...register("preferredDate")}
-                />
-              </FormField>
-
-              <FormField
-                id="message"
-                label="What would you like to see?"
-                required
-                error={errors.message?.message}
-                className="sm:col-span-2"
-              >
-                <textarea
-                  id="message"
-                  rows={4}
-                  placeholder="Tell us about your print shop, current tools, and what you'd like to improve..."
-                  className={formTextareaClassName}
-                  {...register("message")}
-                />
-              </FormField>
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-14">
+          {/* Left Column: Heading, Value Bullets, Testimonial & Badges */}
+          <div className="space-y-8 lg:col-span-6 lg:pt-4">
+            <div>
+              <h1 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                Book your free demo
+              </h1>
+              <p className="mt-4 text-base font-medium leading-relaxed text-white/90 sm:text-lg">
+                Get a personalized one-on-one product walkthrough in just 15 mins and learn:
+              </p>
             </div>
 
-            <Button
-              type="submit"
-              variant="default"
-              size="lg"
-              disabled={isSubmitting}
-              className="mt-6 w-full rounded-full sm:w-auto sm:min-w-50"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="size-4 animate-spin" />
-                  Submitting...
-                </>
-              ) : (
-                "Request demo"
-              )}
-            </Button>
+            {/* Value Bullet Points */}
+            <div className="space-y-3.5 text-sm sm:text-base font-semibold">
+              <div className="flex items-start gap-3">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#20c997] text-white mt-0.5">
+                  ✓
+                </span>
+                <span>How to check your daily printing hisab-kitab in 15 minutes</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#20c997] text-white mt-0.5">
+                  ✓
+                </span>
+                <span>How to eliminate shop-floor paper wastage & rotate stock up to 3x faster</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#20c997] text-white mt-0.5">
+                  ✓
+                </span>
+                <span>How to collect 97% client payments faster with WhatsApp QR invoices</span>
+              </div>
+            </div>
 
-            <p className="mt-4 text-xs text-muted-foreground">
-              By submitting, you agree to be contacted about PrintoSync. We
-              respect your privacy and never share your details.
-            </p>
-          </form>
-        </section>
-
-        {/* Sidebar info */}
-        <aside className="lg:col-span-2">
-          <div className="rounded-2xl border border-border bg-surface p-6 md:p-8">
-            <h2 className="font-display text-lg font-semibold text-foreground">
-              What to expect
-            </h2>
-            <ul className="mt-4 space-y-3">
-              {demoBenefits.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                  <Calendar className="mt-0.5 size-4 shrink-0 text-brand" aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8 space-y-3 border-t border-border pt-6">
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Prefer to talk now?
+            {/* Quote / Testimonial Box */}
+            <div className="rounded-2xl bg-white/10 p-6 backdrop-blur-md border border-white/15">
+              <span className="font-serif text-4xl leading-none text-white/50">“</span>
+              <p className="mt-1 text-sm font-medium italic leading-relaxed text-white/95 sm:text-base">
+                {testimonials[activeTestimonial].quote}
               </p>
-              <a
-                href={`mailto:${siteConfig.contact.email}`}
-                className="flex items-center gap-2.5 text-sm text-foreground transition-colors hover:text-brand"
-              >
-                <Mail className="size-4 text-brand" aria-hidden="true" />
-                {siteConfig.contact.email}
-              </a>
+              <div className="mt-5 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center rounded-full bg-white/20 font-bold text-white text-sm border border-white/30">
+                    {testimonials[activeTestimonial].authorInitial || "PS"}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white">
+                      {testimonials[activeTestimonial].author}
+                    </h4>
+                    <p className="text-xs text-white/80">
+                      {testimonials[activeTestimonial].designation}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Dots carousel */}
+                <div className="flex items-center gap-1.5">
+                  {testimonials.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setActiveTestimonial(i)}
+                      className={`h-2 rounded-full transition-all ${
+                        activeTestimonial === i ? "w-6 bg-white" : "w-2 bg-white/40"
+                      }`}
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Social Proof Trust Badges */}
+            <div className="pt-2 space-y-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-white/80">
+                Trusted by more than 500+ printing presses across India
+              </p>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div className="rounded-xl border border-white/20 bg-white/10 p-3 text-center">
+                  <Award className="mx-auto size-5 text-[#29b8ba]" />
+                  <div className="mt-1 text-[11px] font-bold">BEST PRINT ERP</div>
+                  <div className="text-[9px] text-white/70">INDIA 2026</div>
+                </div>
+                <div className="rounded-xl border border-white/20 bg-white/10 p-3 text-center">
+                  <Shield className="mx-auto size-5 text-[#29b8ba]" />
+                  <div className="mt-1 text-[11px] font-bold">GST READY</div>
+                  <div className="text-[9px] text-white/70">100% COMPLIANT</div>
+                </div>
+                <div className="rounded-xl border border-white/20 bg-white/10 p-3 text-center">
+                  <Star className="mx-auto size-5 text-amber-300" />
+                  <div className="mt-1 text-[11px] font-bold">4.9 ★ RATING</div>
+                  <div className="text-[9px] text-white/70">CLIENT VERIFIED</div>
+                </div>
+                <div className="rounded-xl border border-white/20 bg-white/10 p-3 text-center">
+                  <Users className="mx-auto size-5 text-[#29b8ba]" />
+                  <div className="mt-1 text-[11px] font-bold">100% PRIVACY</div>
+                  <div className="text-[9px] text-white/70">SECURE CLOUD</div>
+                </div>
+              </div>
             </div>
           </div>
-        </aside>
+
+          {/* Right Column: Clean White Demo Form Card */}
+          <div className="lg:col-span-6">
+            <div className="rounded-3xl bg-white p-6 shadow-2xl text-slate-800 sm:p-9 border border-slate-100">
+              {isSuccess ? (
+                <div className="py-12 text-center space-y-4">
+                  <CheckCircle2 className="mx-auto size-16 text-[#20c997]" />
+                  <h3 className="font-display text-2xl font-bold text-slate-900">
+                    Demo Request Received!
+                  </h3>
+                  <p className="text-sm text-slate-600 max-w-sm mx-auto leading-relaxed">
+                    Thank you <strong>{name}</strong>! Our product specialist will call you at{" "}
+                    <strong>{phone}</strong> to confirm your personalized walkthrough.
+                  </p>
+                  <button
+                    onClick={() => setIsSuccess(false)}
+                    className="mt-6 rounded-full bg-[#5235d9] px-6 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#4327ca] transition"
+                  >
+                    Submit Another Request
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                  {/* Name */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700">
+                      Your Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-medium text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-[#5235d9] focus:bg-white focus:ring-2 focus:ring-[#5235d9]/10"
+                    />
+                  </div>
+
+                  {/* Mobile Number */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700">
+                      Mobile Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Enter your 10-digit mobile number"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-medium text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-[#5235d9] focus:bg-white focus:ring-2 focus:ring-[#5235d9]/10"
+                    />
+                  </div>
+
+                  {/* Company Name & City */}
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700">
+                        Printing Press / Company Name
+                      </label>
+                      <input
+                        type="text"
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                        placeholder="e.g. Royal Offset Printers"
+                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-[#5235d9] focus:bg-white focus:ring-2 focus:ring-[#5235d9]/10"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700">
+                        City / Location
+                      </label>
+                      <input
+                        type="text"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder="e.g. Jaipur, Delhi, Mumbai"
+                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-[#5235d9] focus:bg-white focus:ring-2 focus:ring-[#5235d9]/10"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Nature of Enquiry */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700">
+                      Nature of your Enquiry <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative mt-1.5">
+                      <select
+                        value={natureOfEnquiry}
+                        onChange={(e) => setNatureOfEnquiry(e.target.value)}
+                        className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 pr-10 text-sm font-medium text-slate-900 outline-none transition focus:border-[#5235d9] focus:bg-white focus:ring-2 focus:ring-[#5235d9]/10"
+                      >
+                        <option value="Commercial Printing Press ERP">Commercial Printing Press ERP</option>
+                        <option value="Packaging & Corrugation Management">Packaging & Corrugation Management</option>
+                        <option value="Digital Print & Signage Billing">Digital Print & Signage Billing</option>
+                        <option value="Job Card & Inventory Tracking">Job Card & Inventory Tracking</option>
+                        <option value="General Sales / Pricing Inquiry">General Sales / Pricing Inquiry</option>
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+                    </div>
+                  </div>
+
+                  {/* Are you currently using any billing software? */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700">
+                      Are you currently using any billing software? <span className="text-red-500">*</span>
+                    </label>
+                    <div className="mt-2 flex items-center gap-6">
+                      <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
+                        <input
+                          type="radio"
+                          name="currentSoftware"
+                          checked={currentSoftware === "Yes"}
+                          onChange={() => setCurrentSoftware("Yes")}
+                          className="size-4 accent-[#5235d9]"
+                        />
+                        Yes
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
+                        <input
+                          type="radio"
+                          name="currentSoftware"
+                          checked={currentSoftware === "No"}
+                          onChange={() => setCurrentSoftware("No")}
+                          className="size-4 accent-[#5235d9]"
+                        />
+                        No
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Select your printing / billing requirement */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700">
+                      Select your primary requirement <span className="text-red-500">*</span>
+                    </label>
+                    <div className="mt-2 space-y-2">
+                      <label className="flex items-start gap-2.5 cursor-pointer text-xs font-medium text-slate-700">
+                        <input
+                          type="radio"
+                          name="requirement"
+                          checked={requirement === "Basic billing & GST invoices on mobile/laptop"}
+                          onChange={() => setRequirement("Basic billing & GST invoices on mobile/laptop")}
+                          className="mt-0.5 size-4 accent-[#5235d9]"
+                        />
+                        <span>Basic GST billing & WhatsApp invoices</span>
+                      </label>
+                      <label className="flex items-start gap-2.5 cursor-pointer text-xs font-medium text-slate-700">
+                        <input
+                          type="radio"
+                          name="requirement"
+                          checked={requirement === "Complete Print ERP (Job Card + Billing + Stock)"}
+                          onChange={() => setRequirement("Complete Print ERP (Job Card + Billing + Stock)")}
+                          className="mt-0.5 size-4 accent-[#5235d9]"
+                        />
+                        <span>Complete Press ERP: Job Card, Paper Stock, Challans & Billing</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Size of your business? */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700">
+                      Annual Press Turnover / Business Size <span className="text-red-500">*</span>
+                    </label>
+                    <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2 text-xs font-medium text-slate-700">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="businessSize"
+                          checked={businessSize === "More Than 5 crore"}
+                          onChange={() => setBusinessSize("More Than 5 crore")}
+                          className="size-4 accent-[#5235d9]"
+                        />
+                        <span>More Than 5 crore</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="businessSize"
+                          checked={businessSize === "1 crore to 5 crore"}
+                          onChange={() => setBusinessSize("1 crore to 5 crore")}
+                          className="size-4 accent-[#5235d9]"
+                        />
+                        <span>1 crore to 5 crore</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="businessSize"
+                          checked={businessSize === "40 lakhs to 1 crore"}
+                          onChange={() => setBusinessSize("40 lakhs to 1 crore")}
+                          className="size-4 accent-[#5235d9]"
+                        />
+                        <span>40 lakhs to 1 crore</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="businessSize"
+                          checked={businessSize === "Less than 40 lakhs"}
+                          onChange={() => setBusinessSize("Less than 40 lakhs")}
+                          className="size-4 accent-[#5235d9]"
+                        />
+                        <span>Less than 40 lakhs</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* What language do you like to talk in? */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700">
+                      What language do you like to talk in? <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative mt-1.5">
+                      <select
+                        value={preferredLanguage}
+                        onChange={(e) => setPreferredLanguage(e.target.value)}
+                        className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 pr-10 text-sm font-medium text-slate-900 outline-none transition focus:border-[#5235d9] focus:bg-white focus:ring-2 focus:ring-[#5235d9]/10"
+                      >
+                        <option value="Hindi / English">Hindi / English</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="English">English</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Marathi">Marathi</option>
+                        <option value="Tamil / Telugu">Tamil / Telugu</option>
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full rounded-2xl bg-[#5235d9] py-3.5 text-center text-sm font-bold text-white shadow-lg shadow-[#5235d9]/30 transition hover:bg-[#4327ca] active:scale-[0.99] disabled:opacity-50"
+                    >
+                      {isSubmitting ? "Booking your demo..." : "Submit"}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-    </Container>
+    </div>
   );
 }

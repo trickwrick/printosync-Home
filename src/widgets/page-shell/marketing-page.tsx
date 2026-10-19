@@ -87,12 +87,14 @@ interface MarketingPageProps {
   pageKey: PageSeoKey;
   children?: React.ReactNode;
   showPlaceholder?: boolean;
+  showBanner?: boolean;
 }
 
 export function MarketingPage({
   pageKey,
   children,
   showPlaceholder = !children,
+  showBanner = true,
 }: MarketingPageProps) {
   const seo = getPageSeo(pageKey);
   const schemas = buildSchemas(pageKey, seo);
@@ -102,10 +104,12 @@ export function MarketingPage({
     <>
       <JsonLd data={schemas} />
       <article itemScope itemType="https://schema.org/WebPage">
-        <PageHeroBanner
-          title={heroTitle}
-          breadcrumbLabel={seo.breadcrumb}
-        />
+        {showBanner && (
+          <PageHeroBanner
+            title={heroTitle}
+            breadcrumbLabel={seo.breadcrumb}
+          />
+        )}
 
         <div className={cn(showPlaceholder && "pb-8")}>
           {children ??
