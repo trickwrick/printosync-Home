@@ -5,21 +5,23 @@ import {
   LogOut,
   LayoutDashboard,
   Settings,
-  Users,
-  FileText,
   Bell,
   Layers,
   ArrowUpRight,
   Mail,
+  Globe,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ModulesManager } from "./modules-manager";
 import { InquiriesManager } from "./inquiries-manager";
+import { HomeSeoManager } from "./home-seo-manager";
 
 export function AdminDashboard() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"dashboard" | "inquiries" | "modules" | "users" | "reports" | "settings">("inquiries");
+  const [activeTab, setActiveTab] = useState<
+    "dashboard" | "inquiries" | "modules" | "home-seo" | "settings"
+  >("dashboard");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -55,6 +57,18 @@ export function AdminDashboard() {
         </div>
         <nav className="p-4 space-y-1">
           <button
+            onClick={() => setActiveTab("dashboard")}
+            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+              activeTab === "dashboard"
+                ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            }`}
+          >
+            <LayoutDashboard className="size-5" />
+            Overview
+          </button>
+
+          <button
             onClick={() => setActiveTab("inquiries")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "inquiries"
@@ -89,39 +103,20 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("dashboard")}
-            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
-              activeTab === "dashboard"
+            onClick={() => setActiveTab("home-seo")}
+            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+              activeTab === "home-seo"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            <LayoutDashboard className="size-5" />
-            Overview
-          </button>
-
-          <button
-            onClick={() => setActiveTab("users")}
-            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
-              activeTab === "users"
-                ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
-            }`}
-          >
-            <Users className="size-5" />
-            Users
-          </button>
-
-          <button
-            onClick={() => setActiveTab("reports")}
-            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
-              activeTab === "reports"
-                ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
-            }`}
-          >
-            <FileText className="size-5" />
-            Reports
+            <div className="flex items-center gap-3">
+              <Globe className="size-5" />
+              Home SEO
+            </div>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-brand/20 text-brand font-bold">
+              Special
+            </span>
           </button>
 
           <button
@@ -157,6 +152,8 @@ export function AdminDashboard() {
             <h1 className="font-bold text-foreground text-lg capitalize">
               {activeTab === "modules"
                 ? "Modules & ERP Features"
+                : activeTab === "home-seo"
+                ? "Home Page SEO Management"
                 : activeTab === "inquiries"
                 ? "Customer Inquiries & Leads"
                 : activeTab}
@@ -185,32 +182,14 @@ export function AdminDashboard() {
 
           {activeTab === "modules" && <ModulesManager />}
 
+          {activeTab === "home-seo" && <HomeSeoManager />}
+
           {activeTab === "dashboard" && (
             <div className="rounded-2xl border border-dashed border-border/60 bg-card/30 p-12 text-center">
               <LayoutDashboard className="mx-auto mb-4 size-12 text-muted-foreground/50" />
               <h2 className="text-lg font-semibold text-foreground">Overview Dashboard</h2>
               <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
                 Quick stats, system health, and website analytics.
-              </p>
-            </div>
-          )}
-
-          {activeTab === "users" && (
-            <div className="rounded-2xl border border-dashed border-border/60 bg-card/30 p-12 text-center">
-              <Users className="mx-auto mb-4 size-12 text-muted-foreground/50" />
-              <h2 className="text-lg font-semibold text-foreground">User Management</h2>
-              <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-                Manage admin roles, permissions, and staff accounts.
-              </p>
-            </div>
-          )}
-
-          {activeTab === "reports" && (
-            <div className="rounded-2xl border border-dashed border-border/60 bg-card/30 p-12 text-center">
-              <FileText className="mx-auto mb-4 size-12 text-muted-foreground/50" />
-              <h2 className="text-lg font-semibold text-foreground">System Reports</h2>
-              <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-                Audit logs, lead export reports, and user activities.
               </p>
             </div>
           )}

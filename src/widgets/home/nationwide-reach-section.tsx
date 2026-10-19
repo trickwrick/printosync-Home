@@ -18,20 +18,18 @@ export interface ImplementationPin {
 }
 
 export const implementationPins: ImplementationPin[] = [
-  { id: "delhi", name: "Delhi NCR", state: "Delhi", stateId: "dl", count: "110+ Presses", x: 31, y: 30, featured: true },
-  { id: "jaipur", name: "Jaipur & Jodhpur", state: "Rajasthan", stateId: "rj", count: "85+ Presses", x: 23, y: 35 },
-  { id: "ahmedabad", name: "Ahmedabad & Surat", state: "Gujarat", stateId: "gj", count: "95+ Presses", x: 16, y: 46 },
-  { id: "mumbai", name: "Mumbai & Pune", state: "Maharashtra", stateId: "mh", count: "140+ Presses", x: 23, y: 62, featured: true },
-  { id: "indore", name: "Indore & Bhopal", state: "Madhya Pradesh", stateId: "mp", count: "65+ Presses", x: 32, y: 47 },
-  { id: "chandigarh", name: "Chandigarh & Ludhiana", state: "Punjab", stateId: "pb", count: "75+ Presses", x: 27, y: 22 },
-  { id: "lucknow", name: "Lucknow & Kanpur", state: "Uttar Pradesh", stateId: "up", count: "90+ Presses", x: 42, y: 36 },
-  { id: "patna", name: "Patna", state: "Bihar", stateId: "br", count: "40+ Presses", x: 55, y: 39 },
-  { id: "kolkata", name: "Kolkata", state: "West Bengal", stateId: "wb", count: "70+ Presses", x: 62, y: 49 },
-  { id: "hyderabad", name: "Hyderabad", state: "Telangana", stateId: "tg", count: "80+ Presses", x: 36, y: 65 },
-  { id: "bengaluru", name: "Bengaluru", state: "Karnataka", stateId: "ka", count: "90+ Presses", x: 31, y: 79, featured: true },
-  { id: "chennai", name: "Chennai & Sivakasi", state: "Tamil Nadu", stateId: "tn", count: "105+ Presses", x: 38, y: 83 },
-  { id: "guwahati", name: "Guwahati", state: "Assam", stateId: "as", count: "30+ Presses", x: 79, y: 35 },
-  { id: "srinagar", name: "Jammu & Kashmir", state: "Jammu and Kashmir", stateId: "jk", count: "25+ Presses", x: 25, y: 14 },
+  { id: "delhi", name: "Delhi NCR", state: "Delhi", stateId: "dl", count: "110+ Presses", x: 30.5, y: 30.3, featured: true },
+  { id: "jaipur", name: "Jaipur & Jodhpur", state: "Rajasthan", stateId: "rj", count: "85+ Presses", x: 27, y: 35.8 },
+  { id: "ahmedabad", name: "Ahmedabad & Surat", state: "Gujarat", stateId: "gj", count: "95+ Presses", x: 14, y: 46 },
+  { id: "mumbai", name: "Mumbai & Pune", state: "Maharashtra", stateId: "mh", count: "140+ Presses", x: 25, y: 58, featured: true },
+  { id: "indore", name: "Indore & Bhopal", state: "Madhya Pradesh", stateId: "mp", count: "65+ Presses", x: 36, y: 44 },
+  { id: "chandigarh", name: "Chandigarh & Ludhiana", state: "Punjab", stateId: "pb", count: "75+ Presses", x: 24.7, y: 21.8 },
+  { id: "lucknow", name: "Lucknow & Kanpur", state: "Uttar Pradesh", stateId: "up", count: "90+ Presses", x: 42, y: 35 },
+  { id: "patna", name: "Patna", state: "Bihar", stateId: "br", count: "40+ Presses", x: 60.5, y: 39 },
+  { id: "hyderabad", name: "Hyderabad", state: "Telangana", stateId: "tg", count: "80+ Presses", x: 38.5, y: 64 },
+  { id: "bengaluru", name: "Bengaluru", state: "Karnataka", stateId: "ka", count: "90+ Presses", x: 28, y: 76, featured: true },
+  { id: "chennai", name: "Chennai & Sivakasi", state: "Tamil Nadu", stateId: "tn", count: "105+ Presses", x: 34.5, y: 86 },
+  { id: "guwahati", name: "Guwahati", state: "Assam", stateId: "as", count: "30+ Presses", x: 84, y: 38 },
 ];
 
 export function NationwideReachSection() {
@@ -225,7 +223,7 @@ export function NationwideReachSection() {
                   <TrendingUp className="size-3.5" />
                 </div>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  <strong className="text-foreground">Rapidly Expanding PAN India:</strong> Serving Rajasthan, Punjab, Haryana, Delhi NCR, Uttar Pradesh, Gujarat, Maharashtra, Madhya Pradesh, West Bengal, Karnataka, and Tamil Nadu.
+                  <strong className="text-foreground">Rapidly Expanding PAN India:</strong> Serving Rajasthan, Punjab, Haryana, Delhi NCR, Uttar Pradesh, Gujarat, Maharashtra, Madhya Pradesh, Telangana, Karnataka, and Tamil Nadu.
                 </p>
               </div>
 

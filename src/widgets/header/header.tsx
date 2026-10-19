@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import {
   ctaNavigation,
   headerNavigation,
@@ -106,13 +106,6 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link
-              href="/contact"
-              className="hidden items-center gap-2 rounded-full border border-brand/30 bg-background px-4 py-2.5 text-sm font-semibold text-brand transition-colors hover:bg-brand-muted sm:inline-flex"
-            >
-              <Phone className="size-4" aria-hidden="true" />
-              Call Us
-            </Link>
             <div className="hidden sm:block">
               <MagneticButton href={ctaNavigation.href} showArrow>
                 {ctaNavigation.title}
@@ -169,14 +162,6 @@ export function Header() {
                 className="rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               >
                 Contact
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setMobileOpen(false)}
-                className="mx-4 mt-2 inline-flex items-center justify-center gap-2 rounded-full border border-brand/30 px-5 py-3 text-sm font-semibold text-brand"
-              >
-                <Phone className="size-4" aria-hidden="true" />
-                Call Us
               </Link>
               <div className="mt-3 px-4">
                 <MagneticButton href={ctaNavigation.href} className="w-full justify-center">

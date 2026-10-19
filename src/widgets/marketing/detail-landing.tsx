@@ -11,8 +11,10 @@ import type { MarketingEntry } from "@/entities/marketing";
 import { Container } from "@/shared/ui/container";
 import { PageHeroBanner } from "@/widgets/page-shell/page-hero-banner";
 
+import { ModuleFaqSection } from "./module-faq-section";
+
 interface DetailLandingProps {
-  entry: MarketingEntry;
+  entry: MarketingEntry & { faqs?: Array<{ question: string; answer: string }> };
   path: string;
   categoryLabel: string;
   related?: readonly MarketingEntry[];
@@ -112,6 +114,10 @@ export function DetailLanding({
           </div>
         </Container>
       </section>
+
+      {entry.faqs && entry.faqs.length > 0 && (
+        <ModuleFaqSection faqs={entry.faqs} moduleTitle={entry.title} />
+      )}
 
       {related.length > 0 && (
         <section className="py-16 lg:py-20">
