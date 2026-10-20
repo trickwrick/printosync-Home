@@ -89,62 +89,48 @@ export function BookDemoForm() {
   };
 
   const inputFieldClass =
-    "mt-1.5 h-11 w-full rounded-xl border border-border bg-card px-4 text-sm font-medium text-foreground placeholder:text-muted-foreground outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20";
+    "mt-1.5 h-11 w-full rounded-xl border border-border bg-white px-4 text-sm font-medium text-foreground placeholder:text-muted-foreground outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20";
   const selectFieldClass =
-    "h-11 w-full appearance-none rounded-xl border border-input bg-card px-4 pr-10 text-sm font-medium text-foreground outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20";
+    "h-11 w-full appearance-none rounded-xl border border-input bg-white px-4 pr-10 text-sm font-medium text-foreground outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20";
 
   return (
-    <div className="relative min-h-[calc(100vh-5rem)] w-full overflow-hidden bg-[#0c121e] text-white">
-      {/* Background Radial Glow & Gradient Overlays */}
-      <div className="pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-brand/20 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-10 h-96 w-96 rounded-full bg-primary/15 blur-3xl" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(41,184,186,0.18),transparent_50%)]" />
-
-      {/* Top Banner Navigation / Header Title */}
-      <div className="relative mx-auto flex max-w-7xl items-center justify-between border-b border-white/10 px-6 py-4 sm:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="font-display text-2xl font-black tracking-tight text-white sm:text-3xl">
-            Printo<span className="text-brand">Sync</span>
-          </span>
-        </Link>
-        <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand">
-          <span className="size-2 rounded-full bg-brand animate-pulse" />
-          Book Free Live Product Demo
-        </div>
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+    <div className="relative w-full pb-20 pt-8 sm:pb-24 sm:pt-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-14">
           {/* Left Column: Heading, Value Bullets, Testimonial & Badges */}
-          <div className="space-y-8 lg:col-span-6 lg:pt-4">
+          <div className="space-y-8 lg:col-span-6 lg:pt-2">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-semibold text-brand mb-4">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-muted px-3.5 py-1.5 text-xs font-semibold text-brand">
+                <span className="relative flex size-1.5">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-60" />
+                  <span className="relative inline-flex size-1.5 rounded-full bg-brand" />
+                </span>
                 1-on-1 Personalized Walkthrough
               </div>
-              <h1 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h1 className="font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
                 Book your free demo
               </h1>
-              <p className="mt-4 text-base font-medium leading-relaxed text-slate-300 sm:text-lg">
+              <p className="mt-4 text-base font-medium leading-relaxed text-muted-foreground sm:text-lg">
                 Get a personalized one-on-one product walkthrough in just 15 mins and learn:
               </p>
             </div>
 
             {/* Value Bullet Points */}
-            <div className="space-y-3.5 text-sm sm:text-base font-medium text-slate-200">
+            <div className="space-y-3.5 text-sm sm:text-base font-medium text-foreground">
               <div className="flex items-start gap-3">
-                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand/20 border border-brand/40 text-brand mt-0.5 text-xs font-bold">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand mt-0.5 text-xs font-bold border border-brand/30">
                   ✓
                 </span>
                 <span>How to check your daily printing hisab-kitab in 15 minutes</span>
               </div>
               <div className="flex items-start gap-3">
-                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand/20 border border-brand/40 text-brand mt-0.5 text-xs font-bold">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand mt-0.5 text-xs font-bold border border-brand/30">
                   ✓
                 </span>
                 <span>How to eliminate shop-floor paper wastage & rotate stock up to 3x faster</span>
               </div>
               <div className="flex items-start gap-3">
-                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand/20 border border-brand/40 text-brand mt-0.5 text-xs font-bold">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand mt-0.5 text-xs font-bold border border-brand/30">
                   ✓
                 </span>
                 <span>How to collect 97% client payments faster with WhatsApp QR invoices</span>
@@ -152,21 +138,21 @@ export function BookDemoForm() {
             </div>
 
             {/* Quote / Testimonial Box */}
-            <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-6 backdrop-blur-md shadow-xl">
-              <span className="font-serif text-4xl leading-none text-brand/70">“</span>
-              <p className="mt-1 text-sm font-medium italic leading-relaxed text-slate-200 sm:text-base">
+            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:shadow-premium">
+              <span className="font-serif text-4xl leading-none text-brand">“</span>
+              <p className="mt-1 text-sm font-medium italic leading-relaxed text-foreground/90 sm:text-base">
                 {testimonials[activeTestimonial].quote}
               </p>
               <div className="mt-5 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex size-10 items-center justify-center rounded-full bg-brand/20 font-bold text-brand text-sm border border-brand/30">
+                  <div className="flex size-10 items-center justify-center rounded-full bg-brand-muted font-bold text-brand text-sm border border-brand/30">
                     {testimonials[activeTestimonial].authorInitial || "PS"}
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">
+                    <h4 className="text-sm font-bold text-foreground">
                       {testimonials[activeTestimonial].author}
                     </h4>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-muted-foreground">
                       {testimonials[activeTestimonial].designation}
                     </p>
                   </div>
@@ -180,7 +166,7 @@ export function BookDemoForm() {
                       type="button"
                       onClick={() => setActiveTestimonial(i)}
                       className={`h-2 rounded-full transition-all ${
-                        activeTestimonial === i ? "w-6 bg-brand" : "w-2 bg-white/30"
+                        activeTestimonial === i ? "w-6 bg-brand" : "w-2 bg-muted-foreground/30"
                       }`}
                       aria-label={`Go to slide ${i + 1}`}
                     />
@@ -191,29 +177,29 @@ export function BookDemoForm() {
 
             {/* Social Proof Trust Badges */}
             <div className="pt-2 space-y-4">
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                 Trusted by more than 500+ printing presses across India
               </p>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div className="rounded-xl border border-white/10 bg-slate-900/50 p-3 text-center transition hover:border-brand/40">
+                <div className="rounded-xl border border-border bg-card p-3 text-center shadow-xs transition hover:border-brand/40">
                   <Award className="mx-auto size-5 text-brand" />
-                  <div className="mt-1 text-[11px] font-bold text-white">BEST PRINT ERP</div>
-                  <div className="text-[9px] text-slate-400">INDIA 2026</div>
+                  <div className="mt-1 text-[11px] font-bold text-foreground">BEST PRINT ERP</div>
+                  <div className="text-[9px] text-muted-foreground">INDIA 2026</div>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-slate-900/50 p-3 text-center transition hover:border-brand/40">
+                <div className="rounded-xl border border-border bg-card p-3 text-center shadow-xs transition hover:border-brand/40">
                   <Shield className="mx-auto size-5 text-brand" />
-                  <div className="mt-1 text-[11px] font-bold text-white">GST READY</div>
-                  <div className="text-[9px] text-slate-400">100% COMPLIANT</div>
+                  <div className="mt-1 text-[11px] font-bold text-foreground">GST READY</div>
+                  <div className="text-[9px] text-muted-foreground">100% COMPLIANT</div>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-slate-900/50 p-3 text-center transition hover:border-brand/40">
-                  <Star className="mx-auto size-5 text-amber-400" />
-                  <div className="mt-1 text-[11px] font-bold text-white">4.9 ★ RATING</div>
-                  <div className="text-[9px] text-slate-400">CLIENT VERIFIED</div>
+                <div className="rounded-xl border border-border bg-card p-3 text-center shadow-xs transition hover:border-brand/40">
+                  <Star className="mx-auto size-5 text-amber-500 fill-amber-500" />
+                  <div className="mt-1 text-[11px] font-bold text-foreground">4.9 ★ RATING</div>
+                  <div className="text-[9px] text-muted-foreground">CLIENT VERIFIED</div>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-slate-900/50 p-3 text-center transition hover:border-brand/40">
+                <div className="rounded-xl border border-border bg-card p-3 text-center shadow-xs transition hover:border-brand/40">
                   <Users className="mx-auto size-5 text-brand" />
-                  <div className="mt-1 text-[11px] font-bold text-white">100% PRIVACY</div>
-                  <div className="text-[9px] text-slate-400">SECURE CLOUD</div>
+                  <div className="mt-1 text-[11px] font-bold text-foreground">100% PRIVACY</div>
+                  <div className="text-[9px] text-muted-foreground">SECURE CLOUD</div>
                 </div>
               </div>
             </div>
@@ -221,14 +207,14 @@ export function BookDemoForm() {
 
           {/* Right Column: Clean White Demo Form Card */}
           <div className="lg:col-span-6">
-            <div className="rounded-3xl bg-white p-6 shadow-2xl text-slate-800 sm:p-9 border border-slate-100">
+            <div className="rounded-3xl bg-card p-6 shadow-premium text-foreground sm:p-9 border border-border">
               {isSuccess ? (
                 <div className="py-12 text-center space-y-4">
                   <CheckCircle2 className="mx-auto size-16 text-emerald-500" />
-                  <h3 className="font-display text-2xl font-bold text-slate-900">
+                  <h3 className="font-display text-2xl font-bold text-foreground">
                     Demo Request Received!
                   </h3>
-                  <p className="text-sm text-slate-600 max-w-sm mx-auto leading-relaxed">
+                  <p className="text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
                     Thank you <strong>{name}</strong>! Our product specialist will call you at{" "}
                     <strong>{phone}</strong> to confirm your personalized walkthrough.
                   </p>
