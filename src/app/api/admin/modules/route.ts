@@ -36,16 +36,42 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { modules } = body;
+    const { modules, module: singleModule } = body;
+
+    await connectToDatabase();
+
+    if (singleModule && typeof singleModule === "object" && singleModule.slug) {
+      // Upsert a single module
+      await ModuleModel.findOneAndUpdate(
+        { slug: singleModule.slug },
+        {
+          $set: {
+            slug: singleModule.slug,
+            title: singleModule.title,
+            shortTitle: singleModule.shortTitle || singleModule.title,
+            eyebrow: singleModule.eyebrow || "",
+            description: singleModule.description || "",
+            features: singleModule.features || [],
+            benefits: singleModule.benefits || [],
+            keywords: singleModule.keywords || [],
+            seoTitle: singleModule.seoTitle || "",
+            seoDescription: singleModule.seoDescription || "",
+            faqs: Array.isArray(singleModule.faqs) ? singleModule.faqs : [],
+          },
+        },
+        { upsert: true, new: true }
+      );
+
+      const all = await ModuleModel.find({}).sort({ order: 1 }).lean();
+      return NextResponse.json({ success: true, modules: all });
+    }
 
     if (!Array.isArray(modules)) {
       return NextResponse.json(
-        { success: false, error: "Invalid modules payload" },
+        { success: false, error: "Invalid modules payload. Expected array 'modules' or object 'module'." },
         { status: 400 }
       );
     }
-
-    await connectToDatabase();
 
     // Upsert or replace modules with new list preserving order
     await ModuleModel.deleteMany({});
