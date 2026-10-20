@@ -14,8 +14,11 @@ import {
   getLiveModules,
   getLiveModuleBySlug,
 } from "@/shared/lib/models/get-live-modules";
+import { modules as defaultModules } from "@/entities/marketing/content";
 
-export const dynamic = "force-dynamic";
+export function generateStaticParams() {
+  return defaultModules.map((m) => ({ slug: m.slug }));
+}
 
 export async function generateMetadata({
   params,
