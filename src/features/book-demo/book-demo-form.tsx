@@ -94,7 +94,7 @@ export function BookDemoForm() {
     "h-11 w-full appearance-none rounded-xl border border-input bg-white px-4 pr-10 text-sm font-medium text-foreground outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20";
 
   return (
-    <div className="relative w-full pb-20 pt-8 sm:pb-24 sm:pt-12">
+    <div className="relative w-full pb-20 pt-28 sm:pb-24 sm:pt-32 lg:pt-36">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-14">
           {/* Left Column: Heading, Value Bullets, Testimonial & Badges */}
