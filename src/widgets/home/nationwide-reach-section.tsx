@@ -56,7 +56,7 @@ export function NationwideReachSection() {
               <div className="pointer-events-none absolute inset-0 rounded-3xl bg-[radial-gradient(#29b8ba_1px,transparent_1px)] bg-size-[20px_20px] opacity-[0.08]" />
 
               {/* Status Header Badge */}
-              <div className="absolute left-6 top-6 z-20 flex items-center gap-2 rounded-full border border-brand/30 bg-brand-muted/90 px-3.5 py-1 text-xs font-semibold text-brand backdrop-blur-md shadow-sm">
+              <div className="absolute right-6 top-6 z-20 flex items-center gap-2 rounded-full border border-brand/30 bg-brand-muted/90 px-3.5 py-1 text-xs font-semibold text-brand backdrop-blur-md shadow-sm">
                 <span className="size-2 animate-ping rounded-full bg-brand" />
                 Live Active Installations
               </div>
