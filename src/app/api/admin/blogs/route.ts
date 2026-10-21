@@ -55,41 +55,54 @@ export async function POST(req: Request) {
       const path = `/blog/${slug}`;
       const now = new Date().toISOString().split("T")[0];
 
+      // Sanitize sections so invalid/empty entries don't fail Mongoose validation
+      const sanitizedSections = Array.isArray(post.sections)
+        ? post.sections
+            .filter((sec: any) => sec && typeof sec.heading === "string" && sec.heading.trim().length > 0)
+            .map((sec: any) => ({
+              heading: sec.heading.trim(),
+              paragraphs: Array.isArray(sec.paragraphs)
+                ? sec.paragraphs.filter((p: any) => typeof p === "string" && p.trim().length > 0)
+                : [],
+            }))
+        : [];
+
       const updated = await BlogPostModel.findOneAndUpdate(
         { slug },
         {
           $set: {
             slug,
             path,
-            title: post.title.trim(),
-            description: post.description || "",
-            excerpt: post.excerpt || "",
-            coverImage: post.coverImage || "",
-            imageAlt: post.imageAlt || post.title,
+            title: (post.title || "Untitled Article").trim(),
+            description: (post.description || "").trim(),
+            excerpt: (post.excerpt || "").trim(),
+            coverImage: (post.coverImage || "").trim(),
+            imageAlt: (post.imageAlt || post.title || "").trim(),
             datePublished: post.datePublished || now,
             dateModified: now,
-            author: post.author || "PrintoSync Team",
-            readTime: post.readTime || "5 min read",
-            keywords: Array.isArray(post.keywords) ? post.keywords : [],
-            sections: Array.isArray(post.sections) ? post.sections : [],
+            author: (post.author || "PrintoSync Team").trim(),
+            readTime: (post.readTime || "5 min read").trim(),
+            keywords: Array.isArray(post.keywords) ? post.keywords.map((k: string) => k.trim()).filter(Boolean) : [],
+            sections: sanitizedSections,
             order: typeof post.order === "number" ? post.order : 0,
             isActive: post.isActive !== undefined ? post.isActive : true,
           },
         },
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: "after" }
       );
 
       return NextResponse.json({ success: true, post: updated });
     }
 
     return NextResponse.json(
-      { success: false, error: "Invalid payload or post slug" },
+      { success: false, error: "Invalid payload: 'slug' and 'title' are required." },
       { status: 400 }
     );
   } catch (error) {
     console.error("Error saving blog post:", error);
+    const errorMessage = error instanceof Error ? error.message : "Failed to save blog post";
     return NextResponse.json(
-      { success: false, error: "Failed to save blog post" },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

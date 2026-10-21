@@ -62,7 +62,12 @@ export async function POST(req: Request) {
         );
       }
 
-      if (client._id) {
+      const isValidObjectId =
+        client._id &&
+        typeof client._id === "string" &&
+        /^[0-9a-fA-F]{24}$/.test(client._id);
+
+      if (isValidObjectId) {
         const updated = await ClientLogoModel.findByIdAndUpdate(
           client._id,
           {
@@ -71,19 +76,21 @@ export async function POST(req: Request) {
             order: typeof client.order === "number" ? client.order : 0,
             isActive: client.isActive !== undefined ? client.isActive : true,
           },
-          { new: true }
+          { returnDocument: "after" }
         );
-        return NextResponse.json({ success: true, client: updated });
-      } else {
-        const count = await ClientLogoModel.countDocuments();
-        const created = await ClientLogoModel.create({
-          name: clientName,
-          logoUrl: clientLogoUrl,
-          order: typeof client.order === "number" ? client.order : count,
-          isActive: true,
-        });
-        return NextResponse.json({ success: true, client: created });
+        if (updated) {
+          return NextResponse.json({ success: true, client: updated });
+        }
       }
+
+      const count = await ClientLogoModel.countDocuments();
+      const created = await ClientLogoModel.create({
+        name: clientName,
+        logoUrl: clientLogoUrl,
+        order: typeof client.order === "number" ? client.order : count,
+        isActive: client.isActive !== undefined ? client.isActive : true,
+      });
+      return NextResponse.json({ success: true, client: created });
     }
 
     return NextResponse.json(
@@ -92,8 +99,9 @@ export async function POST(req: Request) {
     );
   } catch (error) {
     console.error("Error saving client logo:", error);
+    const errorMessage = error instanceof Error ? error.message : "Failed to save client logo";
     return NextResponse.json(
-      { success: false, error: "Failed to save client logo" },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

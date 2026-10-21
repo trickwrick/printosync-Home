@@ -59,6 +59,15 @@ export async function POST(req: Request) {
 
     // Save or update single industry
     if (singleIndustry && singleIndustry.slug) {
+      const validFaqs = Array.isArray(singleIndustry.faqs)
+        ? singleIndustry.faqs.filter(
+            (f: any) => f && typeof f.question === "string" && f.question.trim().length > 0
+          ).map((f: any) => ({
+            question: f.question.trim(),
+            answer: (f.answer || "").trim(),
+          }))
+        : [];
+
       const updated = await IndustryModel.findOneAndUpdate(
         { slug: singleIndustry.slug },
         {
@@ -73,12 +82,12 @@ export async function POST(req: Request) {
             keywords: singleIndustry.keywords || [],
             seoTitle: singleIndustry.seoTitle || "",
             seoDescription: singleIndustry.seoDescription || "",
-            faqs: Array.isArray(singleIndustry.faqs) ? singleIndustry.faqs : [],
+            faqs: validFaqs,
             order: typeof singleIndustry.order === "number" ? singleIndustry.order : 0,
             isActive: singleIndustry.isActive !== undefined ? singleIndustry.isActive : true,
           },
         },
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: "after" }
       );
       return NextResponse.json({ success: true, industry: updated });
     }
@@ -89,8 +98,9 @@ export async function POST(req: Request) {
     );
   } catch (error) {
     console.error("Error saving industry:", error);
+    const errorMessage = error instanceof Error ? error.message : "Failed to save industry";
     return NextResponse.json(
-      { success: false, error: "Failed to save industry" },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

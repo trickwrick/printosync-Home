@@ -84,44 +84,64 @@ export async function POST(req: Request) {
           .slice(0, 2) ||
         "PS";
 
-      if (testimonial._id) {
+      const quote = (testimonial.quote || "").trim();
+      const author = (testimonial.author || "").trim();
+
+      if (!quote || !author) {
+        return NextResponse.json(
+          { success: false, error: "Both 'quote' and 'author' are required fields." },
+          { status: 400 }
+        );
+      }
+
+      const isValidObjectId =
+        testimonial._id &&
+        typeof testimonial._id === "string" &&
+        /^[0-9a-fA-F]{24}$/.test(testimonial._id);
+
+      if (isValidObjectId) {
         const updated = await TestimonialModel.findByIdAndUpdate(
           testimonial._id,
           {
-            quote: testimonial.quote?.trim() || "",
-            author: testimonial.author?.trim() || "",
+            quote,
+            author,
             authorInitial: initials,
             designation: testimonial.designation?.trim() || "",
             avatarUrl: testimonial.avatarUrl?.trim() || "",
             order: typeof testimonial.order === "number" ? testimonial.order : 0,
             isActive: testimonial.isActive !== undefined ? testimonial.isActive : true,
           },
-          { new: true }
+          { returnDocument: "after" }
         );
-        return NextResponse.json({ success: true, testimonial: updated });
-      } else {
-        const count = await TestimonialModel.countDocuments();
-        const created = await TestimonialModel.create({
-          quote: testimonial.quote?.trim() || "",
-          author: testimonial.author?.trim() || "",
-          authorInitial: initials,
-          designation: testimonial.designation?.trim() || "",
-          avatarUrl: testimonial.avatarUrl?.trim() || "",
-          order: typeof testimonial.order === "number" ? testimonial.order : count,
-          isActive: true,
-        });
-        return NextResponse.json({ success: true, testimonial: created });
+
+        if (updated) {
+          return NextResponse.json({ success: true, testimonial: updated });
+        }
       }
+
+      // If no valid _id or document not found by _id, create new
+      const count = await TestimonialModel.countDocuments();
+      const created = await TestimonialModel.create({
+        quote,
+        author,
+        authorInitial: initials,
+        designation: testimonial.designation?.trim() || "",
+        avatarUrl: testimonial.avatarUrl?.trim() || "",
+        order: typeof testimonial.order === "number" ? testimonial.order : count,
+        isActive: testimonial.isActive !== undefined ? testimonial.isActive : true,
+      });
+      return NextResponse.json({ success: true, testimonial: created });
     }
 
     return NextResponse.json(
-      { success: false, error: "Invalid payload or action" },
+      { success: false, error: "Invalid payload or missing testimonial data" },
       { status: 400 }
     );
   } catch (error) {
     console.error("Error saving testimonial:", error);
+    const errorMessage = error instanceof Error ? error.message : "Failed to save testimonial";
     return NextResponse.json(
-      { success: false, error: "Failed to save testimonial" },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

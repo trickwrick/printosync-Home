@@ -60,14 +60,15 @@ export async function POST(req: Request) {
         keywords: Array.isArray(seo.keywords) ? seo.keywords : [],
         ogImageAlt: seo.ogImageAlt || "",
       },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: "after" }
     ).lean();
 
     return NextResponse.json({ success: true, seo: updated });
   } catch (err) {
     console.error("Failed to update home SEO in MongoDB:", err);
+    const errorMessage = err instanceof Error ? err.message : "Failed to save SEO settings";
     return NextResponse.json(
-      { success: false, error: "Failed to save SEO settings" },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

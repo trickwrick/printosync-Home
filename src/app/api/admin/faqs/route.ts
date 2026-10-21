@@ -50,28 +50,45 @@ export async function POST(req: Request) {
 
     // Single FAQ upsert
     if (faq) {
-      if (faq._id) {
+      const question = (faq.question || "").trim();
+      const answer = (faq.answer || "").trim();
+
+      if (!question || !answer) {
+        return NextResponse.json(
+          { success: false, error: "Both question and answer are required." },
+          { status: 400 }
+        );
+      }
+
+      const isValidObjectId =
+        faq._id &&
+        typeof faq._id === "string" &&
+        /^[0-9a-fA-F]{24}$/.test(faq._id);
+
+      if (isValidObjectId) {
         const updated = await HomeFaqModel.findByIdAndUpdate(
           faq._id,
           {
-            question: faq.question?.trim() || "",
-            answer: faq.answer?.trim() || "",
+            question,
+            answer,
             order: typeof faq.order === "number" ? faq.order : 0,
             isActive: faq.isActive !== undefined ? faq.isActive : true,
           },
-          { new: true }
+          { returnDocument: "after" }
         );
-        return NextResponse.json({ success: true, faq: updated });
-      } else {
-        const count = await HomeFaqModel.countDocuments();
-        const created = await HomeFaqModel.create({
-          question: faq.question?.trim() || "",
-          answer: faq.answer?.trim() || "",
-          order: typeof faq.order === "number" ? faq.order : count,
-          isActive: true,
-        });
-        return NextResponse.json({ success: true, faq: created });
+        if (updated) {
+          return NextResponse.json({ success: true, faq: updated });
+        }
       }
+
+      const count = await HomeFaqModel.countDocuments();
+      const created = await HomeFaqModel.create({
+        question,
+        answer,
+        order: typeof faq.order === "number" ? faq.order : count,
+        isActive: faq.isActive !== undefined ? faq.isActive : true,
+      });
+      return NextResponse.json({ success: true, faq: created });
     }
 
     return NextResponse.json(
@@ -80,8 +97,9 @@ export async function POST(req: Request) {
     );
   } catch (error) {
     console.error("Error saving homepage FAQ:", error);
+    const errorMessage = error instanceof Error ? error.message : "Failed to save homepage FAQ";
     return NextResponse.json(
-      { success: false, error: "Failed to save homepage FAQ" },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }
