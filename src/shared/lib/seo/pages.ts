@@ -10,7 +10,7 @@ export type { PageMetadataOptions } from "./metadata";
 
 export const pageSeo: Record<string, PageSeoConfig> = {
   home: {
-    title: undefined,
+    title: "PrintoSync – Smart Printing Press Management Software",
     h1: "PrintoSync – Smart Printing Press Management Software",
     description:
       "Simplify job cards, production, inventory, challans, invoicing, paper stock, statements, and reports with PrintoSync printing press management software.",

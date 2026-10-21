@@ -38,13 +38,16 @@ export function createMetadata({
   publishedTime,
   modifiedTime,
 }: PageMetadataOptions = {}): Metadata {
-  const fullTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+  const defaultFullTitle = `${siteConfig.name} – ${siteConfig.tagline}`;
+  const fullTitle = title
+    ? (title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`)
+    : defaultFullTitle;
   const url = canonicalUrl(path);
   const ogImage = image.startsWith("http") ? image : absoluteUrl(image);
   const alt = imageAlt ?? fullTitle;
   const pageTitle =
     path === "/" || path === ""
-      ? { absolute: title ?? siteConfig.name }
+      ? { absolute: title ?? defaultFullTitle }
       : title ?? siteConfig.name;
 
   return {
