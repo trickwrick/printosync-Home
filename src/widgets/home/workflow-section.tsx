@@ -146,22 +146,23 @@ export function WorkflowSection() {
           <div
             id="workflow-detail"
             role="tabpanel"
-            className="relative grid gap-8 overflow-hidden bg-linear-to-br from-card via-card to-brand-muted/40 p-6 md:grid-cols-[1.25fr_0.75fr] md:p-10 lg:gap-14 lg:p-12"
+            className="relative grid gap-8 overflow-hidden bg-card p-6 md:grid-cols-[1.25fr_0.75fr] md:p-10 lg:gap-14 lg:p-12"
           >
-            {/* Background Printing Machine (Komori Lithrone Offset Press) */}
+            {/* Background Printing Machine (Full width & height coverage) */}
             <div
-              className="pointer-events-none absolute -bottom-6 -right-12 h-[85%] w-[68%] select-none opacity-15 transition-opacity duration-700 md:opacity-20 lg:-bottom-10 lg:-right-6 lg:h-[95%] lg:w-[62%]"
+              className="pointer-events-none absolute inset-0 select-none overflow-hidden"
               aria-hidden="true"
             >
               <Image
                 src="/images/offset-printing-machine.png"
                 alt="Commercial offset printing press machinery"
                 fill
-                className="object-contain object-bottom-right drop-shadow-2xl filter saturate-120"
+                className="object-cover object-center filter saturate-120"
                 priority
                 unoptimized
               />
-              <div className="absolute inset-0 bg-linear-to-r from-card via-card/70 to-transparent" />
+              {/* Modern Glassmorphic Backdrop Overlay so text and UI remain 100% sharp and readable */}
+              <div className="absolute inset-0 bg-background/88 backdrop-blur-[2px]" />
             </div>
 
             <div className="relative z-10">
