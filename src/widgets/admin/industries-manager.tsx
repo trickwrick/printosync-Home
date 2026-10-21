@@ -6,12 +6,10 @@ import {
   Plus,
   Trash2,
   Edit2,
-  Save,
   X,
   ExternalLink,
   CheckCircle2,
   AlertCircle,
-  HelpCircle,
   Search,
   Eye,
   EyeOff,
@@ -45,7 +43,6 @@ export interface IndustryItem {
 export function IndustriesManager() {
   const [industries, setIndustries] = useState<IndustryItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editFormData, setEditFormData] = useState<IndustryItem | null>(null);
   const [isNew, setIsNew] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
@@ -77,7 +74,6 @@ export function IndustriesManager() {
   };
 
   const handleStartEdit = (index: number) => {
-    setEditingIndex(index);
     const item = industries[index];
     setEditFormData({
       ...item,
@@ -117,11 +113,9 @@ export function IndustriesManager() {
     setBenefitsInput(newItem.benefits.join("\n"));
     setKeywordsInput("");
     setIsNew(true);
-    setEditingIndex(-1);
   };
 
   const handleCancel = () => {
-    setEditingIndex(null);
     setEditFormData(null);
     setIsNew(false);
   };

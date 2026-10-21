@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { industries as defaultIndustries } from "@/entities/marketing";
 import { getLiveIndustries, getLiveIndustryBySlug } from "@/shared/lib/models/get-live-industries";
 import { breadcrumbSchema, createMetadata, webPageSchema } from "@/shared/lib/seo";
 import { JsonLd } from "@/shared/ui/seo";

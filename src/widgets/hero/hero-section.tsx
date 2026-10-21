@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { ctaNavigation } from "@/shared/config/navigation";
 import { MagneticButton } from "@/shared/ui/magnetic-button";
 

@@ -52,7 +52,7 @@ export function Footer() {
 
   return (
     <footer className="relative border-t border-border bg-surface" role="contentinfo">
-      <div className="mx-auto max-w-[1400px] px-6 py-14 lg:px-8 lg:py-16">
+      <div className="mx-auto max-w-350 px-6 py-14 lg:px-8 lg:py-16">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <Logo />

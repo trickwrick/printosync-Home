@@ -29,7 +29,7 @@ export function PlatformSection() {
 
   return (
     <SectionReveal className="border-t border-border bg-surface py-16 lg:py-20">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
         {/* Who we help */}
         <div className="mb-16">
           <SectionLabel>Who we help</SectionLabel>

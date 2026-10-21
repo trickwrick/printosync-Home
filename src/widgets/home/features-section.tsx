@@ -29,8 +29,8 @@ const sizeClasses = {
 
 export function FeaturesSection() {
   return (
-    <SectionReveal className="border-y border-white/[0.04] bg-white/[0.01] py-24 lg:py-32">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+    <SectionReveal className="border-y border-white/4 bg-white/1 py-24 lg:py-32">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
         <div className="mb-14 max-w-2xl">
           <SectionLabel>Features</SectionLabel>
           <SectionTitle>
@@ -53,9 +53,9 @@ export function FeaturesSection() {
                 <motion.div
                   whileHover={{ scale: 1.02, y: -4 }}
                   transition={{ duration: 0.25 }}
-                  className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.06] bg-gradient-to-br ${feature.gradient} p-6 sm:p-8`}
+                  className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br ${feature.gradient} p-6 sm:p-8`}
                 >
-                  <div className="absolute inset-0 bg-white/[0.02] opacity-0 transition-opacity group-hover:opacity-100" />
+                  <div className="absolute inset-0 bg-white/2 opacity-0 transition-opacity group-hover:opacity-100" />
                   <div className="relative">
                     <motion.span
                       whileHover={{ rotate: 12, scale: 1.1 }}

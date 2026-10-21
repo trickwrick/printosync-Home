@@ -15,7 +15,6 @@ import {
   MoveUp,
   MoveDown,
   X,
-  ExternalLink,
 } from "lucide-react";
 
 export interface ClientLogoItem {

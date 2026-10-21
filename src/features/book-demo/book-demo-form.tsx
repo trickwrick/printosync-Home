@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { CheckCircle2, ChevronDown, Star, Shield, Award, Users } from "lucide-react";
-import Link from "next/link";
 
 interface Testimonial {
   _id?: string;

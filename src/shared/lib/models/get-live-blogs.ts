@@ -14,10 +14,10 @@ export async function getLiveBlogPosts(): Promise<LiveBlogPost[]> {
     await connectToDatabase();
     const docs = await BlogPostModel.find({ isActive: { $ne: false } })
       .sort({ order: 1, datePublished: -1 })
-      .lean();
+      .lean<IBlogPostDoc[]>();
 
     if (docs && docs.length > 0) {
-      return docs.map((d: any) => ({
+      return docs.map((d) => ({
         slug: d.slug,
         path: d.path || `/blog/${d.slug}`,
         title: d.title,
@@ -44,9 +44,9 @@ export async function getLiveBlogPosts(): Promise<LiveBlogPost[]> {
 export async function getLiveBlogPostBySlug(slug: string): Promise<LiveBlogPost | null> {
   try {
     await connectToDatabase();
-    const doc = await BlogPostModel.findOne({ slug }).lean();
+    const doc = await BlogPostModel.findOne({ slug }).lean<IBlogPostDoc | null>();
     if (doc) {
-      const d: any = doc;
+      const d = doc;
       return {
         slug: d.slug,
         path: d.path || `/blog/${d.slug}`,
