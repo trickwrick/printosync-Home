@@ -15,6 +15,8 @@ import {
   Factory,
   HelpCircle,
   BookOpen,
+  Menu,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -33,6 +35,7 @@ export function AdminDashboard() {
     "dashboard" | "inquiries" | "modules" | "industries" | "blogs" | "home-seo" | "clients" | "testimonials" | "faqs" | "settings"
   >("dashboard");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const isAuth = localStorage.getItem("printosync_admin_auth");
@@ -56,18 +59,41 @@ export function AdminDashboard() {
     );
   }
   
+  const selectTab = (tab: typeof activeTab) => {
+    setActiveTab(tab);
+    setSidebarOpen(false);
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Mobile Backdrop */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="fixed inset-y-0 left-0 w-64 border-r border-border bg-card/50 backdrop-blur-xl">
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-border bg-card/95 backdrop-blur-xl transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         <div className="flex h-16 items-center justify-between border-b border-border px-6">
           <Link href="/" target="_blank" className="font-display text-xl font-bold tracking-tight text-foreground hover:opacity-85 transition">
             Printo<span className="text-brand">Sync</span> <span className="text-muted-foreground font-medium text-xs ml-1 border border-border px-1.5 py-0.5 rounded">Admin</span>
           </Link>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground lg:hidden"
+          >
+            <X className="size-5" />
+          </button>
         </div>
         <nav className="p-4 space-y-1">
           <button
-            onClick={() => setActiveTab("dashboard")}
+            onClick={() => selectTab("dashboard")}
             className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "dashboard"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -79,7 +105,7 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("inquiries")}
+            onClick={() => selectTab("inquiries")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "inquiries"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -96,7 +122,7 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("modules")}
+            onClick={() => selectTab("modules")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "modules"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -113,7 +139,7 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("industries")}
+            onClick={() => selectTab("industries")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "industries"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -130,7 +156,7 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("blogs")}
+            onClick={() => selectTab("blogs")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "blogs"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -147,7 +173,7 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("home-seo")}
+            onClick={() => selectTab("home-seo")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "home-seo"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -164,7 +190,7 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("clients")}
+            onClick={() => selectTab("clients")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "clients"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -181,7 +207,7 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("testimonials")}
+            onClick={() => selectTab("testimonials")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "testimonials"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -198,7 +224,7 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("faqs")}
+            onClick={() => selectTab("faqs")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "faqs"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -215,7 +241,7 @@ export function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("settings")}
+            onClick={() => selectTab("settings")}
             className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
               activeTab === "settings"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
@@ -240,15 +266,22 @@ export function AdminDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="pl-64">
+      <main className="pl-0 lg:pl-64 min-w-0 transition-all">
         {/* Header */}
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/80 px-8 backdrop-blur-md">
-          <div className="flex items-center gap-2">
-            <h1 className="font-bold text-foreground text-lg capitalize">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 lg:px-8 backdrop-blur-md">
+          <div className="flex items-center gap-3 min-w-0">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="rounded-xl border border-border p-2 text-muted-foreground hover:bg-muted hover:text-foreground lg:hidden shrink-0"
+              aria-label="Open navigation sidebar"
+            >
+              <Menu className="size-5" />
+            </button>
+            <h1 className="font-bold text-foreground text-base sm:text-lg capitalize truncate">
               {activeTab === "modules"
                 ? "Modules & ERP Features"
                 : activeTab === "industries"
-                ? "Who We Help (Printing Segments & Industries)"
+                ? "Who We Help (Printing Segments)"
                 : activeTab === "blogs"
                 ? "Blog Articles & Publishing"
                 : activeTab === "home-seo"
@@ -264,8 +297,8 @@ export function AdminDashboard() {
                 : activeTab}
             </h1>
           </div>
-          <div className="flex items-center gap-4">
-            <button className="text-muted-foreground hover:text-foreground transition-colors">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+            <button className="text-muted-foreground hover:text-foreground transition-colors p-1.5 rounded-lg hover:bg-muted">
               <Bell className="size-5" />
             </button>
             <div className="h-8 w-8 rounded-full bg-brand/20 flex items-center justify-center border border-brand/30">
@@ -273,16 +306,16 @@ export function AdminDashboard() {
             </div>
             <button 
               onClick={handleLogout}
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-destructive transition-colors ml-2"
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-muted-foreground hover:text-destructive transition-colors ml-1 sm:ml-2 p-1.5 rounded-lg hover:bg-muted"
             >
               <LogOut className="size-4" />
-              Logout
+              <span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </header>
 
         {/* Dynamic Tab Body */}
-        <div className="p-8">
+        <div className="p-4 sm:p-6 lg:p-8">
           {activeTab === "inquiries" && <InquiriesManager />}
 
           {activeTab === "modules" && <ModulesManager />}
