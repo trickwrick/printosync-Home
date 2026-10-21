@@ -45,13 +45,13 @@ export function BlogListingClient({ posts }: BlogListingClientProps) {
     <div className="space-y-8">
       {/* Top Search Bar (Matching Reference Layout) */}
       <div className="flex justify-center">
-        <div className="relative flex w-full max-w-xl items-center overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/20">
+        <div className="relative flex w-full max-w-xl items-center overflow-hidden rounded-xl border border-border bg-card shadow-xs transition-all focus-within:ring-2 focus-within:ring-brand">
           <input
             type="text"
             placeholder="Search Blog"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 bg-transparent px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none"
+            className="flex-1 bg-transparent px-4 py-2.5 text-sm text-foreground outline-none"
           />
           <button
             type="button"
@@ -90,7 +90,7 @@ export function BlogListingClient({ posts }: BlogListingClientProps) {
               <li key={post.slug} className="flex">
                 <article className="group relative flex w-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-brand/40 hover:shadow-md">
                   {/* Thumbnail / Cover Image */}
-                  <div className="relative aspect-16/9 w-full overflow-hidden rounded-xl bg-muted">
+                  <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-muted">
                     {post.coverImage ? (
                       <Image
                         src={post.coverImage}
@@ -101,7 +101,7 @@ export function BlogListingClient({ posts }: BlogListingClientProps) {
                         unoptimized
                       />
                     ) : (
-                      <div className="flex size-full flex-col items-center justify-center bg-gradient-to-br from-brand/10 via-surface to-muted p-4 text-center">
+                      <div className="flex size-full flex-col items-center justify-center bg-linear-to-br from-brand/10 via-surface to-muted p-4 text-center">
                         <BookOpen className="size-10 text-brand/40 mb-2" />
                         <span className="font-display text-xs font-bold text-foreground/80 line-clamp-2">
                           {post.title}
