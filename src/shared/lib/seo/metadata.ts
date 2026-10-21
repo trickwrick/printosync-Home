@@ -144,11 +144,11 @@ export const rootMetadata: Metadata = {
   formatDetection: { email: false, address: false, telephone: false },
   icons: {
     icon: [
-      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
-      { url: "/logo.png", type: "image/png", sizes: "512x512" },
+      { url: "/logo.png", type: "image/png" },
+      { url: "/favicon.ico" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
-    shortcut: ["/favicon.png"],
+    apple: [{ url: "/logo.png", type: "image/png" }],
+    shortcut: ["/logo.png"],
   },
   manifest: "/manifest.webmanifest",
 };

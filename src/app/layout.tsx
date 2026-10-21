@@ -19,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fontVariables} h-full`} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="icon" href="/logo.png" type="image/png" />
+        <link rel="shortcut icon" href="/logo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body className="min-h-full flex flex-col font-sans antialiased">
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
