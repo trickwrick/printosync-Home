@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
@@ -11,8 +11,33 @@ import { DashboardPreview } from "./dashboard-preview";
 import { StatsBar } from "./stats-bar";
 import { ClientLogos } from "./client-logos";
 
-export function HeroSection() {
+export function HeroSection({
+  initialH1,
+  initialDescription,
+}: {
+  initialH1?: string;
+  initialDescription?: string;
+} = {}) {
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const [h1Text, setH1Text] = useState(
+    initialH1 || "PrintoSync – Smart Printing Press Management Software"
+  );
+  const [descriptionText, setDescriptionText] = useState(
+    initialDescription ||
+      "Simplify your printing press operations with one powerful platform. Manage job cards, production, inventory, challans, invoicing, paper stock, statements, and reports from a single dashboard."
+  );
+
+  useEffect(() => {
+    fetch("/api/admin/home-seo")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.seo) {
+          if (data.seo.h1Title) setH1Text(data.seo.h1Title);
+          if (data.seo.metaDescription) setDescriptionText(data.seo.metaDescription);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const el = headlineRef.current;
@@ -39,8 +64,6 @@ export function HeroSection() {
       aria-label="PrintoSync homepage hero"
       className="relative overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-32 lg:pt-36"
     >
-
-
       <div className="relative mx-auto max-w-350 px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Copy */}
@@ -62,10 +85,23 @@ export function HeroSection() {
               ref={headlineRef}
               className="font-display text-[clamp(2.25rem,5vw,3.75rem)] font-bold leading-[1.08] tracking-[-0.03em] text-foreground"
             >
-              PrintoSync -{" "}
-              <span className="gradient-text-brand">
-                Smart Printing Press Management Software
-              </span>
+              {h1Text.includes(" - ") ? (
+                <>
+                  {h1Text.split(" - ")[0]} -{" "}
+                  <span className="gradient-text-brand">
+                    {h1Text.split(" - ").slice(1).join(" - ")}
+                  </span>
+                </>
+              ) : h1Text.includes(" – ") ? (
+                <>
+                  {h1Text.split(" – ")[0]} –{" "}
+                  <span className="gradient-text-brand">
+                    {h1Text.split(" – ").slice(1).join(" – ")}
+                  </span>
+                </>
+              ) : (
+                <span className="gradient-text-brand">{h1Text}</span>
+              )}
             </h1>
 
             <motion.p
@@ -74,10 +110,7 @@ export function HeroSection() {
               transition={{ delay: 0.25, duration: 0.5 }}
               className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
-              Simplify your printing press operations with one powerful
-              platform. Manage job cards, production, inventory, challans,
-              invoicing, paper stock, statements, and reports from a single
-              dashboard.
+              {descriptionText}
             </motion.p>
 
             <motion.div
@@ -89,13 +122,6 @@ export function HeroSection() {
               <MagneticButton href={ctaNavigation.href}>
                 Book Free Demo
               </MagneticButton>
-              <Link
-                href="/contact?intent=quote"
-                className="group inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground shadow-sm transition-all hover:border-brand/30 hover:bg-brand-muted"
-              >
-                Request a Quote
-                <ArrowRight className="size-4 text-brand" />
-              </Link>
             </motion.div>
 
             <motion.div

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   articleSchema,
@@ -7,24 +8,22 @@ import {
   createMetadata,
   webPageSchema,
 } from "@/shared/lib/seo";
-import { getBlogPost, blogPosts } from "@/shared/lib/seo/blog-posts";
+import { getLiveBlogPostBySlug } from "@/shared/lib/models/get-live-blogs";
 import { JsonLd, Breadcrumbs, RelatedLinks } from "@/shared/ui/seo";
 import { Container } from "@/shared/ui/container";
 import { Heading, Text } from "@/shared/ui/typography";
 
+export const dynamic = "force-dynamic";
+
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = await getLiveBlogPostBySlug(slug);
   if (!post) return { title: "Post Not Found" };
 
   return createMetadata({
@@ -33,15 +32,16 @@ export async function generateMetadata({
     path: post.path,
     type: "article",
     publishedTime: post.datePublished,
-    modifiedTime: post.dateModified,
+    modifiedTime: post.dateModified || post.datePublished,
     keywords: post.keywords,
-    imageAlt: post.imageAlt,
+    image: post.coverImage || undefined,
+    imageAlt: post.imageAlt || post.title,
   });
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = await getLiveBlogPostBySlug(slug);
   if (!post) notFound();
 
   const breadcrumbs = [
@@ -96,6 +96,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <Text variant="lead" className="mt-4 text-muted-foreground" itemProp="description">
               {post.description}
             </Text>
+
+            {post.coverImage && (
+              <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-md">
+                <Image
+                  src={post.coverImage}
+                  alt={post.imageAlt || post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  priority
+                  unoptimized
+                />
+              </div>
+            )}
           </Container>
         </header>
 

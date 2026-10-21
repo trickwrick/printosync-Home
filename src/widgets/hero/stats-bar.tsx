@@ -34,7 +34,7 @@ export function StatsBar() {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.6, duration: 0.5 }}
-      className="mt-14 grid grid-cols-2 gap-6 rounded-2xl border border-border bg-card px-6 py-8 shadow-sm sm:grid-cols-4 sm:gap-4"
+      className="mt-14 grid grid-cols-2 gap-6 rounded-2xl border border-border bg-card px-6 py-8 shadow-sm sm:grid-cols-3 lg:grid-cols-5 sm:gap-4"
     >
       {heroStats.map((stat) => (
         <StatItem

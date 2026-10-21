@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -13,7 +14,7 @@ import {
 import {
   homepageBenefits,
   howItWorks,
-  industries,
+  industries as defaultIndustries,
   modules,
 } from "@/entities/marketing";
 import { MagneticButton } from "@/shared/ui/magnetic-button";
@@ -169,6 +170,22 @@ export function ModulesOverviewSection() {
 }
 
 export function IndustriesOverviewSection() {
+  const [items, setItems] = useState<Array<{ slug: string; title: string; isActive?: boolean }>>([...defaultIndustries]);
+
+  useEffect(() => {
+    fetch("/api/admin/industries")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.industries) && data.industries.length > 0) {
+          const activeOnly = data.industries.filter((i: { isActive?: boolean }) => i.isActive !== false);
+          if (activeOnly.length > 0) {
+            setItems(activeOnly);
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <SectionReveal id="industries" className="py-16 lg:py-20">
       <div className="mx-auto max-w-350 px-6 lg:px-8">
@@ -180,7 +197,7 @@ export function IndustriesOverviewSection() {
           </SectionSubtitle>
         </div>
         <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          {industries.map((industry) => (
+          {items.map((industry) => (
             <Link
               key={industry.slug}
               href={`/industries/${industry.slug}`}

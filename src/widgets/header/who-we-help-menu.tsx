@@ -1,11 +1,34 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Factory, Layers3, Printer } from "lucide-react";
-import { industries } from "@/entities/marketing";
+import { industries as defaultIndustries } from "@/entities/marketing";
+
+interface IndustryItem {
+  slug: string;
+  title: string;
+  isActive?: boolean;
+}
 
 export function WhoWeHelpMenu({ isOpen }: { isOpen: boolean }) {
+  const [items, setItems] = useState<IndustryItem[]>([...defaultIndustries]);
+
+  useEffect(() => {
+    fetch("/api/admin/industries")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.industries) && data.industries.length > 0) {
+          const activeOnly = data.industries.filter((i: { isActive?: boolean }) => i.isActive !== false);
+          if (activeOnly.length > 0) {
+            setItems(activeOnly);
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -14,9 +37,9 @@ export function WhoWeHelpMenu({ isOpen }: { isOpen: boolean }) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 8, scale: 0.98 }}
           transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-          className="absolute left-1/2 top-full z-50 mt-2 w-[920px] -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-background/98 shadow-premium backdrop-blur-xl"
+          className="absolute left-1/2 top-full z-50 mt-2 w-230 -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-background/98 shadow-premium backdrop-blur-xl"
         >
-          <div className="grid min-h-[340px] grid-cols-[240px_1fr_330px]">
+          <div className="grid min-h-85 grid-cols-[240px_1fr_330px]">
             <div className="flex flex-col justify-between border-r border-border bg-surface p-8">
               <div>
                 <span className="inline-flex bg-brand px-2 py-1 font-display text-2xl font-bold leading-none text-brand-foreground">
@@ -37,7 +60,7 @@ export function WhoWeHelpMenu({ isOpen }: { isOpen: boolean }) {
 
             <nav aria-label="Industries" className="p-7">
               <ul className="grid grid-cols-2 gap-x-5 gap-y-1">
-                {industries.map((industry) => (
+                {items.map((industry) => (
                   <li key={industry.slug}>
                     <Link
                       href={`/industries/${industry.slug}`}
@@ -53,7 +76,7 @@ export function WhoWeHelpMenu({ isOpen }: { isOpen: boolean }) {
               </ul>
             </nav>
 
-            <div className="relative overflow-hidden bg-gradient-to-br from-[#e9f8f5] via-[#d8f0ee] to-[#b9ded9] p-7">
+            <div className="relative overflow-hidden bg-linear-to-br from-[#e9f8f5] via-[#d8f0ee] to-[#b9ded9] p-7">
               <div
                 className="absolute inset-0 opacity-40"
                 style={{

@@ -38,14 +38,17 @@ export function createMetadata({
   publishedTime,
   modifiedTime,
 }: PageMetadataOptions = {}): Metadata {
-  const pageTitle = title ?? siteConfig.name;
   const fullTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
   const url = canonicalUrl(path);
   const ogImage = image.startsWith("http") ? image : absoluteUrl(image);
   const alt = imageAlt ?? fullTitle;
+  const pageTitle =
+    path === "/" || path === ""
+      ? { absolute: title ?? siteConfig.name }
+      : title ?? siteConfig.name;
 
   return {
-    title: title ? pageTitle : { absolute: siteConfig.name },
+    title: pageTitle,
     description,
     keywords: [...new Set([...defaultKeywords, ...keywords])],
     authors: [{ name: siteConfig.name, url: siteConfig.url }],
@@ -128,6 +131,9 @@ export function websiteJsonLd() {
 
 export const rootMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: siteConfig.url,
+  },
   title: {
     default: `${siteConfig.name} — ${siteConfig.tagline}`,
     template: `%s | ${siteConfig.name}`,

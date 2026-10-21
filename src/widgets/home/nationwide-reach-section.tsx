@@ -25,11 +25,7 @@ export const implementationPins: ImplementationPin[] = [
   { id: "indore", name: "Indore & Bhopal", state: "Madhya Pradesh", stateId: "mp", count: "65+ Presses", x: 36, y: 44 },
   { id: "chandigarh", name: "Chandigarh & Ludhiana", state: "Punjab", stateId: "pb", count: "75+ Presses", x: 24.7, y: 21.8 },
   { id: "lucknow", name: "Lucknow & Kanpur", state: "Uttar Pradesh", stateId: "up", count: "90+ Presses", x: 42, y: 35 },
-  { id: "patna", name: "Patna", state: "Bihar", stateId: "br", count: "40+ Presses", x: 60.5, y: 39 },
-  { id: "hyderabad", name: "Hyderabad", state: "Telangana", stateId: "tg", count: "80+ Presses", x: 38.5, y: 64 },
-  { id: "bengaluru", name: "Bengaluru", state: "Karnataka", stateId: "ka", count: "90+ Presses", x: 28, y: 76, featured: true },
-  { id: "chennai", name: "Chennai & Sivakasi", state: "Tamil Nadu", stateId: "tn", count: "105+ Presses", x: 34.5, y: 86 },
-  { id: "guwahati", name: "Guwahati", state: "Assam", stateId: "as", count: "30+ Presses", x: 84, y: 38 },
+  { id: "chennai", name: "Chennai & Sivakasi", state: "Tamil Nadu", stateId: "tn", count: "105+ Presses", x: 34.5, y: 86, featured: true },
 ];
 
 export function NationwideReachSection() {
@@ -107,11 +103,15 @@ export function NationwideReachSection() {
                 {/* Implementation Location Pins */}
                 {implementationPins.map((pin) => {
                   const isSelected = displayPin.id === pin.id;
+                  const isHovered = hoveredPin?.id === pin.id;
+                  const isTopActive = isSelected || isHovered;
                   return (
                     <div
                       key={pin.id}
                       style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
-                      className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20"
+                      className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 ${
+                        isTopActive ? "z-40" : "z-20"
+                      }`}
                       onMouseEnter={() => setHoveredPin(pin)}
                       onMouseLeave={() => setHoveredPin(null)}
                       onClick={() => setActivePin(pin)}
@@ -133,10 +133,10 @@ export function NationwideReachSection() {
                       >
                         <MapPin className={isSelected ? "size-3.5" : "size-2.5"} />
 
-                        {/* Hover Tooltip Popup */}
-                        <div className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-border bg-foreground px-2.5 py-1 text-[11px] font-semibold text-background opacity-0 shadow-xl transition-all duration-200 group-hover:opacity-100 group-hover:-top-10 z-30">
+                        {/* Hover Tooltip Popup - positioned safely above with high z-index and no overlap */}
+                        <div className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-border/80 bg-slate-900/95 px-3 py-1.5 text-xs font-semibold text-white shadow-2xl opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:-top-12 z-50 backdrop-blur-sm">
                           {pin.name}: {pin.count}
-                          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-4 border-transparent border-t-foreground" />
+                          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900/95" />
                         </div>
                       </button>
                     </div>
@@ -223,7 +223,7 @@ export function NationwideReachSection() {
                   <TrendingUp className="size-3.5" />
                 </div>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  <strong className="text-foreground">Rapidly Expanding PAN India:</strong> Serving Rajasthan, Punjab, Haryana, Delhi NCR, Uttar Pradesh, Gujarat, Maharashtra, Madhya Pradesh, Telangana, Karnataka, and Tamil Nadu.
+                  <strong className="text-foreground">Rapidly Expanding PAN India:</strong> Serving Rajasthan, Punjab, Haryana, Delhi NCR, Uttar Pradesh, Gujarat, Maharashtra, Madhya Pradesh, and Tamil Nadu.
                 </p>
               </div>
 

@@ -65,6 +65,7 @@ export function ContactForm({ intent = "contact" }: { intent?: ContactIntent }) 
             type: copy.title,
             name: data.name,
             email: data.email,
+            phone: data.phone || "",
             company: data.company,
             message: data.message,
             status: "new",
@@ -76,8 +77,9 @@ export function ContactForm({ intent = "contact" }: { intent?: ContactIntent }) 
     }
 
     const subject = encodeURIComponent(`${copy.title} — ${data.company}`);
+    const phoneDetails = data.phone ? `\nPhone: ${data.phone}` : "";
     const body = encodeURIComponent(
-      `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company}\nRequest type: ${intent}\n\n${data.message}`,
+      `Name: ${data.name}\nEmail: ${data.email}${phoneDetails}\nCompany: ${data.company}\nRequest type: ${intent}\n\n${data.message}`,
     );
     window.location.href = `mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`;
     reset();
@@ -150,10 +152,26 @@ export function ContactForm({ intent = "contact" }: { intent?: ContactIntent }) 
               </FormField>
 
               <FormField
+                id="contact-phone"
+                label="Phone number"
+                error={errors.phone?.message}
+              >
+                <input
+                  id="contact-phone"
+                  type="tel"
+                  autoComplete="tel"
+                  placeholder="+91 98765 43210"
+                  className={formInputClassName()}
+                  {...register("phone")}
+                />
+              </FormField>
+
+              <FormField
                 id="contact-company"
                 label="Company"
                 required
                 error={errors.company?.message}
+                className="sm:col-span-2"
               >
                 <input
                   id="contact-company"

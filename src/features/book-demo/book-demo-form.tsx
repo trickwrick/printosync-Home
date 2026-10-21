@@ -1,17 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 import { CheckCircle2, ChevronDown, Star, Shield, Award, Users } from "lucide-react";
 import Link from "next/link";
 
 interface Testimonial {
+  _id?: string;
   quote: string;
   author: string;
-  authorInitial: string;
+  authorInitial?: string;
   designation: string;
+  avatarUrl?: string;
+  isActive?: boolean;
 }
 
-const testimonials: Testimonial[] = [
+const defaultTestimonials: Testimonial[] = [
   {
     quote:
       "The demo helped me understand how PrintoSync simplifies offset job cards, GST invoicing, and manages paper inventory effortlessly.",
@@ -36,6 +40,22 @@ const testimonials: Testimonial[] = [
 ];
 
 export function BookDemoForm() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(defaultTestimonials);
+
+  useEffect(() => {
+    fetch("/api/admin/testimonials")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.testimonials) && data.testimonials.length > 0) {
+          const activeOnly = data.testimonials.filter((t: { isActive?: boolean }) => t.isActive !== false);
+          if (activeOnly.length > 0) {
+            setTestimonials(activeOnly);
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   // Form State
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -138,22 +158,38 @@ export function BookDemoForm() {
             </div>
 
             {/* Quote / Testimonial Box */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:shadow-premium">
-              <span className="font-serif text-4xl leading-none text-brand">“</span>
-              <p className="mt-1 text-sm font-medium italic leading-relaxed text-foreground/90 sm:text-base">
-                {testimonials[activeTestimonial].quote}
-              </p>
-              <div className="mt-5 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="flex size-10 items-center justify-center rounded-full bg-brand-muted font-bold text-brand text-sm border border-brand/30">
-                    {testimonials[activeTestimonial].authorInitial || "PS"}
+            {testimonials.length > 0 && (() => {
+              const currentTestimonial = testimonials[activeTestimonial] || testimonials[0];
+              return (
+                <div className="rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:shadow-premium">
+                  <span className="font-serif text-4xl leading-none text-brand">“</span>
+                  <p className="mt-1 text-sm font-medium italic leading-relaxed text-foreground/90 sm:text-base">
+                    {currentTestimonial.quote}
+                  </p>
+                  <div className="mt-5 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-muted font-bold text-brand text-sm border border-brand/30 overflow-hidden">
+                    {currentTestimonial.avatarUrl ? (
+                      <Image
+                        src={currentTestimonial.avatarUrl}
+                        alt={currentTestimonial.author}
+                        width={40}
+                        height={40}
+                        className="size-full object-cover"
+                        unoptimized
+                      />
+                    ) : (
+                      currentTestimonial.authorInitial ||
+                      currentTestimonial.author.slice(0, 2).toUpperCase() ||
+                      "PS"
+                    )}
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-foreground">
-                      {testimonials[activeTestimonial].author}
+                      {currentTestimonial.author}
                     </h4>
                     <p className="text-xs text-muted-foreground">
-                      {testimonials[activeTestimonial].designation}
+                      {currentTestimonial.designation}
                     </p>
                   </div>
                 </div>
@@ -174,6 +210,8 @@ export function BookDemoForm() {
                 </div>
               </div>
             </div>
+          );
+        })()}
 
             {/* Social Proof Trust Badges */}
             <div className="pt-2 space-y-4">

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
-import { faqs } from "./content";
+import { faqs as defaultFaqs } from "./content";
 import {
   SectionLabel,
   SectionReveal,
@@ -11,13 +11,35 @@ import {
   SectionTitle,
 } from "./section-primitives";
 
+interface FaqItem {
+  question: string;
+  answer: string;
+  isActive?: boolean;
+}
+
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const displayFaqs = faqs.slice(0, 4);
+  const [items, setItems] = useState<FaqItem[]>([...defaultFaqs]);
+
+  useEffect(() => {
+    fetch("/api/admin/faqs")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.faqs) && data.faqs.length > 0) {
+          const activeOnly = data.faqs.filter((f: { isActive?: boolean }) => f.isActive !== false);
+          if (activeOnly.length > 0) {
+            setItems(activeOnly);
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const displayFaqs = items;
 
   return (
     <SectionReveal id="faq" className="py-16 lg:py-20">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
         <div className="mx-auto mb-10 max-w-2xl text-center">
           <SectionLabel>FAQ</SectionLabel>
           <SectionTitle className="mx-auto">You ask. We answer.</SectionTitle>

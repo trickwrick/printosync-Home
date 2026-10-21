@@ -10,17 +10,27 @@ import {
   ArrowUpRight,
   Mail,
   Globe,
+  Building2,
+  MessageSquareQuote,
+  Factory,
+  HelpCircle,
+  BookOpen,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ModulesManager } from "./modules-manager";
 import { InquiriesManager } from "./inquiries-manager";
 import { HomeSeoManager } from "./home-seo-manager";
+import { ClientsManager } from "./clients-manager";
+import { TestimonialsManager } from "./testimonials-manager";
+import { IndustriesManager } from "./industries-manager";
+import { FaqsManager } from "./faqs-manager";
+import { BlogsManager } from "./blogs-manager";
 
 export function AdminDashboard() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<
-    "dashboard" | "inquiries" | "modules" | "home-seo" | "settings"
+    "dashboard" | "inquiries" | "modules" | "industries" | "blogs" | "home-seo" | "clients" | "testimonials" | "faqs" | "settings"
   >("dashboard");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
@@ -103,6 +113,40 @@ export function AdminDashboard() {
           </button>
 
           <button
+            onClick={() => setActiveTab("industries")}
+            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+              activeTab === "industries"
+                ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <Factory className="size-5" />
+              Who We Help
+            </div>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-bold">
+              10
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("blogs")}
+            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+              activeTab === "blogs"
+                ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <BookOpen className="size-5" />
+              Blog &amp; Articles
+            </div>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-pink-500/20 text-pink-300 font-bold">
+              Posts
+            </span>
+          </button>
+
+          <button
             onClick={() => setActiveTab("home-seo")}
             className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "home-seo"
@@ -116,6 +160,57 @@ export function AdminDashboard() {
             </div>
             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-brand/20 text-brand font-bold">
               Special
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("clients")}
+            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+              activeTab === "clients"
+                ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <Building2 className="size-5" />
+              Clients &amp; Logos
+            </div>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">
+              Ticker
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("testimonials")}
+            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+              activeTab === "testimonials"
+                ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <MessageSquareQuote className="size-5" />
+              Testimonials
+            </div>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-bold">
+              Demo
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("faqs")}
+            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+              activeTab === "faqs"
+                ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <HelpCircle className="size-5" />
+              Homepage FAQs
+            </div>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">
+              Home
             </span>
           </button>
 
@@ -152,8 +247,18 @@ export function AdminDashboard() {
             <h1 className="font-bold text-foreground text-lg capitalize">
               {activeTab === "modules"
                 ? "Modules & ERP Features"
+                : activeTab === "industries"
+                ? "Who We Help (Printing Segments & Industries)"
+                : activeTab === "blogs"
+                ? "Blog Articles & Publishing"
                 : activeTab === "home-seo"
                 ? "Home Page SEO Management"
+                : activeTab === "clients"
+                ? "Trusted Print Shops & Client Logos"
+                : activeTab === "testimonials"
+                ? "Book Demo Testimonials"
+                : activeTab === "faqs"
+                ? "Homepage FAQs Management"
                 : activeTab === "inquiries"
                 ? "Customer Inquiries & Leads"
                 : activeTab}
@@ -182,7 +287,17 @@ export function AdminDashboard() {
 
           {activeTab === "modules" && <ModulesManager />}
 
+          {activeTab === "industries" && <IndustriesManager />}
+
+          {activeTab === "blogs" && <BlogsManager />}
+
           {activeTab === "home-seo" && <HomeSeoManager />}
+
+          {activeTab === "clients" && <ClientsManager />}
+
+          {activeTab === "testimonials" && <TestimonialsManager />}
+
+          {activeTab === "faqs" && <FaqsManager />}
 
           {activeTab === "dashboard" && (
             <div className="rounded-2xl border border-dashed border-border/60 bg-card/30 p-12 text-center">

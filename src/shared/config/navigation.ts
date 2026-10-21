@@ -263,7 +263,6 @@ export const footerNavigation = {
     { title: "About Us", href: "/about" },
     { title: "Our Mission", href: "/company/our-mission" },
     { title: "Why PrintoSync", href: "/company/why-printosync" },
-    { title: "Careers", href: "/company/careers" },
     { title: "Partners", href: "/company/partners" },
     { title: "Contact", href: "/contact" },
   ],
@@ -306,7 +305,8 @@ export const clientLogos = [
 ] as const;
 
 export const heroStats = [
-  { value: 500, suffix: "+", label: "Print Shops" },
+  { value: 385, suffix: "+", label: "Satisfied Clients" },
+  { value: 10, suffix: "+", label: "Years Experience" },
   { value: 2, suffix: "M+", label: "Jobs Processed" },
   { value: 99.9, suffix: "%", label: "Uptime SLA" },
   { value: 100, suffix: "%", label: "Accuracy" },

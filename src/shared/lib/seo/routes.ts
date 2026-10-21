@@ -64,7 +64,12 @@ export const blogPostRoutes = blogPosts.map((post) => ({
 
 export function absoluteUrl(path: string): string {
   const base = siteConfig.url.replace(/\/$/, "");
-  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
+  if (!path || path === "/" || path === "") {
+    return base;
+  }
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  // Remove trailing slashes for subpages to avoid duplicate canonical issues
+  return `${base}${cleanPath.replace(/\/+$/, "")}`;
 }
 
 export function canonicalUrl(path: string): string {

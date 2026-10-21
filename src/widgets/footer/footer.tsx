@@ -7,7 +7,7 @@ import { NewsletterForm } from "./newsletter-form";
 
 const footerColumns = [
   { title: "Company", links: footerNavigation.company },
-  { title: "Solutions", links: footerNavigation.solutions },
+  { title: "Modules", links: footerNavigation.solutions },
   { title: "Industries", links: footerNavigation.industries },
   { title: "Resources", links: footerNavigation.resources },
 ] as const;

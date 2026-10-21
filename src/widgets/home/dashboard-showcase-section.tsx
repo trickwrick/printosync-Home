@@ -84,7 +84,7 @@ export function DashboardShowcaseSection() {
   return (
     <SectionReveal className="border-y border-border bg-surface py-16 lg:py-20">
       <div
-        className="mx-auto max-w-[1400px] px-6 lg:px-8"
+        className="mx-auto max-w-350 px-6 lg:px-8"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
@@ -106,7 +106,7 @@ export function DashboardShowcaseSection() {
           </AnimatePresence>
         </div>
 
-        <div className="relative mx-auto max-w-[1180px]">
+        <div className="relative mx-auto max-w-295">
           <button
             type="button"
             onClick={showPrevious}
@@ -128,7 +128,7 @@ export function DashboardShowcaseSection() {
               <EnterpriseDashboard
                 variant="showcase"
                 defaultModule={slide.module}
-                className="mx-auto max-w-[1100px]"
+                className="mx-auto max-w-275"
               />
             </motion.div>
           </AnimatePresence>

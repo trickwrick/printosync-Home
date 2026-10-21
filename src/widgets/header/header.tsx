@@ -28,6 +28,7 @@ export function Header() {
   const isScrolled = scrollY > 12;
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
 
   return (
     <>
@@ -126,45 +127,210 @@ export function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-border bg-background/98 backdrop-blur-xl lg:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="fixed inset-x-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-border bg-background/98 shadow-2xl backdrop-blur-2xl lg:hidden"
           >
-            <nav className="flex flex-col gap-1 p-4" aria-label="Mobile">
-              {[
-                ...productMegaMenu,
-                ...industriesMegaMenu,
-                ...whyChooseMegaMenu,
-              ].flatMap((s) =>
-                s.items.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                  >
-                    {item.title}
-                  </Link>
-                )),
-              )}
-              <Link
-                href="/resources/faqs"
-                onClick={() => setMobileOpen(false)}
-                className="rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                FAQ
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setMobileOpen(false)}
-                className="rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                Contact
-              </Link>
-              <div className="mt-3 px-4">
-                <MagneticButton href={ctaNavigation.href} className="w-full justify-center">
+            <nav className="flex flex-col divide-y divide-border/60 p-4" aria-label="Mobile">
+              {/* Who We Help Accordion */}
+              <div className="py-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setExpandedMobile(expandedMobile === "who-we-help" ? null : "who-we-help")
+                  }
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span className="size-2 rounded-full bg-brand" />
+                    Who we help
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "size-4 text-muted-foreground transition-transform duration-200",
+                      expandedMobile === "who-we-help" && "rotate-180 text-brand"
+                    )}
+                  />
+                </button>
+                <AnimatePresence>
+                  {expandedMobile === "who-we-help" && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden pl-4 pr-1 pt-1 space-y-1"
+                    >
+                      {industriesMegaMenu.flatMap((sec) => sec.items).map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-xs font-medium text-muted-foreground transition hover:bg-brand-muted hover:text-brand"
+                          >
+                            {Icon && <Icon className="size-3.5 shrink-0 text-brand" />}
+                            <span>{item.title}</span>
+                          </Link>
+                        );
+                      })}
+                      <Link
+                        href="/#industries"
+                        onClick={() => setMobileOpen(false)}
+                        className="inline-block px-3 py-1.5 text-xs font-semibold text-brand hover:underline"
+                      >
+                        View all printing segments →
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Why Choose Us Accordion */}
+              <div className="py-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setExpandedMobile(expandedMobile === "why-choose" ? null : "why-choose")
+                  }
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span className="size-2 rounded-full bg-brand" />
+                    Why choose us
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "size-4 text-muted-foreground transition-transform duration-200",
+                      expandedMobile === "why-choose" && "rotate-180 text-brand"
+                    )}
+                  />
+                </button>
+                <AnimatePresence>
+                  {expandedMobile === "why-choose" && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden pl-4 pr-1 pt-1 space-y-1"
+                    >
+                      {whyChooseMegaMenu.flatMap((sec) => sec.items).map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-xs font-medium text-muted-foreground transition hover:bg-brand-muted hover:text-brand"
+                          >
+                            {Icon && <Icon className="size-3.5 shrink-0 text-brand" />}
+                            <span>{item.title}</span>
+                          </Link>
+                        );
+                      })}
+                      <Link
+                        href="/company/why-printosync"
+                        onClick={() => setMobileOpen(false)}
+                        className="inline-block px-3 py-1.5 text-xs font-semibold text-brand hover:underline"
+                      >
+                        Learn why print shops choose PrintoSync →
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Modules Accordion */}
+              <div className="py-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setExpandedMobile(expandedMobile === "modules" ? null : "modules")
+                  }
+                  className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span className="size-2 rounded-full bg-brand" />
+                    Modules (ERP Software)
+                  </span>
+                  <ChevronDown
+                    className={cn(
+                      "size-4 text-muted-foreground transition-transform duration-200",
+                      expandedMobile === "modules" && "rotate-180 text-brand"
+                    )}
+                  />
+                </button>
+                <AnimatePresence>
+                  {expandedMobile === "modules" && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden pl-4 pr-1 pt-1 space-y-1"
+                    >
+                      {productMegaMenu.flatMap((sec) => sec.items).map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-xs font-medium text-muted-foreground transition hover:bg-brand-muted hover:text-brand"
+                          >
+                            {Icon && <Icon className="size-3.5 shrink-0 text-brand" />}
+                            <span>{item.title}</span>
+                          </Link>
+                        );
+                      })}
+                      <Link
+                        href="/services"
+                        onClick={() => setMobileOpen(false)}
+                        className="inline-block px-3 py-1.5 text-xs font-semibold text-brand hover:underline"
+                      >
+                        Explore all printing ERP modules →
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Direct Links */}
+              <div className="py-2 space-y-1">
+                <Link
+                  href="/pricing"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted"
+                >
+                  Pricing
+                </Link>
+                <Link
+                  href="/blog"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted"
+                >
+                  Blog & Articles
+                </Link>
+                <Link
+                  href="/resources/faqs"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted"
+                >
+                  FAQ
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted"
+                >
+                  Contact
+                </Link>
+              </div>
+
+              {/* Bottom CTA Button */}
+              <div className="pt-4 pb-2">
+                <MagneticButton href={ctaNavigation.href} className="w-full justify-center py-3 shadow-md">
                   {ctaNavigation.title}
                 </MagneticButton>
               </div>

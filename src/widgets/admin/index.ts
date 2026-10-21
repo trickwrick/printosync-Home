@@ -3,3 +3,8 @@ export { AdminDashboard } from "./admin-dashboard";
 export { ModulesManager } from "./modules-manager";
 export { InquiriesManager } from "./inquiries-manager";
 export { HomeSeoManager } from "./home-seo-manager";
+export { ClientsManager } from "./clients-manager";
+export { TestimonialsManager } from "./testimonials-manager";
+export { IndustriesManager } from "./industries-manager";
+export { FaqsManager } from "./faqs-manager";
+export { BlogsManager } from "./blogs-manager";
