@@ -148,7 +148,7 @@ export function WorkflowSection() {
             role="tabpanel"
             className="relative overflow-hidden grid gap-8 bg-linear-to-br from-card via-card to-brand-muted/50 p-6 md:grid-cols-[1.25fr_0.75fr] md:p-10 lg:gap-14 lg:p-12"
           >
-            {/* Full Modern Printing Press Factory Floor Background */}
+            {/* Full Modern Printing Press Factory Floor Background - High Clarity */}
             <div
               className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
               aria-hidden="true"
@@ -158,11 +158,11 @@ export function WorkflowSection() {
                 alt="Modern Printing Press Production Plant"
                 fill
                 priority
-                className="object-cover object-center opacity-25 dark:opacity-30 transition-all duration-700"
+                className="object-cover object-center opacity-70 dark:opacity-60 transition-all duration-700"
                 sizes="(max-width: 1280px) 100vw, 1280px"
               />
-              {/* Soft overlay gradient to ensure text readability */}
-              <div className="absolute inset-0 bg-linear-to-r from-card/95 via-card/75 to-card/60 dark:from-card/95 dark:via-card/80 dark:to-card/70" />
+              {/* Subtle translucent gradient on left for text legibility, right side stays open */}
+              <div className="absolute inset-0 bg-linear-to-r from-card/85 via-card/45 to-transparent dark:from-card/90 dark:via-card/50 dark:to-transparent" />
             </div>
 
             <div className="relative z-10">
