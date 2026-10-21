@@ -148,27 +148,21 @@ export function WorkflowSection() {
             role="tabpanel"
             className="relative overflow-hidden grid gap-8 bg-linear-to-br from-card via-card to-brand-muted/50 p-6 md:grid-cols-[1.25fr_0.75fr] md:p-10 lg:gap-14 lg:p-12"
           >
-            {/* Background Printing Machine with Smooth Fade Gradient (100% -> 70% -> 40% -> 0%) */}
+            {/* Full Modern Printing Press Factory Floor Background */}
             <div
               className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
               aria-hidden="true"
             >
               <Image
-                src="/images/printing-machine.png"
-                alt="Industrial Offset Printing Machine"
+                src="/images/printing-press-bg.jpg"
+                alt="Modern Printing Press Production Plant"
                 fill
                 priority
-                className="object-cover object-right-bottom opacity-18 dark:opacity-25 transition-all duration-700"
-                style={{
-                  maskImage:
-                    "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,1) 100%)",
-                  WebkitMaskImage:
-                    "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,1) 100%)",
-                }}
+                className="object-cover object-center opacity-25 dark:opacity-30 transition-all duration-700"
                 sizes="(max-width: 1280px) 100vw, 1280px"
               />
-              {/* Subtle top & bottom soft blend */}
-              <div className="absolute inset-0 bg-linear-to-t from-card/80 via-transparent to-card/60" />
+              {/* Soft overlay gradient to ensure text readability */}
+              <div className="absolute inset-0 bg-linear-to-r from-card/95 via-card/75 to-card/60 dark:from-card/95 dark:via-card/80 dark:to-card/70" />
             </div>
 
             <div className="relative z-10">
