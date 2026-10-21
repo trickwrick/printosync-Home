@@ -1,7 +1,7 @@
 "use client";
 
-import { DashboardStaticPreview } from "./dashboard-static-preview";
+import { EnterpriseDashboard } from "@/widgets/dashboard/enterprise-dashboard";
 
 export function DashboardPreview() {
-  return <DashboardStaticPreview />;
+  return <EnterpriseDashboard variant="hero" />;
 }
