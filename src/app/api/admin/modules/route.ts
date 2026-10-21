@@ -75,20 +75,27 @@ export async function POST(req: Request) {
 
     // Upsert or replace modules with new list preserving order
     await ModuleModel.deleteMany({});
-    const itemsToInsert = modules.map((item: ModulePayloadItem, idx: number) => ({
-      slug: item.slug,
-      title: item.title,
-      shortTitle: item.shortTitle || item.title,
-      eyebrow: item.eyebrow || "",
-      description: item.description || "",
-      features: item.features || [],
-      benefits: item.benefits || [],
-      keywords: item.keywords || [],
-      seoTitle: item.seoTitle || "",
-      seoDescription: item.seoDescription || "",
-      faqs: Array.isArray(item.faqs) ? item.faqs : [],
-      order: idx,
-    }));
+    const itemsToInsert = modules.map((item: ModulePayloadItem, idx: number) => {
+      // Filter out empty FAQs so Mongoose required validation doesn't fail
+      const validFaqs = Array.isArray(item.faqs)
+        ? item.faqs.filter((f) => f && f.question && f.question.trim() !== "")
+        : [];
+
+      return {
+        slug: item.slug.trim(),
+        title: item.title.trim(),
+        shortTitle: (item.shortTitle || item.title).trim(),
+        eyebrow: (item.eyebrow || "").trim(),
+        description: (item.description || "").trim(),
+        features: Array.isArray(item.features) ? item.features.filter(Boolean) : [],
+        benefits: Array.isArray(item.benefits) ? item.benefits.filter(Boolean) : [],
+        keywords: Array.isArray(item.keywords) ? item.keywords.filter(Boolean) : [],
+        seoTitle: (item.seoTitle || "").trim(),
+        seoDescription: (item.seoDescription || "").trim(),
+        faqs: validFaqs,
+        order: idx,
+      };
+    });
 
     await ModuleModel.insertMany(itemsToInsert);
 
@@ -96,8 +103,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, modules: saved });
   } catch (error) {
     console.error("Error saving modules to MongoDB:", error);
+    const errorMsg = error instanceof Error ? error.message : "Failed to update modules";
     return NextResponse.json(
-      { success: false, error: "Failed to update modules" },
+      { success: false, error: errorMsg },
       { status: 500 }
     );
   }

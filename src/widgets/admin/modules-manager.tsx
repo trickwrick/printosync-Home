@@ -115,11 +115,18 @@ export function ModulesManager() {
       return;
     }
 
+    const cleanedFormData: ModuleItem = {
+      ...editFormData,
+      faqs: (editFormData.faqs || []).filter(
+        (f) => f && f.question && f.question.trim() !== ""
+      ),
+    };
+
     let updated: ModuleItem[];
     if (isNew) {
-      updated = [...modules, editFormData];
+      updated = [...modules, cleanedFormData];
     } else if (editingIndex !== null) {
-      updated = modules.map((m, idx) => (idx === editingIndex ? editFormData : m));
+      updated = modules.map((m, idx) => (idx === editingIndex ? cleanedFormData : m));
     } else {
       return;
     }
