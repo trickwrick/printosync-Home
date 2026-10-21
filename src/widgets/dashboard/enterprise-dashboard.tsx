@@ -39,7 +39,7 @@ export function EnterpriseDashboard({
       <div
         className={cn(
           "relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0a0a12]/95 shadow-2xl shadow-indigo-500/10 backdrop-blur-2xl",
-          isHero && "max-h-[580px] sm:max-h-[620px]",
+          isHero && "max-h-[460px] sm:max-h-[480px]",
           isShowcase && "min-h-[520px]",
         )}
       >
@@ -81,7 +81,7 @@ export function EnterpriseDashboard({
             <main
               className={cn(
                 "flex-1 overflow-y-auto overflow-x-hidden p-3 scrollbar-none sm:p-4",
-                isHero && "max-h-[420px] sm:max-h-[460px]",
+                isHero && "max-h-[350px] sm:max-h-[370px]",
               )}
             >
               <ModuleViews module={activeModule} compact={isHero} />

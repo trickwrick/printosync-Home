@@ -64,7 +64,7 @@ export function HeroSection({
       className="relative overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-32 lg:pt-36"
     >
       <div className="relative mx-auto max-w-350 px-6 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
           {/* Copy */}
           <div>
             <motion.div
