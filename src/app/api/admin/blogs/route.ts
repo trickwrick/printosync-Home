@@ -56,13 +56,22 @@ export async function POST(req: Request) {
       const now = new Date().toISOString().split("T")[0];
 
       // Sanitize sections so invalid/empty entries don't fail Mongoose validation
+      interface RawBlogSection {
+        heading?: unknown;
+        paragraphs?: unknown;
+      }
+
       const sanitizedSections = Array.isArray(post.sections)
-        ? post.sections
-            .filter((sec: any) => sec && typeof sec.heading === "string" && sec.heading.trim().length > 0)
-            .map((sec: any) => ({
+        ? (post.sections as RawBlogSection[])
+            .filter((sec): sec is RawBlogSection & { heading: string } => 
+              Boolean(sec && typeof sec.heading === "string" && sec.heading.trim().length > 0)
+            )
+            .map((sec) => ({
               heading: sec.heading.trim(),
               paragraphs: Array.isArray(sec.paragraphs)
-                ? sec.paragraphs.filter((p: any) => typeof p === "string" && p.trim().length > 0)
+                ? (sec.paragraphs as unknown[])
+                    .filter((p): p is string => typeof p === "string" && p.trim().length > 0)
+                    .map((p) => p.trim())
                 : [],
             }))
         : [];

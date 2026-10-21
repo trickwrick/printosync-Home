@@ -59,13 +59,20 @@ export async function POST(req: Request) {
 
     // Save or update single industry
     if (singleIndustry && singleIndustry.slug) {
+      interface RawFaqItem {
+        question?: unknown;
+        answer?: unknown;
+      }
+
       const validFaqs = Array.isArray(singleIndustry.faqs)
-        ? singleIndustry.faqs.filter(
-            (f: any) => f && typeof f.question === "string" && f.question.trim().length > 0
-          ).map((f: any) => ({
-            question: f.question.trim(),
-            answer: (f.answer || "").trim(),
-          }))
+        ? (singleIndustry.faqs as RawFaqItem[])
+            .filter((f): f is RawFaqItem & { question: string } =>
+              Boolean(f && typeof f.question === "string" && f.question.trim().length > 0)
+            )
+            .map((f) => ({
+              question: f.question.trim(),
+              answer: typeof f.answer === "string" ? f.answer.trim() : "",
+            }))
         : [];
 
       const updated = await IndustryModel.findOneAndUpdate(
