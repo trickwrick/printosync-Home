@@ -39,8 +39,7 @@ export function EnterpriseDashboard({
       <div
         className={cn(
           "relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0a0a12]/95 shadow-2xl shadow-indigo-500/10 backdrop-blur-2xl",
-          isHero && "max-h-[460px] sm:max-h-[480px]",
-          isShowcase && "min-h-[520px]",
+          (isHero || isShowcase) && "max-h-[460px] sm:max-h-[480px]",
         )}
       >
         {/* Browser chrome */}

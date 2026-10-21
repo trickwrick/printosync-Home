@@ -106,7 +106,7 @@ export function DashboardShowcaseSection() {
           </AnimatePresence>
         </div>
 
-        <div className="relative mx-auto max-w-295">
+        <div className="relative mx-auto max-w-230">
           <button
             type="button"
             onClick={showPrevious}
@@ -128,7 +128,7 @@ export function DashboardShowcaseSection() {
               <EnterpriseDashboard
                 variant="showcase"
                 defaultModule={slide.module}
-                className="mx-auto max-w-275"
+                className="mx-auto w-full"
               />
             </motion.div>
           </AnimatePresence>
