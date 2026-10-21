@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
 import {
@@ -165,82 +166,108 @@ export function WorkflowSection() {
               <div className="absolute inset-0 bg-linear-to-r from-card/85 via-card/45 to-transparent dark:from-card/90 dark:via-card/50 dark:to-transparent" />
             </div>
 
-            <div className="relative z-10">
-              <div className="flex items-center gap-4">
-                <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-brand text-brand-foreground shadow-glow">
-                  <SelectedIcon className="size-6" aria-hidden="true" />
-                </span>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand">
-                    Module {selectedStep.step}
-                  </p>
-                  <h3 className="mt-1 font-display text-2xl font-bold text-foreground sm:text-3xl">
-                    {selectedStep.title}
-                  </h3>
-                </div>
-              </div>
-
-              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-                {selectedStep.description}
-              </p>
-
-              <div className="mt-6 flex flex-wrap items-center gap-3">
-                <span className="rounded-full border border-brand/20 bg-brand-muted px-3 py-1.5 text-xs font-semibold text-brand">
-                  {selectedStep.duration}
-                </span>
-                <button
-                  type="button"
-                  onClick={goToNextStep}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-xs font-semibold text-background transition-all hover:bg-brand hover:text-brand-foreground"
-                >
-                  {activeStep === workflowSteps.length - 1
-                    ? "Back to dashboard"
-                    : "Next module"}
-                  <ArrowRight className="size-3.5" aria-hidden="true" />
-                </button>
-              </div>
-            </div>
-
-            <div className="relative z-10 rounded-2xl border border-border bg-background/92 backdrop-blur-xs p-5 shadow-sm">
-              <div className="flex items-center justify-between border-b border-border pb-4">
-                <p className="text-sm font-semibold text-foreground">
-                  Module highlights
-                </p>
-                <span className="rounded-full bg-brand-muted px-2.5 py-1 text-[10px] font-bold text-brand">
-                  LIVE
-                </span>
-              </div>
-
-              <ul className="mt-4 space-y-3">
-                {stepHighlights[activeStep].map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 rounded-xl border border-border/70 bg-card px-3.5 py-3 text-sm font-medium text-foreground"
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+                className="relative z-10"
+              >
+                <div className="flex items-center gap-4">
+                  <motion.span
+                    initial={{ scale: 0.8, rotate: -10 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-brand text-brand-foreground shadow-glow"
                   >
-                    <CircleCheck
-                      className="size-4 shrink-0 text-brand"
-                      aria-hidden="true"
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+                    <SelectedIcon className="size-6" aria-hidden="true" />
+                  </motion.span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand">
+                      Module {selectedStep.step}
+                    </p>
+                    <h3 className="mt-1 font-display text-2xl font-bold text-foreground sm:text-3xl">
+                      {selectedStep.title}
+                    </h3>
+                  </div>
+                </div>
 
-              <div className="mt-5 flex items-center justify-between text-[11px] font-medium text-muted-foreground">
-                <span>Workflow progress</span>
-                <span>
-                  {activeStep + 1} of {workflowSteps.length}
-                </span>
-              </div>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
-                <div
-                  className="h-full rounded-full bg-brand transition-all duration-500"
-                  style={{
-                    width: `${((activeStep + 1) / workflowSteps.length) * 100}%`,
-                  }}
-                />
-              </div>
-            </div>
+                <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {selectedStep.description}
+                </p>
+
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <span className="rounded-full border border-brand/20 bg-brand-muted px-3 py-1.5 text-xs font-semibold text-brand">
+                    {selectedStep.duration}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={goToNextStep}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-xs font-semibold text-background transition-all hover:bg-brand hover:text-brand-foreground"
+                  >
+                    {activeStep === workflowSteps.length - 1
+                      ? "Back to dashboard"
+                      : "Next module"}
+                    <ArrowRight className="size-3.5" aria-hidden="true" />
+                  </button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`highlights-${activeStep}`}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+                className="relative z-10 rounded-2xl border border-border bg-background/92 backdrop-blur-xs p-5 shadow-sm"
+              >
+                <div className="flex items-center justify-between border-b border-border pb-4">
+                  <p className="text-sm font-semibold text-foreground">
+                    Module highlights
+                  </p>
+                  <span className="rounded-full bg-brand-muted px-2.5 py-1 text-[10px] font-bold text-brand">
+                    LIVE
+                  </span>
+                </div>
+
+                <ul className="mt-4 space-y-3">
+                  {stepHighlights[activeStep].map((item, idx) => (
+                    <motion.li
+                      key={item}
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.08, duration: 0.25 }}
+                      className="flex items-center gap-3 rounded-xl border border-border/70 bg-card px-3.5 py-3 text-sm font-medium text-foreground"
+                    >
+                      <CircleCheck
+                        className="size-4 shrink-0 text-brand"
+                        aria-hidden="true"
+                      />
+                      {item}
+                    </motion.li>
+                  ))}
+                </ul>
+
+                <div className="mt-5 flex items-center justify-between text-[11px] font-medium text-muted-foreground">
+                  <span>Workflow progress</span>
+                  <span>
+                    {activeStep + 1} of {workflowSteps.length}
+                  </span>
+                </div>
+                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
+                  <div
+                    className="h-full rounded-full bg-brand transition-all duration-500"
+                    style={{
+                      width: `${((activeStep + 1) / workflowSteps.length) * 100}%`,
+                    }}
+                  />
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
