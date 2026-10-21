@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
 import {
   ArrowRight,
   BarChart3,
@@ -146,23 +146,29 @@ export function WorkflowSection() {
           <div
             id="workflow-detail"
             role="tabpanel"
-            className="relative grid gap-8 overflow-hidden bg-card p-6 md:grid-cols-[1.25fr_0.75fr] md:p-10 lg:gap-14 lg:p-12"
+            className="relative overflow-hidden grid gap-8 bg-linear-to-br from-card via-card to-brand-muted/50 p-6 md:grid-cols-[1.25fr_0.75fr] md:p-10 lg:gap-14 lg:p-12"
           >
-            {/* Background Printing Machine (Full width & height coverage) */}
+            {/* Background Printing Machine with Smooth Fade Gradient (100% -> 70% -> 40% -> 0%) */}
             <div
-              className="pointer-events-none absolute inset-0 select-none overflow-hidden"
+              className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
               aria-hidden="true"
             >
               <Image
-                src="/images/offset-printing-machine.png"
-                alt="Commercial offset printing press machinery"
+                src="/images/printing-machine.png"
+                alt="Industrial Offset Printing Machine"
                 fill
-                className="object-cover object-center filter saturate-120"
                 priority
-                unoptimized
+                className="object-cover object-right-bottom opacity-18 dark:opacity-25 transition-all duration-700"
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,1) 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 20%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,1) 100%)",
+                }}
+                sizes="(max-width: 1280px) 100vw, 1280px"
               />
-              {/* Modern Glassmorphic Backdrop Overlay so text and UI remain 100% sharp and readable */}
-              <div className="absolute inset-0 bg-background/88 backdrop-blur-[2px]" />
+              {/* Subtle top & bottom soft blend */}
+              <div className="absolute inset-0 bg-linear-to-t from-card/80 via-transparent to-card/60" />
             </div>
 
             <div className="relative z-10">
@@ -201,7 +207,7 @@ export function WorkflowSection() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-background/90 p-5 shadow-sm">
+            <div className="relative z-10 rounded-2xl border border-border bg-background/92 backdrop-blur-xs p-5 shadow-sm">
               <div className="flex items-center justify-between border-b border-border pb-4">
                 <p className="text-sm font-semibold text-foreground">
                   Module highlights
