@@ -34,23 +34,23 @@ export function EnterpriseDashboard({
       className={cn("relative mx-auto w-full", className)}
     >
       {/* Ambient glow */}
-      <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-b from-indigo-500/15 via-violet-500/5 to-transparent blur-2xl" />
+      <div className="pointer-events-none absolute -inset-4 rounded-3xl bg-linear-to-b from-indigo-500/15 via-violet-500/5 to-transparent blur-2xl" />
 
       <div
         className={cn(
-          "relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0a0a12]/95 shadow-2xl shadow-indigo-500/10 backdrop-blur-2xl",
-          (isHero || isShowcase) && "max-h-[460px] sm:max-h-[480px]",
+          "relative flex flex-col overflow-hidden rounded-2xl border border-white/8 bg-[#0a0a12]/95 shadow-2xl shadow-indigo-500/10 backdrop-blur-2xl",
+          (isHero || isShowcase) && "max-h-115 sm:max-h-120",
         )}
       >
         {/* Browser chrome */}
-        <div className="flex shrink-0 items-center gap-3 border-b border-white/[0.06] bg-black/30 px-3 py-2.5 sm:px-4">
+        <div className="flex shrink-0 items-center gap-3 border-b border-white/6 bg-black/30 px-3 py-2.5 sm:px-4">
           <div className="flex gap-1.5">
             <span className="size-2.5 rounded-full bg-red-500/70" />
             <span className="size-2.5 rounded-full bg-amber-500/70" />
             <span className="size-2.5 rounded-full bg-emerald-500/70" />
           </div>
           <div className="flex flex-1 items-center justify-center">
-            <div className="flex max-w-xs flex-1 items-center gap-2 rounded-md border border-white/[0.06] bg-white/[0.03] px-3 py-1 sm:max-w-md">
+            <div className="flex max-w-xs flex-1 items-center gap-2 rounded-md border border-white/6 bg-white/3 px-3 py-1 sm:max-w-md">
               <Search className="size-3 shrink-0 text-white/25" />
               <span className="truncate text-[10px] text-white/30">
                 app.printosync.com/{activeModule === "dashboard" ? "" : activeModule}
@@ -80,7 +80,7 @@ export function EnterpriseDashboard({
             <main
               className={cn(
                 "flex-1 overflow-y-auto overflow-x-hidden p-3 scrollbar-none sm:p-4",
-                isHero && "max-h-[350px] sm:max-h-[370px]",
+                isHero && "max-h-87.5 sm:max-h-92.5",
               )}
             >
               <ModuleViews module={activeModule} compact={isHero} />
