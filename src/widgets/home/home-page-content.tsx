@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { HeroSection } from "@/widgets/hero";
 import { ProofSection } from "@/widgets/home/proof-section";
 
@@ -14,10 +13,7 @@ import {
 
 import { NationwideReachSection } from "@/widgets/home/nationwide-reach-section";
 
-const WorkflowSection = dynamic(
-  () => import("@/widgets/home/workflow-section").then((m) => m.WorkflowSection),
-  { loading: () => <div className="min-h-80" aria-hidden="true" /> },
-);
+import { WorkflowSection } from "@/widgets/home/workflow-section";
 
 export function HomePageContent() {
   return (
