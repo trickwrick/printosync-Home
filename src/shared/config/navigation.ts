@@ -261,10 +261,8 @@ export const ctaNavigation = {
 export const footerNavigation = {
   company: [
     { title: "About Us", href: "/about" },
-    { title: "Our Mission", href: "/company/our-mission" },
     { title: "Why PrintoSync", href: "/company/why-printosync" },
-    { title: "Partners", href: "/company/partners" },
-    { title: "Contact", href: "/contact" },
+    { title: "Data Security", href: "/legal/data-security" },
   ],
   solutions: [
     { title: "Billing Software", href: "/modules/billing-software-for-printing-press" },
@@ -274,7 +272,6 @@ export const footerNavigation = {
     { title: "Challan Software", href: "/modules/challan-software-for-printing-press" },
     { title: "Stock & Inventory", href: "/modules/stock-inventory-management-software-for-printing-press" },
     { title: "All Modules", href: "/services" },
-    { title: "Pricing", href: "/pricing" },
   ],
   industries: [
     { title: "Offset Printing", href: "/industries/offset-printing-press" },
@@ -286,9 +283,6 @@ export const footerNavigation = {
   ],
   resources: [
     { title: "Blog", href: "/blog" },
-    { title: "Case Studies", href: "/case-studies" },
-    { title: "Help Center", href: "/resources/help-center" },
-    { title: "Knowledge Base", href: "/resources/knowledge-base" },
     { title: "FAQs", href: "/resources/faqs" },
     { title: "Book Demo", href: "/book-demo" },
     { title: "Support", href: "/support" },

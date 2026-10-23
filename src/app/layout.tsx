@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fontVariables} h-full`} suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="3tElN3kZuFlpYXysH2YrMNm1cIsFhwe1WDCXUW87fhM" />
         <link rel="icon" href="/logo.png" type="image/png" />
         <link rel="shortcut icon" href="/logo.png" type="image/png" />
         <link rel="apple-touch-icon" href="/logo.png" />

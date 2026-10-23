@@ -149,21 +149,21 @@ export function WorkflowSection() {
             role="tabpanel"
             className="relative overflow-hidden grid gap-8 bg-linear-to-br from-card via-card to-brand-muted/50 p-6 md:grid-cols-[1.25fr_0.75fr] md:p-10 lg:gap-14 lg:p-12"
           >
-            {/* Full Modern Printing Press Factory Floor Background - High Clarity */}
+            {/* Modern Printing Press Factory Floor Background */}
             <div
-              className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+              className="pointer-events-none absolute inset-0 z-0 overflow-hidden flex items-end justify-start"
               aria-hidden="true"
             >
               <Image
-                src="/images/printing-press-bg.jpg"
+                src="/images/machine back.png"
                 alt="Modern Printing Press Production Plant"
                 fill
                 priority
-                className="object-cover object-center opacity-70 dark:opacity-60 transition-all duration-700"
+                className="scale-65 md:scale-70 translate-y-20 md:translate-y-28 translate-x-2 md:translate-x-6 object-contain object-bottom-left opacity-40 dark:opacity-30 transition-all duration-700"
                 sizes="(max-width: 1280px) 100vw, 1280px"
               />
-              {/* Subtle translucent gradient on left for text legibility, right side stays open */}
-              <div className="absolute inset-0 bg-linear-to-r from-card/85 via-card/45 to-transparent dark:from-card/90 dark:via-card/50 dark:to-transparent" />
+              {/* Soft overlay for subtle background blending and high readability */}
+              <div className="absolute inset-0 bg-linear-to-r from-card/85 via-card/50 to-card/25 dark:from-card/90 dark:via-card/60 dark:to-card/35" />
             </div>
 
             <AnimatePresence mode="wait">

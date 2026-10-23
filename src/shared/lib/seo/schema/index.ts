@@ -12,9 +12,10 @@ export function organizationSchema() {
     description: siteConfig.description,
     email: siteConfig.contact.email,
     sameAs: [
-      siteConfig.links.twitter,
+      siteConfig.links.facebook,
+      siteConfig.links.instagram,
+      siteConfig.links.youtube,
       siteConfig.links.linkedin,
-      siteConfig.links.github,
     ],
     contactPoint: {
       "@type": "ContactPoint",

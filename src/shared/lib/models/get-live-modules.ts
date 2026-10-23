@@ -35,9 +35,12 @@ export async function getLiveModules(): Promise<LiveModuleEntry[]> {
 }
 
 export async function getLiveModuleBySlug(slug: string): Promise<LiveModuleEntry | null> {
+  const normalizedSlug = (slug || "").trim().toLowerCase();
   try {
     await connectToDatabase();
-    const doc = await ModuleModel.findOne({ slug }).lean();
+    const doc = await ModuleModel.findOne({
+      slug: { $regex: new RegExp(`^${normalizedSlug}$`, "i") },
+    }).lean();
     if (doc) {
       return {
         slug: doc.slug,
@@ -57,6 +60,8 @@ export async function getLiveModuleBySlug(slug: string): Promise<LiveModuleEntry
     console.error("Error reading live module by slug from DB:", err);
   }
 
-  const fallback = defaultModules.find((m) => m.slug === slug);
+  const fallback = defaultModules.find(
+    (m) => m.slug.toLowerCase() === normalizedSlug
+  );
   return (fallback as LiveModuleEntry) || null;
 }

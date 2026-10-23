@@ -66,7 +66,7 @@ export function HeroSection({
       <div className="relative mx-auto max-w-350 px-6 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
           {/* Copy */}
-          <div>
+          <div className="min-w-0">
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -150,10 +150,10 @@ export function HeroSection({
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
-            className="relative"
+            className="relative w-full min-w-0"
           >
             <div className="absolute -inset-4 rounded-3xl bg-brand/5 blur-2xl" aria-hidden="true" />
-            <div className="relative rounded-2xl border border-border/80 bg-surface p-2 shadow-premium">
+            <div className="relative w-full min-w-0 overflow-hidden rounded-2xl border border-border/80 bg-surface p-2 shadow-premium">
               <DashboardPreview />
             </div>
           </motion.div>

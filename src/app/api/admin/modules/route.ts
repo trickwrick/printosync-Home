@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { connectToDatabase } from "@/shared/lib/db";
 import { ModuleModel } from "@/shared/lib/models/module";
 import { modules as defaultModules } from "@/entities/marketing/content";
@@ -22,11 +23,19 @@ export async function GET() {
     await connectToDatabase();
     const modulesFromDb = await ModuleModel.find({}).sort({ order: 1 }).lean();
 
-    if (!modulesFromDb || modulesFromDb.length === 0) {
-      return NextResponse.json({ success: true, modules: defaultModules });
-    }
+    const data =
+      !modulesFromDb || modulesFromDb.length === 0
+        ? defaultModules
+        : modulesFromDb;
 
-    return NextResponse.json({ success: true, modules: modulesFromDb });
+    return NextResponse.json(
+      { success: true, modules: data },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching modules from MongoDB:", error);
     return NextResponse.json({ success: true, modules: defaultModules });
@@ -98,6 +107,13 @@ export async function POST(req: Request) {
     });
 
     await ModuleModel.insertMany(itemsToInsert);
+
+    try {
+      revalidatePath("/modules/[slug]", "page");
+      revalidatePath("/", "page");
+    } catch (revalErr) {
+      console.warn("Revalidation notice:", revalErr);
+    }
 
     const saved = await ModuleModel.find({}).sort({ order: 1 }).lean();
     return NextResponse.json({ success: true, modules: saved });

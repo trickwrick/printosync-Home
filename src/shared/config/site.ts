@@ -7,9 +7,10 @@ export const siteConfig = {
   logo: "/logo.png",
   ogImage: "/opengraph-image",
   links: {
-    twitter: "https://twitter.com/printosync",
+    facebook: "https://www.facebook.com/printosync",
+    instagram: "https://www.instagram.com/printosync",
+    youtube: "https://www.youtube.com/@printosync",
     linkedin: "https://linkedin.com/company/printosync",
-    github: "https://github.com/printosync",
   },
   contact: {
     email: "hello@printosync.com",

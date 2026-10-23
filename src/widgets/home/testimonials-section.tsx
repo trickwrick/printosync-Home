@@ -12,8 +12,8 @@ import {
 
 export function TestimonialsSection() {
   return (
-    <SectionReveal className="border-t border-white/[0.04] bg-white/[0.01] py-24 lg:py-32">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+    <SectionReveal className="border-t border-white/4 bg-white/1 py-24 lg:py-32">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <SectionLabel>Testimonials</SectionLabel>
           <SectionTitle className="mx-auto">
@@ -53,12 +53,12 @@ function TestimonialCard({
   return (
     <motion.div
       whileHover={{ y: -4, borderColor: "rgba(99,102,241,0.3)" }}
-      className="w-[340px] shrink-0 rounded-2xl border border-white/[0.06] bg-neutral-950/80 p-6 backdrop-blur-sm"
+      className="w-85 shrink-0 rounded-2xl border border-white/6 bg-neutral-950/80 p-6 backdrop-blur-sm"
     >
       <Quote className="size-6 text-indigo-500/40" />
       <p className="mt-4 text-sm leading-relaxed text-white/60">&ldquo;{quote}&rdquo;</p>
       <div className="mt-6 flex items-center gap-3">
-        <span className="flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-xs font-bold text-white">
+        <span className="flex size-10 items-center justify-center rounded-full bg-linear-to-br from-indigo-500 to-violet-600 text-xs font-bold text-white">
           {avatar}
         </span>
         <div>

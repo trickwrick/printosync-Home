@@ -39,8 +39,8 @@ export function IndustriesSection() {
   }, []);
 
   return (
-    <SectionReveal className="overflow-hidden border-t border-white/[0.04] py-24 lg:py-32">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+    <SectionReveal className="overflow-hidden border-t border-white/4 py-24 lg:py-32">
+      <div className="mx-auto max-w-350 px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div className="max-w-xl">
             <SectionLabel>Industries</SectionLabel>
@@ -58,9 +58,9 @@ export function IndustriesSection() {
           </Link>
         </div>
 
-        <div className="mt-8 h-0.5 w-full overflow-hidden rounded-full bg-white/[0.06]">
+        <div className="mt-8 h-0.5 w-full overflow-hidden rounded-full bg-white/6">
           <div
-            className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-[width] duration-150"
+            className="h-full bg-linear-to-r from-indigo-500 to-violet-500 transition-[width] duration-150"
             style={{ width: `${progress * 100}%` }}
           />
         </div>
@@ -80,7 +80,7 @@ export function IndustriesSection() {
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
             whileHover={{ y: -8 }}
-            className={`group relative h-[320px] w-[280px] shrink-0 overflow-hidden rounded-2xl border bg-gradient-to-br ${colorMap[industry.color as keyof typeof colorMap]} sm:w-[320px]`}
+            className={`group relative h-80 w-70 shrink-0 overflow-hidden rounded-2xl border bg-linear-to-br ${colorMap[industry.color as keyof typeof colorMap]} sm:w-[320px]`}
             style={{ scrollSnapAlign: "start" }}
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.08),transparent_60%)]" />

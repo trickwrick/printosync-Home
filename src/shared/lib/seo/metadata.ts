@@ -153,5 +153,8 @@ export const rootMetadata: Metadata = {
     apple: [{ url: "/logo.png", type: "image/png" }],
     shortcut: ["/logo.png"],
   },
+  verification: {
+    google: "3tElN3kZuFlpYXysH2YrMNm1cIsFhwe1WDCXUW87fhM",
+  },
   manifest: "/manifest.webmanifest",
 };

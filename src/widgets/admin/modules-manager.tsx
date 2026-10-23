@@ -50,7 +50,7 @@ export function ModulesManager() {
   const fetchModules = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/modules");
+      const res = await fetch("/api/admin/modules", { cache: "no-store" });
       const data = await res.json();
       if (data.success) {
         setModules(data.modules);

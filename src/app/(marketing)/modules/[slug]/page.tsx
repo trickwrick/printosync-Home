@@ -16,6 +16,9 @@ import {
 } from "@/shared/lib/models/get-live-modules";
 import { modules as defaultModules } from "@/entities/marketing/content";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export function generateStaticParams() {
   return defaultModules.map((m) => ({ slug: m.slug }));
 }
