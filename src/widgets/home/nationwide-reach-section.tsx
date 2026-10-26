@@ -92,9 +92,8 @@ export function NationwideReachSection() {
                             const found = implementationPins.find((p) => p.stateId === state.id);
                             if (found) setActivePin(found);
                           }}
-                        >
-                          <title>{state.name}</title>
-                        </path>
+                          aria-label={state.name}
+                        />
                       );
                     })}
                   </g>
