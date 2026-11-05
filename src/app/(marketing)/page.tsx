@@ -5,7 +5,7 @@ import { getLiveHomeFaqs } from "@/shared/lib/models/get-live-faqs";
 import { JsonLd } from "@/shared/ui/seo";
 import { HomePageContent } from "@/widgets/home/home-page-content";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getLiveHomeSeo();

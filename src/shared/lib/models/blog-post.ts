@@ -5,6 +5,11 @@ export interface IBlogSection {
   paragraphs: string[];
 }
 
+export interface IBlogFaq {
+  question: string;
+  answer: string;
+}
+
 export interface IBlogPostDoc extends Document {
   slug: string;
   path: string;
@@ -17,8 +22,12 @@ export interface IBlogPostDoc extends Document {
   dateModified: string;
   author: string;
   readTime: string;
+  category?: string;
+  tags?: string[];
   keywords: string[];
   sections: IBlogSection[];
+  faqs?: IBlogFaq[];
+  isFeatured?: boolean;
   order: number;
   isActive: boolean;
   createdAt: Date;
@@ -29,6 +38,14 @@ const BlogSectionSchema = new Schema<IBlogSection>(
   {
     heading: { type: String, required: true },
     paragraphs: { type: [String], default: [] },
+  },
+  { _id: false }
+);
+
+const BlogFaqSchema = new Schema<IBlogFaq>(
+  {
+    question: { type: String, required: true },
+    answer: { type: String, required: true },
   },
   { _id: false }
 );
@@ -46,8 +63,12 @@ const BlogPostSchema = new Schema<IBlogPostDoc>(
     dateModified: { type: String, default: "" },
     author: { type: String, default: "PrintoSync Team" },
     readTime: { type: String, default: "5 min read" },
+    category: { type: String, default: "General" },
+    tags: { type: [String], default: [] },
     keywords: { type: [String], default: [] },
     sections: { type: [BlogSectionSchema], default: [] },
+    faqs: { type: [BlogFaqSchema], default: [] },
+    isFeatured: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
   },

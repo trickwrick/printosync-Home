@@ -23,7 +23,7 @@ export function DashboardTopbar({
   return (
     <header className="flex h-11 shrink-0 items-center gap-3 border-b border-white/[0.06] bg-white/[0.02] px-3 backdrop-blur-md sm:px-4">
       <div className="min-w-0 flex-1">
-        <h1 className="truncate text-[13px] font-semibold text-white">{moduleLabel}</h1>
+        <span className="block truncate text-[13px] font-semibold text-white">{moduleLabel}</span>
         {!compact && (
           <p className="truncate text-[10px] text-white/30">Welcome back, Operations Team</p>
         )}

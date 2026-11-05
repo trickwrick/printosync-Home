@@ -179,33 +179,6 @@ export const industries: readonly MarketingEntry[] = [
 
 export const resources: readonly MarketingEntry[] = [
   {
-    slug: "help-center",
-    title: "Help Center",
-    eyebrow: "Product assistance",
-    description: "Find clear guidance for setting up and using PrintoSync in daily operations.",
-    features: ["Getting started", "Account setup", "Workflow guidance", "Troubleshooting"],
-    benefits: ["Faster answers", "Confident teams", "Less downtime"],
-    keywords: ["PrintoSync help", "printing ERP support"],
-  },
-  {
-    slug: "knowledge-base",
-    title: "Knowledge Base",
-    eyebrow: "Practical documentation",
-    description: "Explore practical guides for quotations, job cards, production, stock, billing, and reports.",
-    features: ["Module guides", "Best practices", "Process checklists", "Admin guidance"],
-    benefits: ["Self-service learning", "Consistent processes", "Faster onboarding"],
-    keywords: ["PrintoSync documentation", "printing ERP guide"],
-  },
-  {
-    slug: "video-tutorials",
-    title: "Video Tutorials",
-    eyebrow: "Learn visually",
-    description: "Follow focused walkthroughs for common PrintoSync workflows and configuration tasks.",
-    features: ["Quick starts", "Module walkthroughs", "Admin tutorials", "Workflow examples"],
-    benefits: ["Easy learning", "Team enablement", "On-demand training"],
-    keywords: ["PrintoSync tutorials", "printing software training"],
-  },
-  {
     slug: "faqs",
     title: "Frequently Asked Questions",
     eyebrow: "Common questions",
@@ -214,33 +187,10 @@ export const resources: readonly MarketingEntry[] = [
     benefits: ["Clear expectations", "Faster evaluation", "Easy adoption"],
     keywords: ["PrintoSync FAQ", "printing ERP questions"],
   },
-  {
-    slug: "release-notes",
-    title: "Release Notes",
-    eyebrow: "Product updates",
-    description: "Track improvements, new capabilities, and important changes across PrintoSync.",
-    features: ["New features", "Improvements", "Fixes", "Product notices"],
-    benefits: ["Stay informed", "Use new tools", "Plan updates"],
-    keywords: ["PrintoSync updates", "PrintoSync release notes"],
-  },
-  {
-    slug: "downloads",
-    title: "Downloads",
-    eyebrow: "Useful resources",
-    description: "Access checklists, implementation guides, and print operations resources from PrintoSync.",
-    features: ["ERP checklist", "Workflow guide", "Migration planner", "Product overview"],
-    benefits: ["Plan confidently", "Align teams", "Evaluate faster"],
-    keywords: ["printing ERP guide download", "print workflow checklist"],
-  },
 ] as const;
 
 export const companyPages: readonly MarketingEntry[] = [
-  ["company", "Company", "Learn how PrintoSync helps printing businesses replace disconnected tools with one operational platform."],
-  ["our-mission", "Our Mission", "Our mission is to make printing businesses more productive, visible, accurate, and ready to grow."],
   ["why-printosync", "Why Choose PrintoSync", "Discover why print businesses choose an industry-specific, connected, and easy-to-use ERP."],
-  ["our-team", "Our Team", "Meet the product, implementation, and support mindset behind PrintoSync."],
-  ["careers", "Careers", "Help us build practical technology for the global printing industry."],
-  ["partners", "Partners", "Work with PrintoSync to deliver stronger technology and services to printing businesses."],
 ].map(([slug, title, description]) => ({
   slug,
   title,

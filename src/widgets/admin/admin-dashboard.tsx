@@ -36,6 +36,7 @@ export function AdminDashboard() {
   >("dashboard");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [unreadInquiriesCount, setUnreadInquiriesCount] = useState<number>(0);
 
   useEffect(() => {
     const isAuth = localStorage.getItem("printosync_admin_auth");
@@ -45,6 +46,36 @@ export function AdminDashboard() {
       setIsAuthenticated(true);
     }
   }, [router]);
+
+  useEffect(() => {
+    const fetchUnreadCount = async () => {
+      try {
+        const res = await fetch("/api/admin/inquiries");
+        const data = await res.json();
+        if (data.success && Array.isArray(data.inquiries)) {
+          const lastViewedStr = localStorage.getItem("printosync_last_inquiries_view");
+          const lastViewed = lastViewedStr ? parseInt(lastViewedStr, 10) : 0;
+
+          const unread = data.inquiries.filter((inq: { status?: string; createdAt?: string; date?: string }) => {
+            if (inq.status !== "new") return false;
+            if (!lastViewed) return true;
+            const inqTime = new Date(inq.createdAt || inq.date || 0).getTime();
+            return inqTime > lastViewed;
+          }).length;
+
+          setUnreadInquiriesCount(unread);
+        }
+      } catch (err) {
+        console.error("Failed to load inquiries count:", err);
+      }
+    };
+
+    if (isAuthenticated) {
+      fetchUnreadCount();
+      const interval = setInterval(fetchUnreadCount, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [isAuthenticated]);
 
   const handleLogout = () => {
     localStorage.removeItem("printosync_admin_auth");
@@ -62,6 +93,10 @@ export function AdminDashboard() {
   const selectTab = (tab: typeof activeTab) => {
     setActiveTab(tab);
     setSidebarOpen(false);
+    if (tab === "inquiries") {
+      setUnreadInquiriesCount(0);
+      localStorage.setItem("printosync_last_inquiries_view", Date.now().toString());
+    }
   };
 
   return (
@@ -116,128 +151,95 @@ export function AdminDashboard() {
               <Mail className="size-5" />
               Inquiries
             </div>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">
-              New
-            </span>
+            {unreadInquiriesCount > 0 && (
+              <span className="flex min-w-5 h-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-[11px] font-bold text-white shadow-xs">
+                {unreadInquiriesCount}
+              </span>
+            )}
           </button>
 
           <button
             onClick={() => selectTab("modules")}
-            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "modules"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            <div className="flex items-center gap-3">
-              <Layers className="size-5" />
-              Modules
-            </div>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-background/20 font-bold">
-              6
-            </span>
+            <Layers className="size-5" />
+            Modules
           </button>
 
           <button
             onClick={() => selectTab("industries")}
-            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "industries"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            <div className="flex items-center gap-3">
-              <Factory className="size-5" />
-              Who We Help
-            </div>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-bold">
-              10
-            </span>
+            <Factory className="size-5" />
+            Who We Help
           </button>
 
           <button
             onClick={() => selectTab("blogs")}
-            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "blogs"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            <div className="flex items-center gap-3">
-              <BookOpen className="size-5" />
-              Blog &amp; Articles
-            </div>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-pink-500/20 text-pink-300 font-bold">
-              Posts
-            </span>
+            <BookOpen className="size-5" />
+            Blog &amp; Articles
           </button>
 
           <button
             onClick={() => selectTab("home-seo")}
-            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "home-seo"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            <div className="flex items-center gap-3">
-              <Globe className="size-5" />
-              Home SEO
-            </div>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-brand/20 text-brand font-bold">
-              Special
-            </span>
+            <Globe className="size-5" />
+            Home SEO
           </button>
 
           <button
             onClick={() => selectTab("clients")}
-            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "clients"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            <div className="flex items-center gap-3">
-              <Building2 className="size-5" />
-              Clients &amp; Logos
-            </div>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">
-              Ticker
-            </span>
+            <Building2 className="size-5" />
+            Clients &amp; Logos
           </button>
 
           <button
             onClick={() => selectTab("testimonials")}
-            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "testimonials"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            <div className="flex items-center gap-3">
-              <MessageSquareQuote className="size-5" />
-              Testimonials
-            </div>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-bold">
-              Demo
-            </span>
+            <MessageSquareQuote className="size-5" />
+            Testimonials
           </button>
 
           <button
             onClick={() => selectTab("faqs")}
-            className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
               activeTab === "faqs"
                 ? "bg-brand text-brand-foreground shadow-sm shadow-brand/20"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             }`}
           >
-            <div className="flex items-center gap-3">
-              <HelpCircle className="size-5" />
-              Homepage FAQs
-            </div>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">
-              Home
-            </span>
+            <HelpCircle className="size-5" />
+            Homepage FAQs
           </button>
 
           <button
@@ -298,8 +300,15 @@ export function AdminDashboard() {
             </h1>
           </div>
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-            <button className="text-muted-foreground hover:text-foreground transition-colors p-1.5 rounded-lg hover:bg-muted">
+            <button
+              onClick={() => selectTab("inquiries")}
+              className="relative text-muted-foreground hover:text-foreground transition-colors p-1.5 rounded-lg hover:bg-muted"
+              title="Inquiries"
+            >
               <Bell className="size-5" />
+              {unreadInquiriesCount > 0 && (
+                <span className="absolute top-1 right-1 flex size-2 rounded-full bg-red-500 animate-pulse" />
+              )}
             </button>
             <div className="h-8 w-8 rounded-full bg-brand/20 flex items-center justify-center border border-brand/30">
               <span className="text-xs font-bold text-brand">AD</span>

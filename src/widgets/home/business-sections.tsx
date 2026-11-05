@@ -277,7 +277,7 @@ export function DigitizeCtaSection() {
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <MagneticButton href="/book-demo">Schedule a Demo</MagneticButton>
               <Link
-                href="/sales-enquiry"
+                href="/contact"
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
               >
                 Contact Sales <ArrowRight className="size-4" aria-hidden="true" />

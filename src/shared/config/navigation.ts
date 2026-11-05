@@ -5,22 +5,18 @@ import {
   Calculator,
   Calendar,
   CircleHelp,
-  Download,
   Factory,
   FileText,
-  Handshake,
   Home,
   Layers,
   Mail,
-  Newspaper,
   Package,
   Receipt,
   ShieldCheck,
   Truck,
   Users,
-  Video,
 } from "lucide-react";
-import { companyPages, industries, modules, resources } from "@/entities/marketing";
+import { industries, modules } from "@/entities/marketing";
 
 export interface NavItem {
   title: string;
@@ -168,37 +164,12 @@ export const resourcesMegaMenu: MegaMenuSection[] = [
         icon: BookOpen,
       },
       {
-        title: "Case Studies",
-        href: "/case-studies",
-        description: "Real results from print shops",
-        icon: FileText,
+        title: "FAQs",
+        href: "/resources/faqs",
+        description: "Common product questions",
+        icon: CircleHelp,
       },
-      ...resources.slice(0, 3).map((resource) => ({
-        title: resource.title,
-        href: `/resources/${resource.slug}`,
-        description: resource.eyebrow,
-        icon:
-          resource.slug === "video-tutorials"
-            ? Video
-            : resource.slug === "help-center"
-              ? CircleHelp
-              : BookOpen,
-      })),
     ],
-  },
-  {
-    title: "Updates & Downloads",
-    items: resources.slice(3).map((resource) => ({
-      title: resource.title,
-      href: `/resources/${resource.slug}`,
-      description: resource.eyebrow,
-      icon:
-        resource.slug === "downloads"
-          ? Download
-          : resource.slug === "release-notes"
-            ? Newspaper
-            : CircleHelp,
-    })),
   },
 ];
 
@@ -212,23 +183,12 @@ export const companyMegaMenu: MegaMenuSection[] = [
         description: "Our story and values",
         icon: Building2,
       },
-      ...companyPages.slice(0, 3).map((page) => ({
-        title: page.title,
-        href: `/company/${page.slug}`,
-        description: page.eyebrow,
-        icon: page.slug === "our-team" ? Users : Building2,
-      })),
-    ],
-  },
-  {
-    title: "Connect",
-    items: [
-      ...companyPages.slice(3).map((page) => ({
-        title: page.title,
-        href: `/company/${page.slug}`,
-        description: page.eyebrow,
-        icon: page.slug === "partners" ? Handshake : Users,
-      })),
+      {
+        title: "Why PrintoSync",
+        href: "/company/why-printosync",
+        description: "Why print businesses choose PrintoSync",
+        icon: Building2,
+      },
       {
         title: "Contact Us",
         href: "/contact",

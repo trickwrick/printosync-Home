@@ -27,7 +27,6 @@ const primaryLinks = [
   ["Contact", "/contact"],
   ["Book Demo", "/book-demo"],
   ["Support", "/support"],
-  ["Sales Enquiry", "/sales-enquiry"],
 ] as const;
 
 export default function SitemapPage() {

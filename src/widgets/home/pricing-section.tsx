@@ -65,7 +65,7 @@ export function PricingSection() {
                 ))}
               </ul>
               <Link
-                href={tier.price === null ? "/sales-enquiry" : ctaNavigation.href}
+                href={tier.price === null ? "/contact" : ctaNavigation.href}
                 className={`mt-7 block rounded-full py-3 text-center text-sm font-semibold transition-all ${
                   tier.highlighted
                     ? "bg-primary text-primary-foreground shadow-[var(--shadow-cta)] hover:bg-[#e04a1e]"

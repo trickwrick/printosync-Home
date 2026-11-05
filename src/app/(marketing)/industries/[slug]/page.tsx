@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLiveIndustries, getLiveIndustryBySlug } from "@/shared/lib/models/get-live-industries";
+import { industries as defaultIndustries } from "@/entities/marketing/content";
 import { breadcrumbSchema, createMetadata, webPageSchema } from "@/shared/lib/seo";
 import { JsonLd } from "@/shared/ui/seo";
 import { DetailLanding } from "@/widgets/marketing";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+export function generateStaticParams() {
+  return defaultIndustries.map((i) => ({ slug: i.slug }));
+}
 
 export async function generateMetadata({
   params,

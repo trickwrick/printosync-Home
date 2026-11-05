@@ -28,7 +28,6 @@ export const seoRoutes: SeoRoute[] = [
   { path: "/contact", changefreq: "monthly", priority: 0.7 },
   { path: "/book-demo", changefreq: "monthly", priority: 0.85 },
   { path: "/support", changefreq: "monthly", priority: 0.65 },
-  { path: "/sales-enquiry", changefreq: "monthly", priority: 0.75 },
   { path: "/sitemap-page", changefreq: "monthly", priority: 0.4 },
   ...modules.map((module) => ({
     path: `/modules/${module.slug}`,

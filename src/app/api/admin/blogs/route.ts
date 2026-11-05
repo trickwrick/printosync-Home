@@ -1,30 +1,40 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { connectToDatabase } from "@/shared/lib/db";
 import { BlogPostModel } from "@/shared/lib/models/blog-post";
+import { SystemSettingModel } from "@/shared/lib/models/system-setting";
 import { blogPosts as defaultBlogPosts } from "@/shared/lib/seo/blog-posts";
 
 export async function GET() {
   try {
     await connectToDatabase();
+    const seededSetting = await SystemSettingModel.findOne({ key: "blogs_seeded" }).lean();
     let posts = await BlogPostModel.find({}).sort({ order: 1, createdAt: -1 }).lean();
 
-    // If empty in MongoDB, seed initial posts
-    if (!posts || posts.length === 0) {
-      const seeded = await BlogPostModel.insertMany(
-        defaultBlogPosts.map((post, idx) => ({
-          ...post,
-          coverImage: "",
-          order: idx,
-          isActive: true,
-        }))
+    // Only seed once on initial fresh install if never seeded before
+    if (!seededSetting) {
+      if (!posts || posts.length === 0) {
+        const seeded = await BlogPostModel.insertMany(
+          defaultBlogPosts.map((post, idx) => ({
+            ...post,
+            coverImage: "",
+            order: idx,
+            isActive: true,
+          }))
+        );
+        posts = seeded.map((item) => item.toObject());
+      }
+      await SystemSettingModel.findOneAndUpdate(
+        { key: "blogs_seeded" },
+        { $set: { key: "blogs_seeded", value: true } },
+        { upsert: true }
       );
-      posts = seeded.map((item) => item.toObject());
     }
 
-    return NextResponse.json({ success: true, posts });
+    return NextResponse.json({ success: true, posts: posts || [] });
   } catch (error) {
     console.error("Error fetching blog posts from DB:", error);
-    return NextResponse.json({ success: true, posts: defaultBlogPosts });
+    return NextResponse.json({ success: false, posts: [], error: "Failed to fetch blogs" });
   }
 }
 
@@ -76,6 +86,15 @@ export async function POST(req: Request) {
             }))
         : [];
 
+      const sanitizedFaqs = Array.isArray(post.faqs)
+        ? post.faqs
+            .filter((f: { question?: string; answer?: string }) => f && typeof f.question === "string" && f.question.trim().length > 0)
+            .map((f: { question: string; answer?: string }) => ({
+              question: f.question.trim(),
+              answer: (f.answer || "").trim(),
+            }))
+        : [];
+
       const updated = await BlogPostModel.findOneAndUpdate(
         { slug },
         {
@@ -93,12 +112,26 @@ export async function POST(req: Request) {
             readTime: (post.readTime || "5 min read").trim(),
             keywords: Array.isArray(post.keywords) ? post.keywords.map((k: string) => k.trim()).filter(Boolean) : [],
             sections: sanitizedSections,
+            faqs: sanitizedFaqs,
+            isFeatured: Boolean(post.isFeatured),
             order: typeof post.order === "number" ? post.order : 0,
             isActive: post.isActive !== undefined ? post.isActive : true,
           },
         },
         { upsert: true, returnDocument: "after" }
       );
+
+      // Mark blogs as seeded so deletion won't re-trigger default post insertion
+      await SystemSettingModel.findOneAndUpdate(
+        { key: "blogs_seeded" },
+        { $set: { key: "blogs_seeded", value: true } },
+        { upsert: true }
+      );
+
+      try {
+        revalidatePath("/blog");
+        revalidatePath(path);
+      } catch {}
 
       return NextResponse.json({ success: true, post: updated });
     }
@@ -131,6 +164,18 @@ export async function DELETE(req: Request) {
 
     await connectToDatabase();
     await BlogPostModel.findOneAndDelete({ slug });
+
+    // Mark as seeded so empty DB will never resurrect deleted defaults
+    await SystemSettingModel.findOneAndUpdate(
+      { key: "blogs_seeded" },
+      { $set: { key: "blogs_seeded", value: true } },
+      { upsert: true }
+    );
+
+    try {
+      revalidatePath("/blog");
+      revalidatePath(`/blog/${slug}`);
+    } catch {}
 
     return NextResponse.json({ success: true, message: "Blog post deleted successfully" });
   } catch (error) {

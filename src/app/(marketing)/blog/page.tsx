@@ -4,7 +4,7 @@ import { getLiveBlogPosts } from "@/shared/lib/models/get-live-blogs";
 import { Container } from "@/shared/ui/container";
 import { BlogListingClient } from "@/widgets/blog/blog-listing-client";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = generatePageMetadata("blog");
 

@@ -94,7 +94,7 @@ export function getRelatedLinks(path: string) {
       { label: "All Modules", href: "/services" },
       { label: "Printing ERP", href: "/printing-erp" },
       { label: "Book Demo", href: "/book-demo" },
-      { label: "Contact Sales", href: "/sales-enquiry" },
+      { label: "Contact Sales", href: "/contact" },
     ];
   }
 

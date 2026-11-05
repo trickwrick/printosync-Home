@@ -14,6 +14,34 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
+  redirects: async () => [
+    {
+      source: "/:path*",
+      has: [
+        {
+          type: "host",
+          value: "www.printosync.com",
+        },
+      ],
+      destination: "https://printosync.com/:path*",
+      permanent: true,
+    },
+    {
+      source: "/sales-enquiry",
+      destination: "/contact",
+      permanent: true,
+    },
+    {
+      source: "/company/:slug(company|our-mission|our-team|careers|partners)",
+      destination: "/about",
+      permanent: true,
+    },
+    {
+      source: "/resources/:slug(help-center|knowledge-base|video-tutorials|release-notes|downloads)",
+      destination: "/resources/faqs",
+      permanent: true,
+    },
+  ],
   headers: async () => [
     {
       source: "/(.*)",

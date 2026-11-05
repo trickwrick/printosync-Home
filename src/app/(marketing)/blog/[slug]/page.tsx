@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   articleSchema,
@@ -8,12 +6,20 @@ import {
   createMetadata,
   webPageSchema,
 } from "@/shared/lib/seo";
-import { getLiveBlogPostBySlug } from "@/shared/lib/models/get-live-blogs";
+import {
+  getLiveBlogPostBySlug,
+  getLiveBlogPosts,
+} from "@/shared/lib/models/get-live-blogs";
 import { JsonLd, Breadcrumbs, RelatedLinks } from "@/shared/ui/seo";
 import { Container } from "@/shared/ui/container";
-import { Heading, Text } from "@/shared/ui/typography";
+import { BlogPostContent } from "@/widgets/blog/blog-post-content";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const posts = await getLiveBlogPosts();
+  return posts.map((p) => ({ slug: p.slug }));
+}
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -41,8 +47,28 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = await getLiveBlogPostBySlug(slug);
+  const [post, allPosts] = await Promise.all([
+    getLiveBlogPostBySlug(slug),
+    getLiveBlogPosts(),
+  ]);
+
   if (!post) notFound();
+
+  // Recent posts excluding current post
+  const recentPosts = allPosts
+    .filter((p) => p.slug !== post.slug)
+    .slice(0, 5);
+
+  // Group categories with counts
+  const catCountMap = new Map<string, number>();
+  for (const p of allPosts) {
+    const c = p.category || "Printing Press ERP";
+    catCountMap.set(c, (catCountMap.get(c) || 0) + 1);
+  }
+  const allCategories = Array.from(catCountMap.entries()).map(([name, count]) => ({
+    name,
+    count,
+  }));
 
   const breadcrumbs = [
     { name: "Home", path: "/" },
@@ -70,82 +96,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           }),
         ]}
       />
-      <article itemScope itemType="https://schema.org/Article">
+
+      <div className="bg-surface/50 py-6 sm:py-8 lg:py-10 border-b border-border/60">
         <Container>
           <Breadcrumbs items={breadcrumbs} />
         </Container>
+      </div>
 
-        <header className="py-8 md:py-12">
-          <Container className="max-w-3xl">
-            <Text variant="muted" className="text-sm">
-              <time dateTime={post.datePublished}>
-                {new Date(post.datePublished).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-              {" · "}
-              {post.readTime}
-              {" · "}
-              <span itemProp="author">{post.author}</span>
-            </Text>
-            <Heading level="h1" className="mt-4 text-foreground" itemProp="headline">
-              {post.title}
-            </Heading>
-            <Text variant="lead" className="mt-4 text-muted-foreground" itemProp="description">
-              {post.description}
-            </Text>
+      <main className="py-8 sm:py-12 bg-background">
+        <Container>
+          <BlogPostContent
+            post={post}
+            recentPosts={recentPosts}
+            allCategories={allCategories}
+          />
+        </Container>
+      </main>
 
-            {post.coverImage && (
-              <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-2xl border border-border bg-muted shadow-md">
-                <Image
-                  src={post.coverImage}
-                  alt={post.imageAlt || post.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                  priority
-                  unoptimized
-                />
-              </div>
-            )}
-          </Container>
-        </header>
-
-        <div className="pb-12">
-          <Container className="max-w-3xl">
-            {post.sections.map((section) => (
-              <section key={section.heading} className="mb-10">
-                <Heading level="h2" className="text-2xl text-foreground">
-                  {section.heading}
-                </Heading>
-                {section.paragraphs.map((paragraph) => (
-                  <p
-                    key={paragraph.slice(0, 40)}
-                    className="mt-4 text-base leading-relaxed text-muted-foreground"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </section>
-            ))}
-
-            <nav aria-label="Blog post navigation" className="mt-12 border-t border-border pt-8">
-              <Link
-                href="/blog"
-                className="text-sm font-medium text-brand transition-colors hover:text-brand/80"
-              >
-                ← Back to all articles
-              </Link>
-            </nav>
-          </Container>
-        </div>
-
+      <div className="border-t border-border bg-surface/30 py-12">
         <Container>
           <RelatedLinks path={post.path} />
         </Container>
-      </article>
+      </div>
     </>
   );
 }

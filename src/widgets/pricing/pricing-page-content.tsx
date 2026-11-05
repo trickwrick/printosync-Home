@@ -62,7 +62,7 @@ export function PricingPageContent() {
                   ))}
                 </ul>
                 <Link
-                  href={plan.slug === "starter" ? "/book-demo" : "/sales-enquiry"}
+                  href={plan.slug === "starter" ? "/book-demo" : "/contact"}
                   className={`mt-7 rounded-full px-4 py-3 text-center text-sm font-semibold ${
                     "popular" in plan && plan.popular
                       ? "bg-primary text-primary-foreground shadow-cta"
@@ -88,7 +88,7 @@ export function PricingPageContent() {
             </h2>
           </div>
           <div className="mt-10 overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
-            <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+            <table className="w-full min-w-190 border-collapse text-left text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted/40">
                   <th className="p-4 font-semibold text-foreground">Capability</th>
