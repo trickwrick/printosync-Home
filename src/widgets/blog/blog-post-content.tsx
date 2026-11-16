@@ -127,9 +127,14 @@ export function BlogPostContent({
           </div>
         )}
 
-        {/* Content Body Sections */}
+        {/* Content Body Sections or Rich Text HTML */}
         <div className="mt-8 space-y-8 text-foreground/90 leading-relaxed text-sm sm:text-base">
-          {post.sections && post.sections.length > 0 ? (
+          {post.contentHtml ? (
+            <div
+              className="prose prose-slate dark:prose-invert max-w-none text-foreground/90 leading-relaxed [&>h2]:font-display [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:mt-8 [&>h2]:mb-4 [&>h3]:text-xl [&>h3]:font-bold [&>h3]:mt-6 [&>h3]:mb-3 [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:my-4 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:list-decimal [&>ol]:pl-5 [&>blockquote]:border-l-4 [&>blockquote]:border-brand [&>blockquote]:pl-4 [&>blockquote]:italic"
+              dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+            />
+          ) : post.sections && post.sections.length > 0 ? (
             post.sections.map((sec, idx) => (
               <section key={idx} className="space-y-3.5">
                 {sec.heading && (

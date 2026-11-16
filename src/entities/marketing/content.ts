@@ -187,6 +187,16 @@ export const resources: readonly MarketingEntry[] = [
     benefits: ["Clear expectations", "Faster evaluation", "Easy adoption"],
     keywords: ["PrintoSync FAQ", "printing ERP questions"],
   },
+  {
+    slug: "free-paper-gsm-calculator",
+    title: "Free Paper GSM Calculator Tool",
+    shortTitle: "Paper GSM Calculator",
+    eyebrow: "Free print shop utility",
+    description: "Calculate paper grammage (GSM), total ream weight, and paper weight in KG instantly with Inches, CM, and MM units for printing presses.",
+    features: ["Inches, CM & MM units", "Instant GSM calculation", "Ream & sheet weight in KG", "Wastage & paper costing"],
+    benefits: ["Accurate paper estimation", "Zero manual math errors", "Save raw material paper costs"],
+    keywords: ["paper GSM calculator", "free paper gsm calculator tool", "calculate paper gsm", "printing press gsm calculator", "paper weight calculator kg"],
+  },
 ] as const;
 
 export const companyPages: readonly MarketingEntry[] = [

@@ -28,6 +28,7 @@ import { TestimonialsManager } from "./testimonials-manager";
 import { IndustriesManager } from "./industries-manager";
 import { FaqsManager } from "./faqs-manager";
 import { BlogsManager } from "./blogs-manager";
+import { DashboardOverview } from "./dashboard-overview";
 
 export function AdminDashboard() {
   const router = useRouter();
@@ -342,13 +343,7 @@ export function AdminDashboard() {
           {activeTab === "faqs" && <FaqsManager />}
 
           {activeTab === "dashboard" && (
-            <div className="rounded-2xl border border-dashed border-border/60 bg-card/30 p-12 text-center">
-              <LayoutDashboard className="mx-auto mb-4 size-12 text-muted-foreground/50" />
-              <h2 className="text-lg font-semibold text-foreground">Overview Dashboard</h2>
-              <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-                Quick stats, system health, and website analytics.
-              </p>
-            </div>
+            <DashboardOverview onNavigateTab={selectTab} />
           )}
 
           {activeTab === "settings" && (

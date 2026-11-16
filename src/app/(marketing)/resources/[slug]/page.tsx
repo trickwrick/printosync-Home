@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import { getEntry, resources } from "@/entities/marketing";
 import { breadcrumbSchema, createMetadata, webPageSchema } from "@/shared/lib/seo";
 import { JsonLd } from "@/shared/ui/seo";
-import { DetailLanding } from "@/widgets/marketing";
-import { FaqPageContent } from "@/widgets/marketing";
+import { DetailLanding, FaqPageContent, GsmCalculatorPageContent } from "@/widgets/marketing";
 
 export const dynamicParams = false;
 
@@ -57,6 +56,28 @@ export default async function ResourcePage({
           ]}
         />
         <FaqPageContent />
+      </>
+    );
+  }
+
+  if (slug === "free-paper-gsm-calculator") {
+    return (
+      <>
+        <JsonLd
+          data={[
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Resources", path: "/resources" },
+              { name: resource.title, path },
+            ]),
+            webPageSchema({
+              title: resource.title,
+              description: resource.description,
+              path,
+            }),
+          ]}
+        />
+        <GsmCalculatorPageContent />
       </>
     );
   }

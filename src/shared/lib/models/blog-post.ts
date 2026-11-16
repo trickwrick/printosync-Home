@@ -25,6 +25,7 @@ export interface IBlogPostDoc extends Document {
   category?: string;
   tags?: string[];
   keywords: string[];
+  contentHtml?: string;
   sections: IBlogSection[];
   faqs?: IBlogFaq[];
   isFeatured?: boolean;
@@ -66,6 +67,7 @@ const BlogPostSchema = new Schema<IBlogPostDoc>(
     category: { type: String, default: "General" },
     tags: { type: [String], default: [] },
     keywords: { type: [String], default: [] },
+    contentHtml: { type: String, default: "" },
     sections: { type: [BlogSectionSchema], default: [] },
     faqs: { type: [BlogFaqSchema], default: [] },
     isFeatured: { type: Boolean, default: false },

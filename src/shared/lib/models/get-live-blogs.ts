@@ -10,6 +10,7 @@ export interface LiveBlogPost extends BlogPost {
   isFeatured?: boolean;
   category?: string;
   tags?: string[];
+  contentHtml?: string;
   faqs?: { question: string; answer: string }[];
 }
 
@@ -36,6 +37,7 @@ export async function getLiveBlogPosts(): Promise<LiveBlogPost[]> {
         tags: Array.isArray(d.tags) ? d.tags : [],
         keywords: d.keywords || [],
         imageAlt: d.imageAlt || d.title,
+        contentHtml: d.contentHtml || "",
         sections: Array.isArray(d.sections) ? d.sections : [],
         faqs: Array.isArray(d.faqs) ? d.faqs : [],
         isFeatured: Boolean(d.isFeatured),
@@ -70,6 +72,7 @@ export async function getLiveBlogPostBySlug(slug: string): Promise<LiveBlogPost 
         tags: Array.isArray(d.tags) ? d.tags : [],
         keywords: d.keywords || [],
         imageAlt: d.imageAlt || d.title,
+        contentHtml: d.contentHtml || "",
         sections: Array.isArray(d.sections) ? d.sections : [],
         faqs: Array.isArray(d.faqs) ? d.faqs : [],
         isFeatured: Boolean(d.isFeatured),

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   BookOpen,
   Plus,
@@ -26,7 +27,7 @@ import {
   Check,
   FileText,
 } from "lucide-react";
-import Link from "next/link";
+import { RichTextEditor } from "./rich-text-editor";
 
 export interface BlogSection {
   heading: string;
@@ -52,6 +53,7 @@ export interface BlogItem {
   author: string;
   readTime: string;
   keywords: string[];
+  contentHtml?: string;
   sections: BlogSection[];
   faqs?: BlogFaq[];
   isFeatured?: boolean;
@@ -95,6 +97,7 @@ export function BlogsManager() {
   const [datePublished, setDatePublished] = useState("");
   const [keywordsInput, setKeywordsInput] = useState("");
   const [customTag, setCustomTag] = useState("");
+  const [contentHtml, setContentHtml] = useState("");
   const [sections, setSections] = useState<BlogSection[]>([]);
   const [faqs, setFaqs] = useState<BlogFaq[]>([]);
   const [isFeatured, setIsFeatured] = useState(false);
@@ -138,6 +141,7 @@ export function BlogsManager() {
     setDatePublished(today);
     setKeywordsInput("");
     setCustomTag("");
+    setContentHtml("<p>Write or paste your article content here...</p>");
     setSections([
       {
         heading: "Introduction",
@@ -166,6 +170,7 @@ export function BlogsManager() {
     setDatePublished(item.datePublished || new Date().toISOString().split("T")[0]);
     setKeywordsInput((item.keywords || []).join(", "));
     setCustomTag("");
+    setContentHtml(item.contentHtml || (item.sections && item.sections.length > 0 ? item.sections.map(s => `<h2>${s.heading}</h2>${s.paragraphs.map(p => `<p>${p}</p>`).join("")}`).join("") : ""));
     setSections(Array.isArray(item.sections) && item.sections.length > 0 ? item.sections : []);
     setFaqs(Array.isArray(item.faqs) ? item.faqs : []);
     setIsFeatured(Boolean(item.isFeatured));
@@ -216,34 +221,6 @@ export function BlogsManager() {
     }
   };
 
-  // Section helpers
-  const handleAddSection = () => {
-    setSections([
-      ...sections,
-      { heading: "New Section", paragraphs: ["Enter content paragraph..."] },
-    ]);
-  };
-
-  const handleRemoveSection = (idx: number) => {
-    const next = [...sections];
-    next.splice(idx, 1);
-    setSections(next);
-  };
-
-  const handleSectionHeadingChange = (idx: number, heading: string) => {
-    const next = [...sections];
-    next[idx] = { ...next[idx], heading };
-    setSections(next);
-  };
-
-  const handleSectionParagraphsChange = (idx: number, rawText: string) => {
-    const next = [...sections];
-    next[idx] = {
-      ...next[idx],
-      paragraphs: rawText.split("\n\n").map((p) => p.trim()).filter(Boolean),
-    };
-    setSections(next);
-  };
 
   // FAQ helpers
   const handleAddFaq = () => {
@@ -308,6 +285,7 @@ export function BlogsManager() {
         readTime: readTime.trim() || "5 min read",
         datePublished: datePublished || new Date().toISOString().split("T")[0],
         keywords,
+        contentHtml,
         sections,
         faqs,
         isFeatured,
@@ -625,77 +603,21 @@ export function BlogsManager() {
               </div>
             </div>
 
-            {/* Article Content & Sections Box */}
+            {/* Article Content & Rich Text Editor Box (Matching Reference Screenshot) */}
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm space-y-5">
-              <div className="flex items-center justify-between border-b border-border pb-4">
-                <div>
-                  <h3 className="text-sm font-bold text-foreground">Content &amp; Article Sections</h3>
-                  <p className="text-xs text-muted-foreground">
-                    Organize your article with headings and paragraphs. Blank lines create paragraph breaks.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleAddSection}
-                  className="flex items-center gap-1.5 rounded-xl border border-border bg-background px-3 py-1.5 text-xs font-semibold text-brand hover:border-brand/40 transition"
-                >
-                  <Plus className="size-3.5" />
-                  Add Section
-                </button>
+              <div className="border-b border-border pb-4">
+                <h3 className="text-sm font-bold text-foreground">Content</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Write, format, embed PDF downloads, images, tables, headings, and style article content.
+                </p>
               </div>
 
-              <div className="space-y-4">
-                {sections.map((section, idx) => (
-                  <div
-                    key={idx}
-                    className="rounded-xl border border-border bg-surface p-4 space-y-3 relative group"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2 flex-1">
-                        <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand/20 text-[10px] font-bold text-brand">
-                          {idx + 1}
-                        </span>
-                        <input
-                          type="text"
-                          placeholder="Section Heading (e.g. Why Automation Matters)"
-                          value={section.heading}
-                          onChange={(e) => handleSectionHeadingChange(idx, e.target.value)}
-                          className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-xs font-semibold text-foreground outline-none transition focus:ring-1 focus:ring-brand"
-                        />
-                      </div>
-                      {sections.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveSection(idx)}
-                          className="text-muted-foreground hover:text-destructive p-1 rounded transition"
-                          title="Delete section"
-                        >
-                          <Trash2 className="size-4" />
-                        </button>
-                      )}
-                    </div>
-
-                    <div>
-                      <textarea
-                        rows={5}
-                        placeholder="Type section paragraphs here. Hit Enter twice (blank line) between paragraphs..."
-                        value={section.paragraphs.join("\n\n")}
-                        onChange={(e) => handleSectionParagraphsChange(idx, e.target.value)}
-                        className="w-full rounded-lg border border-border bg-background p-3 text-xs leading-relaxed text-foreground outline-none transition focus:ring-1 focus:ring-brand"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <button
-                type="button"
-                onClick={handleAddSection}
-                className="w-full py-3 rounded-xl border border-dashed border-border text-xs font-semibold text-muted-foreground hover:text-foreground hover:border-brand/50 transition flex items-center justify-center gap-2"
-              >
-                <Plus className="size-4" />
-                Add Another Section
-              </button>
+              {/* Rich Text Editor with PDF upload bar and multi-row toolbar */}
+              <RichTextEditor
+                value={contentHtml}
+                onChange={setContentHtml}
+                placeholder="Write or format full article body here..."
+              />
             </div>
 
             {/* FAQs Box matching screenshot */}

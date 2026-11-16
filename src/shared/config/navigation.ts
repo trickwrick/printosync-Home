@@ -155,8 +155,14 @@ export const industriesMegaMenu: MegaMenuSection[] = [
 
 export const resourcesMegaMenu: MegaMenuSection[] = [
   {
-    title: "Learn",
+    title: "Learn & Tools",
     items: [
+      {
+        title: "Paper GSM Calculator",
+        href: "/resources/free-paper-gsm-calculator",
+        description: "Calculate sheet GSM & weight in KG",
+        icon: Calculator,
+      },
       {
         title: "Blog",
         href: "/blog",
@@ -242,6 +248,7 @@ export const footerNavigation = {
     { title: "All Industries", href: "/#industries" },
   ],
   resources: [
+    { title: "GSM Calculator", href: "/resources/free-paper-gsm-calculator" },
     { title: "Blog", href: "/blog" },
     { title: "FAQs", href: "/resources/faqs" },
     { title: "Book Demo", href: "/book-demo" },

@@ -41,6 +41,11 @@ const nextConfig: NextConfig = {
       destination: "/resources/faqs",
       permanent: true,
     },
+    {
+      source: "/resources/:slug(GSM_Calculator|gsm-calculator|paper-gsm-calculator)",
+      destination: "/resources/free-paper-gsm-calculator",
+      permanent: true,
+    },
   ],
   headers: async () => [
     {
