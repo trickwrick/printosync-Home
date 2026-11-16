@@ -291,7 +291,7 @@ export function DashboardOverview({ onNavigateTab }: DashboardOverviewProps) {
           </div>
         ) : (
           <div className="divide-y divide-border/60">
-            {recentInquiries.map((inq) => {
+            {recentInquiries.map((inq, idx) => {
               const formattedDate = inq.date
                 ? (() => {
                     try {
@@ -311,7 +311,7 @@ export function DashboardOverview({ onNavigateTab }: DashboardOverviewProps) {
 
               return (
                 <div
-                  key={inq.id || inq._id}
+                  key={inq.id || inq._id || idx}
                   className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 sm:p-6 hover:bg-muted/30 transition"
                 >
                   {/* Lead Info */}

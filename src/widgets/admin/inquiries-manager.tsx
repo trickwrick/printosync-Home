@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 export interface InquiryItem {
+  _id?: string;
   id: string;
   type: string;
   name: string;
