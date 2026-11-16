@@ -526,7 +526,7 @@ export function RichTextEditor({
           contentEditable
           onInput={handleInput}
           onBlur={handleInput}
-          placeholder={placeholder}
+          data-placeholder={placeholder}
           className={`w-full min-h-[360px] p-6 text-sm text-foreground bg-white dark:bg-card outline-none leading-relaxed overflow-y-auto focus:ring-0 ${
             isFullscreen ? "flex-1" : ""
           }`}
