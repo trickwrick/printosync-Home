@@ -350,7 +350,7 @@ export function TabbedFeaturesShowcase() {
             </p>
 
             {/* Live Interactive Software Screen Simulation */}
-            <div className="mt-6 rounded-2xl border border-brand/25 bg-gradient-to-br from-surface/80 via-card to-brand-muted/20 p-5 shadow-sm">
+            <div className="mt-6 rounded-2xl border border-brand/25 bg-linear-to-br from-surface/80 via-card to-brand-muted/20 p-5 shadow-sm">
               <div className="flex items-center justify-between border-b border-border/60 pb-3">
                 <div className="flex items-center gap-2">
                   <span className="size-2.5 rounded-full bg-emerald-500 animate-pulse" />

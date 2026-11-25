@@ -408,7 +408,7 @@ export function PrintingManagementContent() {
       {/* ============================================================ */}
       {/* 1. HERO SECTION (PrintPLANR Enterprise Style with Live Mockup) */}
       {/* ============================================================ */}
-      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden border-b border-border bg-gradient-to-b from-brand/5 via-surface/40 to-background">
+      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden border-b border-border bg-linear-to-b from-brand/5 via-surface/40 to-background">
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
             {/* Left Column: Headlines & Value Prop */}
@@ -869,11 +869,11 @@ export function PrintingManagementContent() {
             </p>
           </div>
 
-          <div className="divide-y divide-border rounded-2xl border border-border bg-card shadow-xs overflow-hidden">
+          <div className="rounded-2xl border border-border bg-card shadow-xs overflow-hidden">
             {faqs.map((faq, fIdx) => {
               const isOpen = openFaqIndex === fIdx;
               return (
-                <div key={fIdx} className="transition-colors">
+                <div key={fIdx} className="border-b border-border last:border-b-0 transition-colors">
                   <button
                     type="button"
                     onClick={() => setOpenFaqIndex(isOpen ? null : fIdx)}

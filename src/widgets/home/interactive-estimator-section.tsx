@@ -56,7 +56,7 @@ export function InteractiveEstimatorSection() {
   const wastagePreventedSheets = Math.round(quantity * 0.08); // 8% average paper saved via ERP imposition
 
   return (
-    <SectionReveal id="calculator-preview" className="border-t border-border bg-gradient-to-b from-surface via-background to-surface py-16 lg:py-24">
+    <SectionReveal id="calculator-preview" className="border-t border-border bg-linear-to-b from-surface via-background to-surface py-16 lg:py-24">
       <div className="mx-auto max-w-350 px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
@@ -232,7 +232,7 @@ export function InteractiveEstimatorSection() {
           </div>
 
           {/* Real-Time Live Quote Breakdown (Right) */}
-          <div className="relative rounded-3xl border border-brand/30 bg-gradient-to-br from-card via-card to-brand-muted/20 p-6 shadow-premium sm:p-8 lg:col-span-5">
+          <div className="relative rounded-3xl border border-brand/30 bg-linear-to-br from-card via-card to-brand-muted/20 p-6 shadow-premium sm:p-8 lg:col-span-5">
             <div className="flex items-center justify-between border-b border-border/80 pb-5">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-brand">
