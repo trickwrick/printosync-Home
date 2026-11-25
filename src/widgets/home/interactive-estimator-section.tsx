@@ -3,15 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  Calculator,
   ArrowRight,
   Sparkles,
-  TrendingUp,
-  Percent,
   CheckCircle2,
-  FileCheck2,
-  Layers,
-  ShieldCheck,
 } from "lucide-react";
 import {
   SectionLabel,

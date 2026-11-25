@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { MessageSquare, PhoneCall, Sparkles, X } from "lucide-react";
+import { MessageSquare, Sparkles, X } from "lucide-react";
 
 export function FloatingQuickAction() {
   const [isVisible, setIsVisible] = useState(false);

@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   Check,
-  CircleCheck,
   Layers3,
   ShieldCheck,
   Sparkles,
@@ -22,7 +21,6 @@ import {
   Clock,
   TrendingUp,
   AlertCircle,
-  Factory,
 } from "lucide-react";
 import { MagneticButton } from "@/shared/ui/magnetic-button";
 import {
@@ -30,8 +28,6 @@ import {
   SectionReveal,
   SectionSubtitle,
   SectionTitle,
-  StaggerItem,
-  StaggerReveal,
 } from "./section-primitives";
 
 // ============================================================================

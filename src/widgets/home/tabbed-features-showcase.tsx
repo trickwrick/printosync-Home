@@ -10,15 +10,10 @@ import {
   Calculator,
   Users2,
   BarChart3,
-  Check,
   ArrowRight,
-  Printer,
-  Clock,
-  TrendingUp,
-  ShieldCheck,
-  Layers,
   CircleDot,
   CheckCircle2,
+  type LucideIcon,
 } from "lucide-react";
 import {
   SectionLabel,
@@ -32,7 +27,7 @@ interface FeatureDetail {
   number: string;
   title: string;
   tagline: string;
-  icon: any;
+  icon: LucideIcon;
   description: string;
   benefits: string[];
   mockup: {

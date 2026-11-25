@@ -5,16 +5,12 @@ import Image from "next/image";
 import { useState } from "react";
 import {
   ArrowRight,
-  BarChart3,
   Boxes,
   BriefcaseBusiness,
-  Calculator,
   CheckCircle2,
   CircleCheck,
-  CreditCard,
   FileText,
   LayoutDashboard,
-  Receipt,
   ScrollText,
   type LucideIcon,
 } from "lucide-react";
