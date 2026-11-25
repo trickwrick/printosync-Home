@@ -6,9 +6,10 @@ import { ProofSection } from "@/widgets/home/proof-section";
 import { FaqSection } from "@/widgets/home/faq-section";
 import {
   AboutOverviewSection,
-  BenefitsAndProcessSection,
   DigitizeCtaSection,
   IndustriesOverviewSection,
+  KeyFeaturesErpSection,
+  WhyChooseSection,
 } from "@/widgets/home/business-sections";
 import { NationwideReachSection } from "@/widgets/home/nationwide-reach-section";
 
@@ -23,9 +24,10 @@ export function HomePageContent() {
       <HeroSection />
       <IndustriesOverviewSection />
       <AboutOverviewSection />
+      <KeyFeaturesErpSection />
       <WorkflowSection />
+      <WhyChooseSection />
       <NationwideReachSection />
-      <BenefitsAndProcessSection />
       <ProofSection />
       <FaqSection />
       <DigitizeCtaSection />

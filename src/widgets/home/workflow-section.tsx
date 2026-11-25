@@ -30,24 +30,16 @@ const stepIcons: LucideIcon[] = [
   FileText,
   BriefcaseBusiness,
   LayoutDashboard,
-  Calculator,
   ScrollText,
   Boxes,
-  Receipt,
-  CreditCard,
-  BarChart3,
 ];
 
 const stepHighlights = [
-  ["Job specifications intake", "Paper stock & quantities", "Delivery deadline commit"],
-  ["Artwork & bleed inspection", "Client proof approvals", "Plate making & CTP sync"],
-  ["Offset & digital press queue", "Machine capacity balancing", "Urgent job prioritization"],
-  ["Real-time impression tracking", "Operator shift logging", "Ink & paper consumption"],
-  ["Lamination & die-punching", "Cutting, folding & binding", "Strict defect inspection"],
-  ["Secure product bundling", "Printable delivery challan", "Transporter & dispatch sync"],
-  ["100% GST-compliant invoices", "Auto HSN/SAC tax splits", "Customer ledger sync"],
-  ["Paper reams & reel tracking", "Inks, plates & chemicals", "Auto low-stock alerts"],
-  ["Job-wise profit & margin analysis", "Machine OEE & press uptime", "Paper scrap waste trends"],
+  ["Record customer details", "Job specifications & quantities", "Delivery deadline requirements"],
+  ["Prepare & verify artwork", "Manage client approvals", "Pre-production file readiness"],
+  ["Organize machine operations", "Production press schedules", "Real-time job progress"],
+  ["Cutting, folding & binding", "Lamination & coating", "Final quality inspection"],
+  ["Organize completed orders", "Secure packaging", "Delivery details & handover"],
 ] as const;
 
 export function WorkflowSection() {
@@ -68,12 +60,12 @@ export function WorkflowSection() {
 
       <div className="relative mx-auto max-w-350 px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-2xl text-center">
-          <SectionLabel>Workflow</SectionLabel>
+          <SectionLabel>Workflow Stages</SectionLabel>
           <SectionTitle className="mx-auto">
-            Every operation, one connected workspace
+            Simplify Every Stage of Your Printing Press Workflow
           </SectionTitle>
           <SectionSubtitle className="mx-auto">
-            Move seamlessly across the tools your print business uses every day.
+            A well-organized printing press workflow helps ensure that every job moves through the right stages without unnecessary delays. From receiving an order to dispatching the finished product, proper coordination improves productivity and reduces operational confusion.
           </SectionSubtitle>
         </div>
 

@@ -19,11 +19,11 @@ export function HeroSection({
 } = {}) {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const [h1Text, setH1Text] = useState(
-    initialH1 || "PrintoSync – Smart Printing Press Management Software"
+    initialH1 || "Printing Press Management Software"
   );
   const [descriptionText, setDescriptionText] = useState(
     initialDescription ||
-      "Simplify your printing press operations with one powerful platform. Manage job cards, production, inventory, challans, invoicing, paper stock, statements, and reports from a single dashboard."
+      "Managing a printing press involves several interconnected activities, from receiving customer orders and preparing estimates to handling prepress operations, production, inventory, and final delivery. When these activities are managed manually or through separate systems, businesses may face delays, communication gaps, production errors, and difficulty tracking daily operations. Our printing press management software helps printing businesses bring essential operations together through a more organized and efficient workflow."
   );
 
   useEffect(() => {
@@ -110,6 +110,15 @@ export function HeroSection({
               className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
               {descriptionText}
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground/90 font-medium"
+            >
+              Whether you operate a small printing shop, a digital printing unit, or a large commercial printing facility, the right management solution can help you save time, manage resources effectively, and improve overall business performance.
             </motion.p>
 
             <motion.div

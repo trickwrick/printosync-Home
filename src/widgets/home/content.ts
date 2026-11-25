@@ -111,64 +111,36 @@ export const workflowSteps = [
     step: "01",
     title: "Order Booking",
     description:
-      "Record customer details, print dimensions, paper stock types, quantities, finishing instructions, and deadlines in a digital ticket.",
+      "Record customer details, job specifications, quantities, and delivery requirements.",
     duration: "Stage 01",
   },
   {
     step: "02",
-    title: "Prepress & Plates",
+    title: "Prepress Preparation",
     description:
-      "Prepare and inspect artwork files, coordinate client proof approvals, verify color separations, and manage plate preparation error-free.",
+      "Prepare artwork, verify files, manage approvals, and complete pre-production requirements.",
     duration: "Stage 02",
   },
   {
     step: "03",
-    title: "Machine Scheduling",
+    title: "Printing and Production",
     description:
-      "Organize machine assignments, balance production schedules across offset and digital presses, and monitor floor-wide queues live.",
+      "Organize machine operations, production schedules, and job progress.",
     duration: "Stage 03",
   },
   {
     step: "04",
-    title: "Printing & Press Run",
+    title: "Finishing & QC",
     description:
-      "Track real-time impressions, operator shifts, paper feeding, ink consumption, and active press run status across all machines.",
+      "Manage cutting, folding, binding, lamination, and final quality inspections.",
     duration: "Stage 04",
   },
   {
     step: "05",
-    title: "Finishing & QC",
-    description:
-      "Manage cutting, folding, lamination, die-punching, UV coating, binding, and thorough quality inspection before packing.",
-    duration: "Stage 05",
-  },
-  {
-    step: "06",
     title: "Packaging & Dispatch",
     description:
-      "Bundle finished goods securely, generate accurate delivery challans, attach barcode labels, and coordinate courier dispatches.",
-    duration: "Stage 06",
-  },
-  {
-    step: "07",
-    title: "GST Invoicing",
-    description:
-      "Generate 100% GST-compliant invoices instantly, apply correct HSN/SAC rates, and manage customer payment collection ledgers.",
-    duration: "Stage 07",
-  },
-  {
-    step: "08",
-    title: "Raw Material Stock",
-    description:
-      "Track paper reams, reels, inks, chemicals, and plates with real-time stock levels, low-stock threshold alerts, and auto-deduction.",
-    duration: "Stage 08",
-  },
-  {
-    step: "09",
-    title: "Reports & Insights",
-    description:
-      "Monitor job-wise profitability, machine OEE uptime, paper wastage trends, operator efficiency, and actionable sales reports.",
-    duration: "Stage 09",
+      "Organize completed orders, packaging, delivery details, and customer handovers.",
+    duration: "Stage 05",
   },
 ] as const;
 
