@@ -109,66 +109,66 @@ export const features = [
 export const workflowSteps = [
   {
     step: "01",
-    title: "Dashboard",
+    title: "Order Booking",
     description:
-      "See jobs, revenue, pending payments, stock alerts, and production activity from one live command center.",
-    duration: "Live overview",
+      "Record customer details, print dimensions, paper stock types, quantities, finishing instructions, and deadlines in a digital ticket.",
+    duration: "Stage 01",
   },
   {
     step: "02",
-    title: "Job Card",
+    title: "Prepress & Plates",
     description:
-      "Create detailed job cards, assign operators, define specifications, and track every production stage.",
-    duration: "Real-time",
+      "Prepare and inspect artwork files, coordinate client proof approvals, verify color separations, and manage plate preparation error-free.",
+    duration: "Stage 02",
   },
   {
     step: "03",
-    title: "Challan",
+    title: "Machine Scheduling",
     description:
-      "Generate accurate delivery challans, manage dispatch details, and keep every shipment documented.",
-    duration: "Instant",
+      "Organize machine assignments, balance production schedules across offset and digital presses, and monitor floor-wide queues live.",
+    duration: "Stage 03",
   },
   {
     step: "04",
-    title: "Invoice",
+    title: "Printing & Press Run",
     description:
-      "Generate GST-compliant invoices instantly, apply correct tax rates, and send directly to clients.",
-    duration: "Fast billing",
+      "Track real-time impressions, operator shifts, paper feeding, ink consumption, and active press run status across all machines.",
+    duration: "Stage 04",
   },
   {
     step: "05",
-    title: "Payments",
+    title: "Finishing & QC",
     description:
-      "Record incoming and outgoing payments, monitor balances, and follow up on overdue invoices.",
-    duration: "Always synced",
+      "Manage cutting, folding, lamination, die-punching, UV coating, binding, and thorough quality inspection before packing.",
+    duration: "Stage 05",
   },
   {
     step: "06",
-    title: "Stock",
+    title: "Packaging & Dispatch",
     description:
-      "Track paper, ink, plates, and other materials with live quantities, usage history, and low-stock alerts.",
-    duration: "Live inventory",
+      "Bundle finished goods securely, generate accurate delivery challans, attach barcode labels, and coordinate courier dispatches.",
+    duration: "Stage 06",
   },
   {
     step: "07",
-    title: "Statements",
+    title: "GST Invoicing",
     description:
-      "View complete customer and vendor ledgers with transaction history, balances, and downloadable statements.",
-    duration: "One click",
+      "Generate 100% GST-compliant invoices instantly, apply correct HSN/SAC rates, and manage customer payment collection ledgers.",
+    duration: "Stage 07",
   },
   {
     step: "08",
-    title: "Estimate & Quotation",
+    title: "Raw Material Stock",
     description:
-      "Build professional estimates using material, process, labor, and margin calculations tailored to print jobs.",
-    duration: "Fast & accurate",
+      "Track paper reams, reels, inks, chemicals, and plates with real-time stock levels, low-stock threshold alerts, and auto-deduction.",
+    duration: "Stage 08",
   },
   {
     step: "09",
-    title: "Report",
+    title: "Reports & Insights",
     description:
-      "Turn operational data into clear sales, production, stock, payment, and profitability reports.",
-    duration: "Actionable data",
+      "Monitor job-wise profitability, machine OEE uptime, paper wastage trends, operator efficiency, and actionable sales reports.",
+    duration: "Stage 09",
   },
 ] as const;
 
@@ -366,35 +366,43 @@ export const whyChoose = [
 export const testimonials = [
   {
     quote:
-      "PrintoSync replaced five different tools. Our quote-to-delivery time dropped by 40% in the first quarter.",
-    author: "Sarah Chen",
-    role: "Operations Director",
-    company: "Apex Print Co.",
-    avatar: "SC",
+      "Managing our daily printing operations has become much easier. From handling customer orders to monitoring production activities, the software helps us keep everything organized. It has reduced manual work and improved our overall workflow.",
+    author: "Rajesh Sharma",
+    role: "Printing Press Owner",
+    company: "Commercial Offset Press, Jaipur",
+    avatar: "RS",
   },
   {
     quote:
-      "The production dashboard alone saved us 15 hours a week. We finally have visibility across every press.",
-    author: "Marcus Webb",
-    role: "Plant Manager",
-    company: "MetroPress",
-    avatar: "MW",
+      "We were looking for a solution to manage different printing processes in one place. This software has helped us improve coordination between departments, track job progress, and manage daily production requirements more efficiently.",
+    author: "Amit Verma",
+    role: "Commercial Printing Business Owner",
+    company: "Verma Print Graphics, Ahmedabad",
+    avatar: "AV",
   },
   {
     quote:
-      "Client portal changed everything. Proof approvals that took days now happen in hours. Our clients love it.",
-    author: "Elena Rodriguez",
-    role: "CEO",
-    company: "ColorCraft",
-    avatar: "ER",
+      "The production management features are particularly useful for our team. We can organize job schedules, monitor ongoing orders, and keep track of different production stages. It has made our daily operations more structured.",
+    author: "Neha Gupta",
+    role: "Production Manager",
+    company: "PackTech Print Solutions, New Delhi",
+    avatar: "NG",
   },
   {
     quote:
-      "We scaled from 20 to 80 employees without adding admin staff. PrintoSync grows with you.",
-    author: "James Okonkwo",
-    role: "Founder",
-    company: "PackPro",
-    avatar: "JO",
+      "Managing printing jobs, material requirements, and production schedules can be challenging. This solution has helped us bring important activities together and maintain better control over our printing operations.",
+    author: "Vikram Mehta",
+    role: "Offset Printing Business Owner",
+    company: "Mehta Offset Printers, Surat",
+    avatar: "VM",
+  },
+  {
+    quote:
+      "A useful solution for businesses looking to simplify printing press management. It helps us organize customer orders, monitor job progress, and manage operational activities with less manual effort. Overall, it has improved our team's efficiency.",
+    author: "Sandeep Malhotra",
+    role: "Printing Operations Manager",
+    company: "Malhotra Commercial Printers, Mumbai",
+    avatar: "SM",
   },
 ] as const;
 
@@ -479,34 +487,34 @@ export const pricingTiers = [
 
 export const faqs = [
   {
-    question: "How long does implementation take?",
+    question: "What is printing press management software?",
     answer:
-      "Most shops go live within 2–4 weeks. Our team handles data migration, configuration, and training. Enterprise deployments with custom integrations typically take 6–8 weeks.",
+      "Printing press management software is an integrated digital solution designed specifically for print businesses to manage customer orders, prepress files, production scheduling, paper inventory, job costing, GST billing, and deliveries through a centralized platform.",
   },
   {
-    question: "Can PrintoSync integrate with our accounting software?",
+    question: "What is the difference between printing press management software and ERP?",
     answer:
-      "Yes. We integrate with QuickBooks, Xero, Sage, and other major accounting platforms. API access is available on Professional and Enterprise plans.",
+      "While basic printing management software focuses primarily on order tracking and job tickets, a full Printing Press ERP (like PrintoSync) integrates your entire enterprise: linking estimating, shop-floor production, machine speeds, raw material inventory, purchases, accounts, GST e-invoicing, and customer CRM in real time.",
   },
   {
-    question: "Is my data secure?",
+    question: "Can this software manage offset printing operations?",
     answer:
-      "PrintoSync runs on SOC 2 compliant infrastructure with encryption at rest and in transit, role-based access controls, and regular security audits.",
+      "Yes, absolutely. PrintoSync is specially engineered for commercial offset printing presses. It handles paper sheet sizing (Full Demy, Crown, Royal, etc.), GSM calculations, plate requirements, multi-color machine operations, post-press finishing steps, and job-wise costing.",
   },
   {
-    question: "Do you offer training for our team?",
+    question: "How does printing management software improve productivity?",
     answer:
-      "Every plan includes onboarding training. Professional and Enterprise plans include ongoing training sessions and a dedicated success manager.",
+      "It eliminates manual job card writing, redundant spreadsheet entries, and shop-floor miscommunication. Production managers can view live machine schedules, prepress teams share verified proofs, and dispatch teams generate challans instantly with one click.",
   },
   {
-    question: "Can we migrate from our current system?",
+    question: "Is printing press management software suitable for small businesses?",
     answer:
-      "Our migration team handles imports from spreadsheets, legacy MIS systems, and other print software. We map your existing data to PrintoSync automatically.",
+      "Yes. PrintoSync is designed to scale with your business. Small print shops benefit from rapid quote generation, error-free job ticketing, and organized customer billing, helping them handle higher order volumes with minimal administrative overhead.",
   },
   {
-    question: "What kind of support do you provide?",
+    question: "What should I look for when choosing printing management software?",
     answer:
-      "Starter includes email support with 24-hour response. Professional gets priority chat and phone support. Enterprise includes 24/7 dedicated support with SLA.",
+      "Look for essential print-industry features: end-to-end order tracking, prepress file management, paper GSM/reel inventory control, live machine production scheduling, accurate job costing, GST compliance, and easy-to-use mobile and desktop interfaces.",
   },
 ] as const;
 

@@ -27,27 +27,27 @@ import {
 } from "./section-primitives";
 
 const stepIcons: LucideIcon[] = [
-  LayoutDashboard,
-  BriefcaseBusiness,
   FileText,
+  BriefcaseBusiness,
+  LayoutDashboard,
+  Calculator,
+  ScrollText,
+  Boxes,
   Receipt,
   CreditCard,
-  Boxes,
-  ScrollText,
-  Calculator,
   BarChart3,
 ];
 
 const stepHighlights = [
-  ["Business snapshot", "Pending job alerts", "Revenue overview"],
-  ["Job specifications", "Operator assignment", "Production tracking"],
-  ["Delivery details", "Dispatch records", "Printable challan"],
-  ["GST billing", "Auto tax calculation", "Professional template"],
-  ["Payment entries", "Outstanding balances", "Collection tracking"],
-  ["Material quantities", "Usage history", "Low-stock alerts"],
-  ["Customer ledger", "Vendor ledger", "Downloadable statement"],
-  ["Cost calculation", "Professional quotation", "Margin control"],
-  ["Sales performance", "Production insights", "Profitability analysis"],
+  ["Job specifications intake", "Paper stock & quantities", "Delivery deadline commit"],
+  ["Artwork & bleed inspection", "Client proof approvals", "Plate making & CTP sync"],
+  ["Offset & digital press queue", "Machine capacity balancing", "Urgent job prioritization"],
+  ["Real-time impression tracking", "Operator shift logging", "Ink & paper consumption"],
+  ["Lamination & die-punching", "Cutting, folding & binding", "Strict defect inspection"],
+  ["Secure product bundling", "Printable delivery challan", "Transporter & dispatch sync"],
+  ["100% GST-compliant invoices", "Auto HSN/SAC tax splits", "Customer ledger sync"],
+  ["Paper reams & reel tracking", "Inks, plates & chemicals", "Auto low-stock alerts"],
+  ["Job-wise profit & margin analysis", "Machine OEE & press uptime", "Paper scrap waste trends"],
 ] as const;
 
 export function WorkflowSection() {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Quote } from "lucide-react";
@@ -15,7 +16,33 @@ import {
 import { MagneticButton } from "@/shared/ui/magnetic-button";
 
 export function ProofSection() {
-  const featured = testimonials.slice(0, 2);
+  const [items, setItems] = useState<Array<{ quote: string; author: string; role: string; company: string; avatar: string }>>([...testimonials]);
+
+  useEffect(() => {
+    fetch("/api/admin/testimonials")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.testimonials) && data.testimonials.length > 0) {
+          const activeOnly = data.testimonials.filter(
+            (t: { isActive?: boolean; name?: string }) => t.isActive !== false && t.name
+          );
+          if (activeOnly.length > 0) {
+            setItems(
+              activeOnly.map((t: { name: string; role?: string; company?: string; location?: string; quote?: string; review?: string; content?: string }) => ({
+                quote: t.quote || t.review || t.content || "",
+                author: t.name,
+                role: t.role || "Print Press Owner",
+                company: t.company || t.location || "Verified Print Press",
+                avatar: t.name.slice(0, 2).toUpperCase(),
+              }))
+            );
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const featured = items.slice(0, 2);
   const topCase = caseStudies[0];
 
   return (

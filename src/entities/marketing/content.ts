@@ -260,22 +260,22 @@ export const pricingPlans = [
 ] as const;
 
 export const homepageBenefits = [
-  "Increase productivity",
-  "Reduce manual errors",
-  "Faster order processing",
-  "Better inventory control",
-  "Improve customer satisfaction",
-  "Real-time business insights",
-  "Secure cloud access",
-  "Scalable for growing businesses",
+  "Complete Operational Visibility",
+  "Reduced Manual Job Card Errors",
+  "Better Paper & Ink Inventory Control",
+  "Real-Time Shop-Floor Progress Tracking",
+  "Accurate Costing & Protected Margins",
+  "Faster Delivery & Fewer Press Delays",
+  "100% GST-Compliant Invoicing",
+  "Scalable Cloud Platform for Growing Presses",
 ] as const;
 
 export const howItWorks = [
-  "Create Customer & Quotation",
-  "Convert to Production Job",
-  "Track Production Progress",
-  "Dispatch & Generate Invoice",
-  "Analyze Reports & Business Growth",
+  "Order Booking & Specification Intake",
+  "Prepress Preparation & Client Proof Approvals",
+  "Machine Scheduling & Real-Time Production",
+  "Finishing, Quality Checks & Defect Inspection",
+  "Packaging, Delivery Challan & GST Invoicing",
 ] as const;
 
 export function getEntry<T extends MarketingEntry>(

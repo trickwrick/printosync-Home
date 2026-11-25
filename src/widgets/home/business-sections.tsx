@@ -46,15 +46,12 @@ export function AboutOverviewSection() {
       <div className="mx-auto grid max-w-350 gap-10 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:px-8">
         <div>
           <SectionLabel>About PrintoSync</SectionLabel>
-          <SectionTitle>Built specifically for printing businesses</SectionTitle>
+          <SectionTitle>Built specifically for printing press businesses</SectionTitle>
           <SectionSubtitle>
-            PrintoSync is an all-in-one ERP for offset presses, digital printing
-            units, packaging companies, and commercial print shops.
+            All-in-one software for offset presses, digital printing units, packaging companies, and commercial print shops.
           </SectionSubtitle>
           <p className="mt-5 text-sm leading-7 text-muted-foreground sm:text-base">
-            Streamline every stage from quotation to final delivery. Reduce
-            manual work, improve production efficiency, and gain complete
-            visibility with real-time tracking and automation.
+            Running a printing press requires coordinating customer inquiries, quotations, paper inventory, machine scheduling, production tracking, finishing, and dispatch. Handling these with paper bags or spreadsheets causes miscommunication and costly wastage. PrintoSync connects every department into one reliable digital system, giving you real-time control from day one.
           </p>
           <Link
             href="/about"
