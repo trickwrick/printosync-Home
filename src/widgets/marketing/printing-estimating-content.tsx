@@ -463,7 +463,7 @@ export function PrintingEstimatingContent() {
       {/* 1. HERO SECTION (PrintPLANR Split Layout)                    */}
       {/* ============================================================ */}
       <section className="relative pt-10 pb-16 lg:pt-16 lg:pb-24 border-b border-border bg-linear-to-b from-brand/5 via-background to-background">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-brand/10 via-transparent to-transparent pointer-events-none" />
 
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
@@ -1653,7 +1653,7 @@ export function PrintingEstimatingContent() {
             {faqs.map((faq, fIdx) => {
               const isOpen = openFaqIndex === fIdx;
               return (
-                <div key={fIdx} className="border-b border-border last:border-b-0 transition-colors">
+                <div key={fIdx} className="not-last:border-b border-border transition-colors">
                   <button
                     type="button"
                     onClick={() => setOpenFaqIndex(isOpen ? null : fIdx)}

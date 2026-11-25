@@ -873,7 +873,7 @@ export function PrintingManagementContent() {
             {faqs.map((faq, fIdx) => {
               const isOpen = openFaqIndex === fIdx;
               return (
-                <div key={fIdx} className="border-b border-border last:border-b-0 transition-colors">
+                <div key={fIdx} className="not-last:border-b border-border transition-colors">
                   <button
                     type="button"
                     onClick={() => setOpenFaqIndex(isOpen ? null : fIdx)}
