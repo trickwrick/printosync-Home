@@ -60,6 +60,11 @@ const nextConfig: NextConfig = {
       permanent: true,
     },
     {
+      source: "/features",
+      destination: "/services",
+      permanent: true,
+    },
+    {
       source: "/:path(print-estimating-software|estimating-software-for-printing-companies)",
       destination: "/modules/estimating-software-for-printing-companies",
       permanent: true,
