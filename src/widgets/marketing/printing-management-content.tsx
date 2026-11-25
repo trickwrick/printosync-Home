@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Layers,
@@ -287,7 +287,7 @@ export function PrintingManagementContent() {
   ];
 
   // FAQs
-  const faqs = [
+  const defaultFaqs = [
     {
       question: "What is printing press management software?",
       answer:
@@ -321,7 +321,7 @@ export function PrintingManagementContent() {
   ];
 
   // Customer Reviews
-  const reviews = [
+  const defaultReviews = [
     {
       name: "Rajesh Sharma",
       role: "Printing Press Owner",
@@ -358,6 +358,50 @@ export function PrintingManagementContent() {
         "A useful solution for businesses looking to simplify printing press management. It helps us organize customer orders, monitor job progress, and manage operational activities with less manual effort. Overall, it has improved our team's efficiency.",
     },
   ];
+
+  const [faqs, setFaqs] = useState(defaultFaqs);
+  const [reviews, setReviews] = useState(defaultReviews);
+
+  useEffect(() => {
+    // Fetch live FAQs from admin
+    fetch("/api/admin/faqs")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.faqs) && data.faqs.length > 0) {
+          const activeOnly = data.faqs.filter(
+            (f: { isActive?: boolean; question?: string; answer?: string }) =>
+              f.isActive !== false && f.question
+          );
+          if (activeOnly.length > 0) {
+            setFaqs(activeOnly);
+          }
+        }
+      })
+      .catch(() => {});
+
+    // Fetch live Testimonials from admin
+    fetch("/api/admin/testimonials")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.testimonials) && data.testimonials.length > 0) {
+          const activeOnly = data.testimonials.filter(
+            (t: { isActive?: boolean; name?: string; quote?: string; review?: string }) =>
+              t.isActive !== false && t.name
+          );
+          if (activeOnly.length > 0) {
+            setReviews(
+              activeOnly.map((t: { name: string; role?: string; company?: string; location?: string; quote?: string; review?: string; content?: string }) => ({
+                name: t.name,
+                role: t.role || "Printing Press Client",
+                company: t.company || t.location || "Verified Print Customer",
+                review: t.quote || t.review || t.content || "",
+              }))
+            );
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="relative overflow-hidden bg-background">
