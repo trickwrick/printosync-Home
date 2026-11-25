@@ -59,6 +59,11 @@ const nextConfig: NextConfig = {
       destination: "/modules/billing-software-for-printing-press",
       permanent: true,
     },
+    {
+      source: "/:path(print-estimating-software|estimating-software-for-printing-companies)",
+      destination: "/modules/estimating-software-for-printing-companies",
+      permanent: true,
+    },
   ],
   headers: async () => [
     {

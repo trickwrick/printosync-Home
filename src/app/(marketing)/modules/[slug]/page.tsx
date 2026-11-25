@@ -9,7 +9,11 @@ import {
   faqSchema,
 } from "@/shared/lib/seo";
 import { JsonLd } from "@/shared/ui/seo";
-import { DetailLanding, PrintingBillingContent } from "@/widgets/marketing";
+import {
+  DetailLanding,
+  PrintingBillingContent,
+  PrintingEstimatingContent,
+} from "@/widgets/marketing";
 import {
   getLiveModules,
   getLiveModuleBySlug,
@@ -55,6 +59,34 @@ const billingDefaultFaqs = [
   },
 ];
 
+const estimatingDefaultFaqs = [
+  {
+    question: "What is print estimation software?",
+    answer:
+      "It is a digital tool that helps printing businesses calculate job costs, manage product specifications, estimate production expenses, and prepare customer quotations. It reduces manual work and improves pricing consistency.",
+  },
+  {
+    question: "How does estimating software help a printing business?",
+    answer:
+      "It automates repetitive calculations, organizes job specifications, speeds up quote preparation, minimizes pricing errors, and helps businesses understand production costs and profitability.",
+  },
+  {
+    question: "Can I calculate costs for different printing products?",
+    answer:
+      "Yes, estimation systems can be configured for different print products, including business cards, brochures, flyers, books, catalogues, packaging, banners, and customized printing projects.",
+  },
+  {
+    question: "Can I customize prices and profit margins?",
+    answer:
+      "Depending on the software's capabilities, you can configure material rates, production charges, labour, finishing costs, overheads, markups, and customer-specific pricing to suit your business requirements.",
+  },
+  {
+    question: "Is printing estimation software suitable for small print shops?",
+    answer:
+      "Yes. Small print shops can use it to simplify daily calculations, generate professional quotations, reduce administrative work, and manage growing order volumes more efficiently.",
+  },
+];
+
 export async function generateMetadata({
   params,
 }: {
@@ -65,17 +97,22 @@ export async function generateMetadata({
   if (!moduleEntry) return {};
 
   const isBilling = slug === "billing-software-for-printing-press";
+  const isEstimating = slug === "estimating-software-for-printing-companies";
 
   const customTitle = moduleEntry.seoTitle?.trim()
     ? moduleEntry.seoTitle
     : isBilling
     ? "Printing Press Billing Software – GST Invoicing & Costing | PrintoSync"
+    : isEstimating
+    ? "Print Estimating Software – Accurate Printing Quotation & Costing | PrintoSync"
     : `${moduleEntry.title} for Printing Presses`;
 
   const customDesc = moduleEntry.seoDescription?.trim()
     ? moduleEntry.seoDescription
     : isBilling
     ? "Professional printing press billing software for offset, digital, and packaging print shops. Simplify GST invoicing, job costing, quotations, and payment tracking."
+    : isEstimating
+    ? "Advanced print estimating software for commercial printers and print shops. Streamline quotations, calculate true job costs, safeguard profit margins, and eliminate manual errors."
     : moduleEntry.description;
 
   const extraKeywords = isBilling
@@ -86,6 +123,15 @@ export async function generateMetadata({
         "gst invoice software for printing press",
         "offset printing billing software",
         "print quotation to invoice",
+      ]
+    : isEstimating
+    ? [
+        "print estimating software",
+        "estimating software for printing companies",
+        "print quotation software",
+        "print job costing software",
+        "offset printing estimation",
+        "commercial print estimating",
       ]
     : [];
 
@@ -110,6 +156,7 @@ export default async function ModulePage({
   const path = `/modules/${moduleEntry.slug}`;
   const related = allModules.filter((item) => item.slug !== moduleEntry.slug);
   const isBilling = slug === "billing-software-for-printing-press";
+  const isEstimating = slug === "estimating-software-for-printing-companies";
 
   const jsonLdData: Record<string, unknown>[] = [
     breadcrumbSchema([
@@ -136,6 +183,8 @@ export default async function ModulePage({
       ? moduleEntry.faqs
       : isBilling
       ? billingDefaultFaqs
+      : isEstimating
+      ? estimatingDefaultFaqs
       : [];
 
   if (activeFaqs.length > 0) {
@@ -147,6 +196,8 @@ export default async function ModulePage({
       <JsonLd data={jsonLdData} />
       {isBilling ? (
         <PrintingBillingContent />
+      ) : isEstimating ? (
+        <PrintingEstimatingContent />
       ) : (
         <DetailLanding
           entry={moduleEntry}

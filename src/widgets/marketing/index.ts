@@ -4,3 +4,4 @@ export { ModuleFaqSection } from "./module-faq-section";
 export { GsmCalculatorPageContent } from "./gsm-calculator-page-content";
 export { PrintingManagementContent } from "./printing-management-content";
 export { PrintingBillingContent } from "./printing-billing-content";
+export { PrintingEstimatingContent } from "./printing-estimating-content";
