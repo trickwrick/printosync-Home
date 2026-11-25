@@ -54,6 +54,11 @@ const nextConfig: NextConfig = {
       destination: "/printing-erp",
       permanent: true,
     },
+    {
+      source: "/:path(printing-press-billing-software|billing-software-for-printing-press)",
+      destination: "/modules/billing-software-for-printing-press",
+      permanent: true,
+    },
   ],
   headers: async () => [
     {
