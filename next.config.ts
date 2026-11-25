@@ -49,6 +49,11 @@ const nextConfig: NextConfig = {
       destination: "/resources/free-paper-gsm-calculator",
       permanent: true,
     },
+    {
+      source: "/:path(printing-press-management-software|modules/printing-press-management-software)",
+      destination: "/printing-erp",
+      permanent: true,
+    },
   ],
   headers: async () => [
     {
